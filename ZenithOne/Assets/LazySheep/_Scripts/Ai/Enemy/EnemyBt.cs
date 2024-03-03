@@ -1,22 +1,16 @@
-using com.LazyGames.Dz.Ai;
-using Tree = com.LazyGames.Dz.Ai.Tree;
+using UnityEngine;
+namespace com.LazyGames.Dz.Ai
+{
+    [SelectionBase]
+    public class EnemyBt : Tree
+    { 
+        [SerializeField] private EnemyWayPoints enemyWayPoints;
+        [SerializeField] private EnemyParameters parameters;
 
-// public class EnemyBt : Tree
-// {
-//     // Start is called before the first frame update
-//     void Start()
-//     {
-//         
-//     }
-//
-//     // Update is called once per frame
-//     void Update()
-//     {
-//         
-//     }
-//
-//     protected override Node SetupTree()
-//     {
-//         
-//     }
-// }
+        protected override Node SetupTree()
+        {
+            Node root = new TaskPatrol(transform, enemyWayPoints.WayPoints, parameters);
+            return root;
+        }
+    }
+}
