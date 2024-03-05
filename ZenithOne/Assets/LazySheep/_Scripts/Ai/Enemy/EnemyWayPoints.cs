@@ -11,7 +11,7 @@ namespace com.LazyGames.Dz.Ai
         public Transform[] WayPoints => _wayPoints;
         private Transform[] _wayPoints;
 
-        private void Start()
+        private void OnEnable()
         {
             BuildArray();
         }

@@ -24,9 +24,7 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
             _wayPoints = wayPoints;
             _agent = transform.GetComponent<NavMeshAgent>();
-            // _animator = transform.GetComponent<Animator>(); 
             _agent.speed = _parameters.patrolSpeed;
-            Debug.Log(parameters.waitTime);
         }
         
         public override NodeStates Evaluate()
@@ -44,11 +42,8 @@ namespace com.LazyGames.Dz.Ai
                 Transform wp = _wayPoints[_currentWayPoint];
                 if (Vector3.Distance(_transform.position, wp.position) < 0.6f)
                 {
-                    // _transform.position = wp.position;
                     _waitCounter = 0;
                     _waiting = true;
-                    
-                    // modulo loops through the waypoints
                     _currentWayPoint = (_currentWayPoint + 1) % _wayPoints.Length;
                 }
                 else
@@ -56,7 +51,6 @@ namespace com.LazyGames.Dz.Ai
                     _agent.SetDestination(wp.position);
                 }
             }
-            
             state = NodeStates.Running;
             return state;
         }

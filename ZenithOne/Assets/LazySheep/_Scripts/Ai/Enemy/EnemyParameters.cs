@@ -24,6 +24,7 @@ namespace com.LazyGames.Dz.Ai
         [Header("Combat Variables")]
         public float maxHp = 20f;
         public float attackPower = 1f;
+        public float attackRange = 2f;
         public float attackSpeed = 1.5f;
         
     }
