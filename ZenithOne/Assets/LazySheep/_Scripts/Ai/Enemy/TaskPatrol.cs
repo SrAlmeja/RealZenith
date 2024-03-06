@@ -1,56 +1,59 @@
-using com.LazyGames.DZ;
-using UnityEngine;
-using com.LazyGames.Dz.Ai;
+// Creado Raymundo Mosqueda 19/02/24
 
-public class TaskPatrol : Node
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace com.LazyGames.Dz.Ai
 {
-    //[SerializeField] private AiParameters _parameters;
-    //[Tooltip("Time in seconds to wait at each waypoint")]
-    //[SerializeField]private float waitTime = 0;
-    //
-    //private Transform _transform;
-    //private Transform[] _wayPoints;
-    //private int _currentWayPoint = 0;
-//
-    //private float _waitcounter = 0;
-    //private bool _waiting = false;
-    //
-    //public TaskPatrol(Transform transform, Transform[] wayPoints)
-    //{
-    //    _transform = transform;
-    //    _wayPoints = wayPoints;
-    //}
-    //
-    //public override NodeStates Evaluate()
-    //{
-    //    if (_waiting)
-    //    {
-    //        _waitcounter = Time.deltaTime;
-    //        if (_waitcounter >= waitTime)
-    //            _waiting = false;
-    //    }
-    //    else
-    //    {
-    //        Transform wp = _wayPoints[_currentWayPoint];
-    //        if (Vector3.Distance(_transform.position, wp.position) < 0.01f)
-    //        {
-    //            _transform.position = wp.position;
-    //            _waitcounter = 0;
-    //            _waiting = true;
-//
-    //            _currentWayPoint = _currentWayPoint ++ % (_wayPoints.Length);
-    //        }
-    //        else
-    //        {
-    //            var pos = wp.position;
-    //            _transform.position = Vector3.MoveTowards(_transform.position,
-    //                pos, _parameters.patrolSpeed * Time.deltaTime);
-    //            _transform.LookAt(pos);
-    //        }
-    //    }
-    //    
-    //    state = NodeStates.Running;
-    //    return state;
-    //}
+    public class TaskPatrol : Node
+    {
+        private Transform _transform;
+        private Transform[] _wayPoints;
+        private int _currentWayPoint;
+
+        private float _waitCounter;
+        private bool _waiting;
+        
+        private NavMeshAgent _agent;
+        private Animator _animator;
+        private EnemyParameters _parameters;
+        
+        public TaskPatrol(Transform transform, Transform[] wayPoints, EnemyParameters parameters)
+        {
+            _parameters = parameters;
+            _transform = transform;
+            _wayPoints = wayPoints;
+            _agent = transform.GetComponent<NavMeshAgent>();
+            _agent.speed = _parameters.patrolSpeed;
+        }
+        
+        public override NodeStates Evaluate()
+        {
+            if (_waiting)
+            {
+                _waitCounter += Time.deltaTime;
+                if (_waitCounter >= _parameters.waitTime)
+                {
+                    _waiting = false;
+                }
+            }
+            else
+            {
+                Transform wp = _wayPoints[_currentWayPoint];
+                if (Vector3.Distance(_transform.position, wp.position) < 0.6f)
+                {
+                    _waitCounter = 0;
+                    _waiting = true;
+                    _currentWayPoint = (_currentWayPoint + 1) % _wayPoints.Length;
+                }
+                else
+                {
+                    _agent.SetDestination(wp.position);
+                }
+            }
+            state = NodeStates.Running;
+            return state;
+        }
+    }
 }
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace com.LazyGames.Dz.Ai
 {
@@ -12,7 +11,7 @@ namespace com.LazyGames.Dz.Ai
     public class Node
     {
         protected NodeStates state;
-        protected Node parent;
+        public Node parent;
         
         protected List<Node> children = new();
 
@@ -29,6 +28,13 @@ namespace com.LazyGames.Dz.Ai
             {
                 Attach(child);
             }
+        }
+        
+        public int GetDepth()
+        {
+            if (parent == null)
+                return 0;
+            return 1 + parent.GetDepth();
         }
 
         private void Attach(Node node)
@@ -52,6 +58,11 @@ namespace com.LazyGames.Dz.Ai
             }
 
             return null;
+        }
+        
+        public void SetData(string key, object value)
+        {
+            _dataContext[key] = value;
         }
 
         public bool ClearData(string key)
