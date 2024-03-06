@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 
 namespace com.LazyGames.Dz.Ai
 {
     public class Sequence : Node
     {
+        
+        public Sequence() : base() { }
+        public Sequence(List<Node> children) : base(children) { }
         public override NodeStates Evaluate()
         {
             bool anyChildRunning = false;
