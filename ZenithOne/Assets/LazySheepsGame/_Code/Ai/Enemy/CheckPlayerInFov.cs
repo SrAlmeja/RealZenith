@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
         }
 
 
-        public override NodeStates Evaluate()
+        public override NodeState Evaluate()
         {
             object t = GetData("target");
             if (t == null)
@@ -45,19 +45,19 @@ namespace com.LazyGames.Dz.Ai
                             {
                                 Debug.Log("player detected");
                                 parent.parent.SetData("target", targetPos);
-                                state = NodeStates.Running;
+                                state = NodeState.Running;
                                 return state;
                             }
                             
-                            state = NodeStates.Failure;
+                            state = NodeState.Failure;
                             return state;
                         }
                     }
                 }
-                state = NodeStates.Failure;
+                state = NodeState.Failure;
                 return state;
             }
-            state = NodeStates.Success;
+            state = NodeState.Success;
             return state;
         }
     }

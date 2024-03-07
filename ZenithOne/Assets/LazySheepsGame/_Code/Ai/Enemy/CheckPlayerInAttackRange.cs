@@ -16,21 +16,23 @@ namespace com.LazyGames.Dz.Ai
             _parameters = parameters;
             // _animator = transform.GetComponent<Animator>();
         }
-        public override NodeStates Evaluate()
+        
+        public override NodeState Evaluate()
         {
             object t = GetData("target");
             if (t == null)
             {
-                state = NodeStates.Failure;
+                state = NodeState.Failure;
                 return state;
             }
             Transform target = (Transform) t;
+            // Debug.Log($"attackRange: {_parameters.attackRange}, Dist: {Vector3.Distance(_transform.position, target.position)}");
             if (Vector3.Distance(_transform.position, target.position) <= _parameters.attackRange)
             {
-                state = NodeStates.Success;
+                state = NodeState.Running;
                 return state;
             }
-            state = NodeStates.Failure;
+            state = NodeState.Failure;
             return state;
         }
     }
