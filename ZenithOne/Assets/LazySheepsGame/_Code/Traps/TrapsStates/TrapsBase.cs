@@ -9,6 +9,7 @@ public class TrapsBase : StateManager<TrapsStates,TrapsBase>
     private void Awake()
     {
         PrepareSates();
+        CallCurrentState();
     }
 
     private void PrepareSates()
@@ -21,9 +22,29 @@ public class TrapsBase : StateManager<TrapsStates,TrapsBase>
         
         CurrentState = States[initialState];
         Debug.Log("Trap State = ".SetColor("#FED744") + CurrentState);
-        
     }
-    
+
+    private void CallCurrentState()
+    {
+        switch (CurrentState.StateKey)
+        {
+            case TrapsStates.Inactive:
+                DeactivateTrap();
+                break;
+            case TrapsStates.Active:
+                ActivateTrap();
+                break;
+            case TrapsStates.Triggered:
+                TriggerTrap();
+                break;
+            case TrapsStates.Disabled:
+                DisableTrap();
+                break;
+            
+        }
+    }
+
+
     protected virtual void ActivateTrap()
     {
         TransitionToState(TrapsStates.Active);
