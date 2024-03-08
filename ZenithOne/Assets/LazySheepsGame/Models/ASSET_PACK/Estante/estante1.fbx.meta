@@ -1,9 +1,59 @@
 fileFormatVersion: 2
 guid: 9c1cec128f1462448b0a8af8daffb3ae
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_Small
+    second: {fileID: 2100000, guid: 41fb6d5c32e7f15429be0753d83bd48c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Connector
+    second: {fileID: 2100000, guid: eaf21ab131a4670479613bb82da6ca58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Holder
+    second: {fileID: 2100000, guid: 5fb1a163ad0caac44a98a6714fcc5000, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Holder 1.1
+    second: {fileID: 2100000, guid: 6fd1fec787b72be4f822f9e3ece7fb82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw Base
+    second: {fileID: 2100000, guid: ce407e780c933454b8e357ce1cb01884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screw Base 1.1
+    second: {fileID: 2100000, guid: ce407e780c933454b8e357ce1cb01884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screws 1
+    second: {fileID: 2100000, guid: ce407e780c933454b8e357ce1cb01884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screws 1.1
+    second: {fileID: 2100000, guid: ce407e780c933454b8e357ce1cb01884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tube
+    second: {fileID: 2100000, guid: 731a76bc11245ca4b8fd40e941bb2d1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tube small
+    second: {fileID: 2100000, guid: 67e58a6ca297a3c4fb7a61db5a2dd22c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,6 +90,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -67,6 +118,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -99,6 +151,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

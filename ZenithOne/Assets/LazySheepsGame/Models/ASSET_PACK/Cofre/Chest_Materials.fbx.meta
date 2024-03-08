@@ -1,9 +1,54 @@
 fileFormatVersion: 2
 guid: 56e174790536f184f91aea2aeb11f887
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bottom_main
+    second: {fileID: 2100000, guid: 9dda4aa1b4e0dd347aa7946cc251c7ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dent_main
+    second: {fileID: 2100000, guid: a6de700d55aedb74d849672a2b3821be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dents
+    second: {fileID: 2100000, guid: 9ad2bfcb0f6e05f4d9d0b295226afd22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dents_bott
+    second: {fileID: 2100000, guid: 750035d44a3e7824098a74c968236938, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: inside
+    second: {fileID: 2100000, guid: 672a3f4a9fae45846883d4f00f6d84e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: low_face
+    second: {fileID: 2100000, guid: 12e43273b37b60e4baa8685d084d0597, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: main_dent
+    second: {fileID: 2100000, guid: a6de700d55aedb74d849672a2b3821be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sides
+    second: {fileID: 2100000, guid: 49bc5df723edee647bb480ea3b01c7c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: top_main
+    second: {fileID: 2100000, guid: 36165710c2e6b2c459e37aca6267be1b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,6 +85,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -67,6 +113,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -99,6 +146,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
