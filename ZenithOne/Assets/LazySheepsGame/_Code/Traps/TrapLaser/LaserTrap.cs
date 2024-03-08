@@ -9,6 +9,7 @@ public class LaserTrap : TrapsBase
 {
     [SerializeField] private ScriptableEvent<string> laserCollisionEvent;
     [SerializeField] private ScriptableEvent<Vector3> playerPositionEvent;
+    [SerializeField] private ScriptableEvent<float> playerReceivedDamageEvent;
     [SerializeField] private Collider laserCollider;
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
@@ -84,7 +85,8 @@ public class LaserTrap : TrapsBase
     {
         if (message == "Player Hit by Laser")
         {
-            playerPositionEvent.Raise(transform.position);
+            // playerPositionEvent.Raise(transform.position);
+            playerReceivedDamageEvent.Raise(50);
         }
     }
     private void  EnableLaser( bool enable)
