@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace com.LazyGames.Dz.Ai
 {
-    public enum NodeStates
+    public enum NodeState
     {
         Running,
         Success,
@@ -11,35 +10,40 @@ namespace com.LazyGames.Dz.Ai
     }
     public class Node
     {
-        protected NodeStates state;
-        protected Node parent;
-        
-        protected List<Node> children = new();
+        protected NodeState state;
 
-        private Dictionary<string, object> _dataContext = new();
-        
+        public Node parent;
+        protected List<Node> children = new List<Node>();
+
+        private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
+
         public Node()
         {
             parent = null;
         }
-
         public Node(List<Node> children)
         {
-            foreach (var child in children)
-            {
-                Attach(child);
-            }
+            foreach (Node child in children)
+                _Attach(child);
         }
 
-        private void Attach(Node node)
+        private void _Attach(Node node)
         {
             node.parent = this;
             children.Add(node);
         }
 
+        public virtual NodeState Evaluate() => NodeState.Failure;
+
+        public void SetData(string key, object value)
+        {
+            _dataContext[key] = value;
+        }
+
         public object GetData(string key)
         {
-            if (_dataContext.TryGetValue(key, out var value))
+            object value = null;
+            if (_dataContext.TryGetValue(key, out value))
                 return value;
 
             Node node = parent;
@@ -50,7 +54,6 @@ namespace com.LazyGames.Dz.Ai
                     return value;
                 node = node.parent;
             }
-
             return null;
         }
 
@@ -70,11 +73,7 @@ namespace com.LazyGames.Dz.Ai
                     return true;
                 node = node.parent;
             }
-
             return false;
         }
-
-
-        public virtual NodeStates Evaluate( ) => NodeStates.Failure;
     }
 }
