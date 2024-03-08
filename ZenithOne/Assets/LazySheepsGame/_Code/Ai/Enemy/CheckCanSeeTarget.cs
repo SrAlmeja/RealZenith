@@ -14,14 +14,13 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
             _parameters = parameters;
         }
-
+        
         public override NodeState Evaluate()
         {
             object t = GetData("target");
             if (t == null)
             {
                 state = NodeState.Failure;
-                //Debug.Log("early returning failure from CheckCanSeeTarget");
                 return state;
             }
             
@@ -34,16 +33,15 @@ namespace com.LazyGames.Dz.Ai
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    //Debug.Log("returning success from CheckCanSeeTarget");
                     state = NodeState.Success;
                     return state;
                 }
             }
             
             parent.parent.SetData("lastKnownPosition", target.position);
+            Debug.Log("creating last known position");
             ClearData("target");
             state = NodeState.Failure;
-            //Debug.Log("returning failure from CheckCanSeeTarget");
             return state;
         }
     }
