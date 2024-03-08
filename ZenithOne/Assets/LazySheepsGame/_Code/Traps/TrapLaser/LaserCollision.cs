@@ -10,7 +10,6 @@ public class LaserCollision : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Hit by Laser");
             laserCollisionEvent.Raise("Player Hit by Laser");
         }
     }
