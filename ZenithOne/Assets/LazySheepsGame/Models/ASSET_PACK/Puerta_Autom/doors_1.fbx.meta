@@ -1,9 +1,124 @@
 fileFormatVersion: 2
 guid: 514baa32b5ee51944b140ab59f47f679
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_holder_bottom_left
+    second: {fileID: 2100000, guid: 86bb22571cef38441bbcbb6344f9e121, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_holder_bottom_right
+    second: {fileID: 2100000, guid: 78d9fe5bf0f077246b6fb33e673b67cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_holder_top_left
+    second: {fileID: 2100000, guid: 4dfbf315557856843bb0d0dd84ed598a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_holder_top_right
+    second: {fileID: 2100000, guid: 58e8526fd10093740a57b5c89efc9818, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Connector_bottom_left
+    second: {fileID: 2100000, guid: bcd625d6eb763e14bb7f738d676be4c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Connector_bottom_right
+    second: {fileID: 2100000, guid: 8166b3e5337cc9e4f905e5000ece62e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Connector_top_left
+    second: {fileID: 2100000, guid: 86533e405fa4e794b95067dffdaad0cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Connector_top_right
+    second: {fileID: 2100000, guid: d1895e0688356774ba4de058cf734828, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Holder_bottom_left
+    second: {fileID: 2100000, guid: 86bb22571cef38441bbcbb6344f9e121, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Holder_bottom_right
+    second: {fileID: 2100000, guid: 78d9fe5bf0f077246b6fb33e673b67cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Holder_top_left
+    second: {fileID: 2100000, guid: 86533e405fa4e794b95067dffdaad0cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Holder_top_right
+    second: {fileID: 2100000, guid: 58e8526fd10093740a57b5c89efc9818, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Left
+    second: {fileID: 2100000, guid: 9a92ea7e70dd44d4ba5866efcd43f942, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_right
+    second: {fileID: 2100000, guid: db0f2c804ba39524b9d2974afb6c216f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screws_wall_bottom_left
+    second: {fileID: 2100000, guid: a24e54af19ca14942b301b21b4611cdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screws_wall_bottom_right
+    second: {fileID: 2100000, guid: a24e54af19ca14942b301b21b4611cdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screws_wall_top_left
+    second: {fileID: 2100000, guid: a24e54af19ca14942b301b21b4611cdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screws_wall_top_right
+    second: {fileID: 2100000, guid: a24e54af19ca14942b301b21b4611cdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Support_wall
+    second: {fileID: 2100000, guid: a24e54af19ca14942b301b21b4611cdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rotation_base_bottom_left
+    second: {fileID: 2100000, guid: bcd625d6eb763e14bb7f738d676be4c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rotation_base_bottom_right
+    second: {fileID: 2100000, guid: 78d9fe5bf0f077246b6fb33e673b67cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rotation_base_top_left
+    second: {fileID: 2100000, guid: 86533e405fa4e794b95067dffdaad0cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rotation_base_top_right
+    second: {fileID: 2100000, guid: 78d9fe5bf0f077246b6fb33e673b67cb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,6 +155,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -67,6 +183,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -99,6 +216,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

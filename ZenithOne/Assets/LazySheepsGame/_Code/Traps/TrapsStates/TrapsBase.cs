@@ -9,6 +9,7 @@ public class TrapsBase : StateManager<TrapsStates,TrapsBase>
     private void Awake()
     {
         PrepareSates();
+        CallCurrentState();
     }
 
     private void PrepareSates()
@@ -21,40 +22,60 @@ public class TrapsBase : StateManager<TrapsStates,TrapsBase>
         
         CurrentState = States[initialState];
         Debug.Log("Trap State = ".SetColor("#FED744") + CurrentState);
-        
     }
-    
-    public virtual void ActivateTrap()
+
+    private void CallCurrentState()
+    {
+        switch (CurrentState.StateKey)
+        {
+            case TrapsStates.Inactive:
+                DeactivateTrap();
+                break;
+            case TrapsStates.Active:
+                ActivateTrap();
+                break;
+            case TrapsStates.Triggered:
+                TriggerTrap();
+                break;
+            case TrapsStates.Disabled:
+                DisableTrap();
+                break;
+            
+        }
+    }
+
+
+    protected virtual void ActivateTrap()
     {
         TransitionToState(TrapsStates.Active);
         Debug.Log("Trap Activated! = ".SetColor("#FED744") + gameObject.name);
     }
     
-    public virtual void DeactivateTrap()
+    protected virtual void DeactivateTrap()
     {
         TransitionToState(TrapsStates.Inactive);
         Debug.Log("Trap Deactivated! = ".SetColor("#FED744") + gameObject.name);
     }
     
-    public virtual void ResetTrap()
+    protected virtual void ResetTrap()
     {
         TransitionToState(TrapsStates.Inactive);
         Debug.Log("Trap Reset! = ".SetColor("#FED744") + gameObject.name);
     }
     
-    public virtual void TriggerTrap()
+    protected virtual void TriggerTrap()
     {
         TransitionToState(TrapsStates.Triggered);
         Debug.Log("Trap Triggered! = ".SetColor("#FED744") + gameObject.name);
     }
     
-    public virtual void DestroyTrap()
+    protected virtual void DestroyTrap()
     {
         TransitionToState(TrapsStates.Destroyed);
         Debug.Log("Trap Destroyed! = ".SetColor("#FED744") + gameObject.name);
     }
     
-    public virtual void DisableTrap()
+    protected virtual void DisableTrap()
     {
         TransitionToState(TrapsStates.Disabled);
         Debug.Log("Trap Disabled! = ".SetColor("#FED744") + gameObject.name);
