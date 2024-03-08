@@ -11,30 +11,24 @@ public class LaserTrap : TrapsBase
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
     [SerializeField] private float interludeTime;
-    [SerializeField] private float deactivateTime;
-   
-    private TimerBase _interludeTimer;
-    private TimerBase _deactivateTimer;
     
-    
+    TimerBase _timer;
     
     protected override void ActivateTrap()
     {
         base.ActivateTrap();
         
-        Debug.Log("Laser Trap Activated! = ".SetColor("#FED744") + gameObject.name);
         laserCollisionEvent.OnRaised += LaserCollisionEvent;
         
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
-        
-        _interludeTimer = gameObject.AddComponent<TimerBase>();
-        _deactivateTimer = gameObject.AddComponent<TimerBase>();
-        _deactivateTimer.OnTimerEnd += StartTimer;
-        
+        _timer = gameObject.AddComponent<TimerBase>();
+        _timer.OnTimerEnd += () => EnableLaser(false);
+        _timer.OnTimerLoop += () => EnableLaser(true);
         StartTimer();
         
     }
+    
     protected override void DeactivateTrap()
     {
         base.DeactivateTrap();
@@ -56,19 +50,21 @@ public class LaserTrap : TrapsBase
         laserCollisionEvent.OnRaised -= LaserCollisionEvent;
         laserObject.SetActive(false);
         boxVisual.SetActive(false);
+        _timer.OnTimerEnd -= () => EnableLaser(false);
+        _timer.OnTimerLoop -= () => EnableLaser(true);
+        Destroy(_timer);
+        
     }
     protected override void DisableTrap()
     {
         base.DisableTrap();
         laserObject.SetActive(false);
-        
     }
     
     private void StartTimer()
     {
-        _interludeTimer.SetLoopableTimer(interludeTime, false, interludeTime, "Interlude Timer");
-        UpdateLaser();
-        
+        Debug.Log("Laser Trap Started");
+        _timer.SetLoopableTimer(interludeTime, false, 1f, "Laser Trap");
         
     }
     
@@ -84,12 +80,7 @@ public class LaserTrap : TrapsBase
     {
         laserObject.SetActive(enable);
     }
-    private void UpdateLaser()
-    {
-        EnableLaser(false);
-        _interludeTimer.PauseTimer();
-        _deactivateTimer.SetLoopableTimer(deactivateTime, false, deactivateTime, "Deactivate Timer");
-        _deactivateTimer.OnTimerEnd += (() => { EnableLaser(true); });
-    }
+    
+   
    
 }
