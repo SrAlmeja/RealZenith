@@ -27,7 +27,7 @@ namespace com.LazyGames.Dz.Ai
             _agent.speed = _parameters.patrolSpeed;
         }
         
-        public override NodeStates Evaluate()
+        public override NodeState Evaluate()
         {
             if (_waiting)
             {
@@ -51,7 +51,7 @@ namespace com.LazyGames.Dz.Ai
                     _agent.SetDestination(wp.position);
                 }
             }
-            state = NodeStates.Running;
+            state = NodeState.Running;
             return state;
         }
     }

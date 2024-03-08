@@ -7,26 +7,29 @@ namespace com.LazyGames.Dz.Ai
     {
         public Selector() : base() { }
         public Selector(List<Node> children) : base(children) { }
-        public override NodeStates Evaluate()
+
+        public override NodeState Evaluate()
         {
-            foreach (var node in children)
+            foreach (Node node in children)
             {
                 switch (node.Evaluate())
                 {
-                    case NodeStates.Failure:
+                    case NodeState.Failure:
                         continue;
-                    case NodeStates.Success:
-                        state = NodeStates.Success;
+                    case NodeState.Success:
+                        state = NodeState.Success;
                         return state;
-                    case NodeStates.Running:
-                        state = NodeStates.Running;
+                    case NodeState.Running:
+                        state = NodeState.Running;
                         return state;
                     default:
                         continue;
                 }
             }
-            state = NodeStates.Failure;
+
+            state = NodeState.Failure;
             return state;
         }
+
     }
 }

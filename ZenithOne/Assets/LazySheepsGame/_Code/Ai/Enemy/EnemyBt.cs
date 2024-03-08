@@ -19,9 +19,9 @@ namespace com.LazyGames.Dz.Ai
             { 
                 new Sequence(new List<Node>
                 {
-                    new CheckPlayerInFov(t, parameters, playerLayer),
                     new Sequence(new List<Node>
                     {
+                        new CheckCanSeeTarget(t, parameters),
                         new CheckPlayerInAttackRange(t, parameters),
                         new TaskAttack(t, parameters),
                     })

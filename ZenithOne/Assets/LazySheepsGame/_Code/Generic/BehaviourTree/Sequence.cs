@@ -4,33 +4,35 @@ namespace com.LazyGames.Dz.Ai
 {
     public class Sequence : Node
     {
-        
         public Sequence() : base() { }
         public Sequence(List<Node> children) : base(children) { }
-        public override NodeStates Evaluate()
+
+        public override NodeState Evaluate()
         {
-            bool anyChildRunning = false;
-            foreach (var node in children)
+            bool anyChildIsRunning = false;
+
+            foreach (Node node in children)
             {
                 switch (node.Evaluate())
                 {
-                    case NodeStates.Failure:
-                        state = NodeStates.Failure;
+                    case NodeState.Failure:
+                        state = NodeState.Failure;
                         return state;
-                    case NodeStates.Success:
+                    case NodeState.Success:
                         continue;
-                    case NodeStates.Running:
-                        anyChildRunning = true;
+                    case NodeState.Running:
+                        anyChildIsRunning = true;
                         continue;
                     default:
-                        state = NodeStates.Success;
+                        state = NodeState.Success;
                         return state;
                 }
             }
 
-            state = anyChildRunning ? NodeStates.Running : NodeStates.Success;
+            state = anyChildIsRunning ? NodeState.Running : NodeState.Success;
             return state;
         }
+
     }
 
 }

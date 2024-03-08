@@ -18,18 +18,18 @@ namespace com.LazyGames.Dz.Ai
             _agent = transform.GetComponent<NavMeshAgent>();
         }
 
-        public override NodeStates Evaluate()
+        public override NodeState Evaluate()
         {
 
             Transform target = (Transform)GetData("target");
             if(Vector3.Distance(_transform.position, target.position) < _parameters.attackRange)
             {
-                state = NodeStates.Success;
+                state = NodeState.Success;
                 return state;
             }
 
             _agent.SetDestination(target.position);
-            state = NodeStates.Running;
+            state = NodeState.Running;
             return state;
         }
         
