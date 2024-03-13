@@ -39,6 +39,7 @@ public class OmnitrixVFXManager : MonoBehaviour
     private void Prepare()
     {
         GetInitialScales();
+        DOActivate();
     }
 
     private void DOActivate()
