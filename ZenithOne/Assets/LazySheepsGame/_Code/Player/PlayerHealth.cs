@@ -17,14 +17,14 @@ public class PlayerHealth : MonoBehaviour, IGeneralTarget
     private void Start()
     {
         _currentHealth = _maxHealth;
-        playerReceivedDamageEvent.OnRaised += ReceiveAggression;
+        // playerReceivedDamageEvent.OnRaised += ReceiveAggression;
     }
 
-    private void ReceiveAggression(float damage)
-    {
-        Debug.Log("Player received damage: " + damage);
-        ReceiveAggression(Vector3.zero, damage);
-    }
+    // private void ReceiveAggression(Vector3 dir, float damage)
+    // {
+    //     Debug.Log("Player received damage: " + damage);
+    //     ReceiveAggression(Vector3.zero, damage);
+    // }
 
     public void ReceiveAggression(Vector3 direction, float dmg = 0)
     {
