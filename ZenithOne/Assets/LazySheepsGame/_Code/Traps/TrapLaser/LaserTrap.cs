@@ -86,7 +86,7 @@ public class LaserTrap : TrapsBase
         if (message == "Player Hit by Laser")
         {
             // playerPositionEvent.Raise(transform.position);
-            playerReceivedDamageEvent.Raise(50);
+            // playerReceivedDamageEvent.Raise(50);
         }
     }
     private void  EnableLaser( bool enable)
