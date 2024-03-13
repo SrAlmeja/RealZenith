@@ -8,8 +8,8 @@ namespace com.LazyGames.Dz.Ai
 {
     public class EnemyWayPoints : MonoBehaviour
     {
-        public Transform[] WayPoints => _wayPoints;
-        private Transform[] _wayPoints;
+        public Waypoint[] WayPoints => _wayPoints;
+        private Waypoint[] _wayPoints;
 
         private void OnEnable()
         {
@@ -18,7 +18,7 @@ namespace com.LazyGames.Dz.Ai
 
         public void BuildArray()
         {
-            _wayPoints = GetChildTransform(transform);
+            _wayPoints = GetComponentsInChildren<Waypoint>();
         }
         
         Transform[] GetChildTransform (Transform T)
@@ -36,11 +36,10 @@ namespace com.LazyGames.Dz.Ai
             if (_wayPoints == null) return;
             for (int i = 0; i < _wayPoints.Length; i++)
             {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(_wayPoints[i].position, 0.1f);
+                Transform t = _wayPoints[i].transform;
                 Gizmos.color = Color.white;
-                Gizmos.DrawLine(_wayPoints[i].position,
-                    i < _wayPoints.Length - 1 ? _wayPoints[i + 1].position : _wayPoints[0].position);
+                Gizmos.DrawLine(_wayPoints[i].gameObject.transform.position,
+                    i < _wayPoints.Length - 1 ? _wayPoints[i + 1].gameObject.transform.position : _wayPoints[0].gameObject.transform.position);
             }
         }
     }
