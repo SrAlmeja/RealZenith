@@ -102,7 +102,7 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     
     private void StartTimer()
     {
-        Debug.Log("Laser Trap Started");
+        // Debug.Log("Laser Trap Started");
         StartCoroutine(InitTimer());
 
     }
