@@ -8,7 +8,7 @@ namespace com.LazyGames.Dz.Ai
     public class TaskPatrol : Node
     {
         private Transform _transform;
-        private Transform[] _wayPoints;
+        private Waypoint[] _wayPoints;
         private int _currentWayPoint;
 
         private float _waitCounter;
@@ -18,7 +18,7 @@ namespace com.LazyGames.Dz.Ai
         private Animator _animator;
         private EnemyParameters _parameters;
         
-        public TaskPatrol(Transform transform, Transform[] wayPoints, EnemyParameters parameters)
+        public TaskPatrol(Transform transform, Waypoint[] wayPoints, EnemyParameters parameters)
         {
             _parameters = parameters;
             _transform = transform;
@@ -32,14 +32,16 @@ namespace com.LazyGames.Dz.Ai
             if (_waiting)
             {
                 _waitCounter += Time.deltaTime;
+                // _currentWayPoint.
                 if (_waitCounter >= _parameters.waitTime)
                 {
+                    // _transform.LookAt(_currentWayPoint);
                     _waiting = false;
                 }
             }
             else
             {
-                Transform wp = _wayPoints[_currentWayPoint];
+                Transform wp = _wayPoints[_currentWayPoint].transform;
                 if (Vector3.Distance(_transform.position, wp.position) < 0.6f)
                 {
                     _waitCounter = 0;

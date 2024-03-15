@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using com.LazyGames;
 using Obvious.Soap;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class LaserCollision : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             laserCollisionEvent.Raise("Player Hit by Laser");
+            float dmg = other.GetComponent<PlayerHealth>().MaxHealth;
+            other.GetComponent<IGeneralTarget>().ReceiveAggression(Vector3.zero, dmg);
         }
     }
     
