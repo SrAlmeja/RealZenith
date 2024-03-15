@@ -9,6 +9,7 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 {
     #region Serialized fields
 
+    [Header("Laser Trap")]
     [SerializeField] private ScriptableEvent<string> laserCollisionEvent;
     [SerializeField] private ScriptableEvent<Vector3> playerPositionEvent;
     [SerializeField] private ScriptableEvent<float> playerReceivedDamageEvent;
@@ -16,6 +17,9 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
     [SerializeField] private float interludeTime;
+    
+    [Header("Trap Interaction")]
+    [SerializeField] private ITrapInteraction _gadgetInteractionType;
 
     #endregion
 
@@ -32,18 +36,26 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     #region ITrapInteraction
 
+    public TypeOfGadget gadgetType
+    {
+        get => _gadgetInteractionType.gadgetType;
+        set => _gadgetInteractionType.gadgetType = value;
+    }
+
     public void DamagePlayer(float dmg)
     {
     }
 
-    void ITrapInteraction.DestroyTrap()
+    void ITrapInteraction.DestroyTrap(TypeOfGadget gadgetType)
     {
+        if(gadgetType != _gadgetInteractionType.gadgetType) return;
         DestroyTrap();
     }
 
-    void ITrapInteraction.DisableTrap()
+    void ITrapInteraction.DisableTrap(TypeOfGadget gadgetType)
     {
-        DeactivateTrap();
+        if(gadgetType != _gadgetInteractionType.gadgetType) return;
+        DisableTrap();
     }
 
     public void EnableTrap()
