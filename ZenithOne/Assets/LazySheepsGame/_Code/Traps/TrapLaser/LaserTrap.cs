@@ -5,8 +5,10 @@ using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
 
-public class LaserTrap : TrapsBase
+public class LaserTrap : TrapsBase, ITrapInteraction
 {
+    #region Serialized fields
+
     [SerializeField] private ScriptableEvent<string> laserCollisionEvent;
     [SerializeField] private ScriptableEvent<Vector3> playerPositionEvent;
     [SerializeField] private ScriptableEvent<float> playerReceivedDamageEvent;
@@ -14,6 +16,8 @@ public class LaserTrap : TrapsBase
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
     [SerializeField] private float interludeTime;
+
+    #endregion
 
     #region public methods
     public void SetATrapActive()
@@ -26,6 +30,27 @@ public class LaserTrap : TrapsBase
     }
     #endregion
 
+    #region ITrapInteraction
+
+    public void DamagePlayer(float dmg)
+    {
+    }
+
+    void ITrapInteraction.DestroyTrap()
+    {
+        DestroyTrap();
+    }
+
+    void ITrapInteraction.DisableTrap()
+    {
+        DeactivateTrap();
+    }
+
+    public void EnableTrap()
+    {
+        ActivateTrap();
+    }
+    #endregion
     
     #region private methods
 
@@ -58,6 +83,7 @@ public class LaserTrap : TrapsBase
     {
         base.TriggerTrap();
     }
+    
     protected override void DestroyTrap()
     {
         base.DestroyTrap();
@@ -76,7 +102,7 @@ public class LaserTrap : TrapsBase
     
     private void StartTimer()
     {
-        Debug.Log("Laser Trap Started");
+        // Debug.Log("Laser Trap Started");
         StartCoroutine(InitTimer());
 
     }
@@ -86,7 +112,7 @@ public class LaserTrap : TrapsBase
         if (message == "Player Hit by Laser")
         {
             // playerPositionEvent.Raise(transform.position);
-            playerReceivedDamageEvent.Raise(50);
+            // playerReceivedDamageEvent.Raise(50);
         }
     }
     private void  EnableLaser( bool enable)
