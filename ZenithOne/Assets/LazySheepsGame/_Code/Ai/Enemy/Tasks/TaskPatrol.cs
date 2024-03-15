@@ -17,6 +17,7 @@ namespace com.LazyGames.Dz.Ai
         private NavMeshAgent _agent;
         private Animator _animator;
         private EnemyParameters _parameters;
+        private float _waitTime;
         
         public TaskPatrol(Transform transform, Waypoint[] wayPoints, EnemyParameters parameters)
         {
@@ -25,6 +26,7 @@ namespace com.LazyGames.Dz.Ai
             _wayPoints = wayPoints;
             _agent = transform.GetComponent<NavMeshAgent>();
             _agent.speed = _parameters.patrolSpeed;
+            // _waitTime = _wayPoints[_currentWayPoint].WaitTime;
         }
         
         public override NodeState Evaluate()
@@ -32,10 +34,9 @@ namespace com.LazyGames.Dz.Ai
             if (_waiting)
             {
                 _waitCounter += Time.deltaTime;
-                // _currentWayPoint.
-                if (_waitCounter >= _parameters.waitTime)
+                if (_waitCounter >= _waitTime)
                 {
-                    // _transform.LookAt(_currentWayPoint);
+                    _transform.LookAt(_wayPoints[_currentWayPoint].LookPosition);
                     _waiting = false;
                 }
             }
@@ -47,6 +48,8 @@ namespace com.LazyGames.Dz.Ai
                     _waitCounter = 0;
                     _waiting = true;
                     _currentWayPoint = (_currentWayPoint + 1) % _wayPoints.Length;
+                    _waitTime = _wayPoints[_currentWayPoint].WaitTime;
+
                 }
                 else
                 {

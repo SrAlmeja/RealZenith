@@ -6,6 +6,7 @@ using UnityEngine;
 // File contains Editor class for EnemyWayPoints
 namespace com.LazyGames.Dz.Ai
 {
+    [SelectionBase]
     public class EnemyWayPoints : MonoBehaviour
     {
         public Waypoint[] WayPoints => _wayPoints;
@@ -19,16 +20,6 @@ namespace com.LazyGames.Dz.Ai
         public void BuildArray()
         {
             _wayPoints = GetComponentsInChildren<Waypoint>();
-        }
-        
-        Transform[] GetChildTransform (Transform T)
-        {
-            List<Transform> children = new List<Transform>();
-            foreach (Transform child in T)
-            {
-                children.Add(child);
-            }
-            return children.ToArray();
         }
 
         private void OnDrawGizmos()
@@ -44,6 +35,7 @@ namespace com.LazyGames.Dz.Ai
         }
     }
 
+    #if UNITY_EDITOR
     [CustomEditor(typeof(EnemyWayPoints))]
     public class EnemyWaypointsEditor : Editor
     {
@@ -51,7 +43,6 @@ namespace com.LazyGames.Dz.Ai
         private void OnEnable()
         {
             _enemyWayPoints = (EnemyWayPoints) target;
-
         }
 
         public override void OnInspectorGUI()
@@ -62,9 +53,27 @@ namespace com.LazyGames.Dz.Ai
                 if (GUILayout.Button("Visualize Waypoints", GUILayout.Height(35)))
                 {
                     _enemyWayPoints.BuildArray();
+                    Debug.Log($"Displaying {_enemyWayPoints.WayPoints.Length} waypoints");
+                }
+                
+                GUILayout.FlexibleSpace();
+
+                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
+                {
+                    if (_enemyWayPoints.WayPoints == null) return;
+                    for (int i = 0; i < _enemyWayPoints.WayPoints.Length; i++)
+                    {
+                        using (new GUILayout.HorizontalScope())
+                        {
+                            GUILayout.Label($"Waypoint {i}");
+                            _enemyWayPoints.WayPoints[i] = (Waypoint) EditorGUILayout.ObjectField(_enemyWayPoints.WayPoints[i], typeof(Waypoint), true);
+                            _enemyWayPoints.WayPoints[i].WaitTime = EditorGUILayout.FloatField(_enemyWayPoints.WayPoints[i].WaitTime);
+                        }
+                    }
                 }
             }
         }
     }
+    #endif
 }
 
