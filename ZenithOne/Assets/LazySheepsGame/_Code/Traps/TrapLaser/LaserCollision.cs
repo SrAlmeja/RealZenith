@@ -14,6 +14,7 @@ public class LaserCollision : MonoBehaviour
             laserCollisionEvent.Raise("Player Hit by Laser");
             float dmg = other.GetComponent<PlayerHealth>().MaxHealth;
             other.GetComponent<IGeneralTarget>().ReceiveAggression(Vector3.zero, dmg);
+            Debug.Log("Player Hit by Laser".SetColor("#1AD3E2"));
         }
     }
     

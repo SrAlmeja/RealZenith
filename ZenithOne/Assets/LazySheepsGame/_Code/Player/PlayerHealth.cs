@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour, IGeneralTarget
     [SerializeField] private ScriptableEvent<float> UpdatePlayerHealthEvent;
     [SerializeField] private ScriptableEventNoParam playerDeathEvent;
     [SerializeField] private float _maxHealth = 100;
-
+    
     private float _currentHealth;
 
     public float CurrentHealth
