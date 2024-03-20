@@ -180,6 +180,8 @@ GameObject:
   - component: {fileID: 1047901835180848773}
   - component: {fileID: 532032903755154898}
   - component: {fileID: 3809868166892920297}
+  - component: {fileID: 431285450363285713}
+  - component: {fileID: 8304405541998552802}
   m_Layer: 31
   m_Name: Camera (head)
   m_TagString: MainCamera
@@ -336,6 +338,42 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &431285450363285713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058265614964681217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead80e53296fc6244b6e5c18100c2c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VignetteShader: {fileID: 4800000, guid: 9d034fa3f535a1648b5059e6907c647d, type: 3}
+  MeshComplexity: 2
+  Falloff: 0
+  VignetteFieldOfView: 100
+  VignetteAspectRatio: 1
+  VignetteFalloffDegrees: 10
+  VignetteColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &8304405541998552802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058265614964681217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962fb2f44c7bee94aba0aef5afaa0bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTransitionEvent: {fileID: 11400000, guid: 8a26009c1dc1d5140abec84bfe4f30cb, type: 2}
+  _vignette: {fileID: 431285450363285713}
+  _transitionDuration: 0.8
+  _vignetteMax: 100
+  _vignetteMin: -10
 --- !u!1 &1110006246178012349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,6 +1388,7 @@ MonoBehaviour:
   playerReceivedDamageEvent: {fileID: 11400000, guid: 4c5dbb1685598ed4095486dfb2c07a3b, type: 2}
   UpdatePlayerHealthEvent: {fileID: 11400000, guid: bcfabe35d54a56e42b2aaf54f1336959, type: 2}
   playerDeathEvent: {fileID: 11400000, guid: aaee93b4909445f4bbc98fa6ec13dc7c, type: 2}
+  onTransitionEvent: {fileID: 0}
   _maxHealth: 100
 --- !u!114 &5415403468665718907 stripped
 MonoBehaviour:
