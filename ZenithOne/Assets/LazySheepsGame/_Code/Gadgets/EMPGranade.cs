@@ -65,6 +65,7 @@ public class EMPGranade : MonoBehaviour
 
     private void FireVFX()
     {
+        _explosionVFX.SetActive(true);
         _explosionVFX.transform.parent = null;
         _explosionVFX.GetComponent<ParticleSystem>().Play(true);
         Invoke("RestoreVFX", _vfxDuration);
@@ -75,6 +76,7 @@ public class EMPGranade : MonoBehaviour
         _explosionVFX.transform.parent = this.gameObject.transform;
         _explosionVFX.transform.localPosition = Vector3.zero;
         _explosionVFX.GetComponent<ParticleSystem>().Stop();
+        _explosionVFX.SetActive(false);
         Invoke("Despawn", _despawnTime);
     }
 
