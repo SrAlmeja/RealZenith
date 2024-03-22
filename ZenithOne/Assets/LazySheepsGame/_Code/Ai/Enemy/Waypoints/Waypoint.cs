@@ -6,21 +6,16 @@ namespace com.LazyGames.Dz.Ai
 {
     public class Waypoint : MonoBehaviour
     {
-        public float WaitTime { get; set; }
+        public float WaitTime {get => waitTime; set => waitTime = value; }
         public Vector3 Pos { get; set; }
-        public Vector3 LookPosition{ get; set; }
+        public Vector3 LookPosition{ get; private set; }
         
-        [SerializeField] private float waitTime = 0.3f;
+        [SerializeReference][SerializeField] private float waitTime = 0.3f;
 
         private void Start()
         {
             Pos = transform.position;
             LookPosition = GetLookPos();
-        }
-
-        private void OnEnable()
-        {
-            WaitTime = waitTime;
         }
 
         private Vector3 GetLookPos()
@@ -48,6 +43,6 @@ namespace com.LazyGames.Dz.Ai
             LookPosition = lookTarget;
         }
         
-    #endif
+#endif
     }
 }

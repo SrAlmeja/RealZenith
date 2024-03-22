@@ -7,8 +7,9 @@ namespace com.LazyGames.Dz.Ai
     [SelectionBase]
     public class EnemyWayPoints : MonoBehaviour
     {
-        public Waypoint[] WayPoints => _wayPoints;
-        private Waypoint[] _wayPoints;
+        public Waypoint[] WayPoints =>wayPoints;
+        
+        [SerializeReference] private Waypoint[] wayPoints;
 
         private void OnEnable()
         {
@@ -17,18 +18,18 @@ namespace com.LazyGames.Dz.Ai
 
         public void BuildArray()
         {
-            _wayPoints = GetComponentsInChildren<Waypoint>();
+            wayPoints = GetComponentsInChildren<Waypoint>();
         }
 
         private void OnDrawGizmos()
         {
-            if (_wayPoints == null) return;
-            for (int i = 0; i < _wayPoints.Length; i++)
+            if (wayPoints == null) return;
+            for (int i = 0; i < wayPoints.Length; i++)
             {
-                Transform t = _wayPoints[i].transform;
+                Transform t = wayPoints[i].transform;
                 Gizmos.color = Color.white;
-                Gizmos.DrawLine(_wayPoints[i].gameObject.transform.position,
-                    i < _wayPoints.Length - 1 ? _wayPoints[i + 1].gameObject.transform.position : _wayPoints[0].gameObject.transform.position);
+                Gizmos.DrawLine(wayPoints[i].gameObject.transform.position, i < wayPoints.Length
+                    - 1 ? wayPoints[i + 1].gameObject.transform.position : wayPoints[0].gameObject.transform.position);
             }
         }
     }
@@ -37,21 +38,22 @@ namespace com.LazyGames.Dz.Ai
     [CustomEditor(typeof(EnemyWayPoints))]
     public class EnemyWaypointsEditor : Editor
     {
-        SerializedProperty _wayPoints;
         private EnemyWayPoints _enemyWayPoints;
-
+        
+        SerializedProperty _wayPoints;
+        
         private void OnEnable()
         {
             _enemyWayPoints = (EnemyWayPoints)target;
-            _wayPoints = serializedObject.FindProperty("_wayPoints");
+            _wayPoints = serializedObject.FindProperty("wayPoints");
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update(); // Ensure the serialized object is up-to-date
 
-            base.OnInspectorGUI();
-
+            // base.OnInspectorGUI();
+    
             using (new GUILayout.VerticalScope(EditorStyles.helpBox))
             {
                 if (GUILayout.Button("Visualize Waypoints", GUILayout.Height(35)))
@@ -91,8 +93,10 @@ namespace com.LazyGames.Dz.Ai
                     for (int i = 0; i < _wayPoints.arraySize; i++)
                     {
                         SerializedProperty waypointProperty = _wayPoints.GetArrayElementAtIndex(i);
+                        Debug.Log(waypointProperty.type);
+                        SerializedProperty waitTimeProperty = waypointProperty.serializedObject.FindProperty("waitTime");
+                        Debug.Log(waitTimeProperty);
                         EditorGUILayout.PropertyField(waypointProperty, new GUIContent($"Waypoint {i}"));
-                        SerializedProperty waitTimeProperty = waypointProperty.FindPropertyRelative("waitTime");
                         waitTimeProperty.floatValue = EditorGUILayout.FloatField("Wait Time", waitTimeProperty.floatValue);
                     }
                 }
