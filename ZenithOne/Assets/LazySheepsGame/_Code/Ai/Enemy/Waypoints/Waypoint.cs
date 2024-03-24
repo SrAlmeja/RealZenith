@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using CryoStorage;
@@ -10,7 +11,7 @@ namespace com.LazyGames.Dz.Ai
         public Vector3 Pos { get; set; }
         public Vector3 LookPosition{ get; private set; }
         
-        [SerializeReference][SerializeField] private float waitTime = 0.3f;
+        [SerializeReference] private float waitTime = 1;
 
         private void Start()
         {

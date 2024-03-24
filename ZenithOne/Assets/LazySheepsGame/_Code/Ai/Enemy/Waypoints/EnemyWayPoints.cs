@@ -1,10 +1,10 @@
-using UnityEditor;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEditor;
 
-// File contains Editor class for EnemyWayPoints
 namespace com.LazyGames.Dz.Ai
 {
-    [SelectionBase]
+    // File contains editor class for EnemyWayPoints
     public class EnemyWayPoints : MonoBehaviour
     {
         public Waypoint[] WayPoints =>wayPoints;
@@ -33,40 +33,37 @@ namespace com.LazyGames.Dz.Ai
             }
         }
     }
-
-   #if UNITY_EDITOR
+    
+    #if UNITY_EDITOR
     [CustomEditor(typeof(EnemyWayPoints))]
     public class EnemyWaypointsEditor : Editor
     {
         private EnemyWayPoints _enemyWayPoints;
-        
-        SerializedProperty _wayPoints;
-        
+        private SerializedProperty _wayPointsProp;
+
         private void OnEnable()
         {
             _enemyWayPoints = (EnemyWayPoints)target;
-            _wayPoints = serializedObject.FindProperty("wayPoints");
+            _wayPointsProp = serializedObject.FindProperty("wayPoints");
         }
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update(); // Ensure the serialized object is up-to-date
-
-            // base.OnInspectorGUI();
-    
+            serializedObject.Update();
+            
             using (new GUILayout.VerticalScope(EditorStyles.helpBox))
             {
                 if (GUILayout.Button("Visualize Waypoints", GUILayout.Height(35)))
                 {
                     _enemyWayPoints.BuildArray();
-                    Debug.Log($"Displaying {_enemyWayPoints.WayPoints.Length} waypoints");
+                    Debug.Log($"EnemyWaypoints: Displaying {_enemyWayPoints.WayPoints.Length} waypoints");
                 }
 
                 using (new GUILayout.HorizontalScope())
                 {
                     if (GUILayout.Button("Add Waypoint", GUILayout.Height(35)))
                     {
-                        int count = _wayPoints.arraySize;
+                        int count = _wayPointsProp.arraySize;
                         GameObject go = new GameObject("Waypoint");
                         go.transform.SetParent(_enemyWayPoints.transform);
                         go.transform.position = _enemyWayPoints.transform.position;
@@ -78,31 +75,35 @@ namespace com.LazyGames.Dz.Ai
 
                     if (GUILayout.Button("Remove Waypoint", GUILayout.Height(35)))
                     {
-                        if (_wayPoints.arraySize > 0)
+                        if (_wayPointsProp.arraySize > 0)
                         {
-                            DestroyImmediate(_wayPoints.GetArrayElementAtIndex(_wayPoints.arraySize - 1).objectReferenceValue);
+                            DestroyImmediate(_wayPointsProp.GetArrayElementAtIndex(_wayPointsProp.arraySize - 1).objectReferenceValue.GameObject());
                             _enemyWayPoints.BuildArray();
                         }
                     }
                 }
-
+                
                 GUILayout.FlexibleSpace();
-
-                if (_wayPoints.arraySize > 0)
+                if (_wayPointsProp.arraySize <= 0) return;
+                
+                for (int i = 0; i < _wayPointsProp.arraySize; i++)
                 {
-                    for (int i = 0; i < _wayPoints.arraySize; i++)
+                    using(new GUILayout.HorizontalScope(EditorStyles.helpBox))
                     {
-                        SerializedProperty waypointProperty = _wayPoints.GetArrayElementAtIndex(i);
-                        Debug.Log(waypointProperty.type);
-                        SerializedProperty waitTimeProperty = waypointProperty.serializedObject.FindProperty("waitTime");
-                        Debug.Log(waitTimeProperty);
-                        EditorGUILayout.PropertyField(waypointProperty, new GUIContent($"Waypoint {i}"));
-                        waitTimeProperty.floatValue = EditorGUILayout.FloatField("Wait Time", waitTimeProperty.floatValue);
+                        if(GUILayout.Button("select",GUILayout.Width(50)))
+                        {
+                            Selection.activeObject = _wayPointsProp.GetArrayElementAtIndex(i).objectReferenceValue;
+                        }
+                        var waypointProperty = _wayPointsProp.GetArrayElementAtIndex(i);
+                        var so = new SerializedObject(waypointProperty.objectReferenceValue);
+                        var waitTimeProperty = so.FindProperty("waitTime");
+                        EditorGUILayout.PropertyField(waypointProperty,GUIContent.none);
+                        waitTimeProperty.floatValue = EditorGUILayout.FloatField(so.FindProperty("waitTime").floatValue);
+                        so.ApplyModifiedProperties();
                     }
                 }
+                serializedObject.ApplyModifiedProperties();
             }
-
-            serializedObject.ApplyModifiedProperties(); // Apply any modified properties back to the serialized object
         }
     }
     #endif
