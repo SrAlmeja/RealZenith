@@ -98,6 +98,7 @@ namespace com.LazyGames.Dz.Ai
                         var so = new SerializedObject(waypointProperty.objectReferenceValue);
                         var waitTimeProperty = so.FindProperty("waitTime");
                         EditorGUILayout.PropertyField(waypointProperty,GUIContent.none);
+                        GUILayout.Label("WaitTime: ");
                         waitTimeProperty.floatValue = EditorGUILayout.FloatField(so.FindProperty("waitTime").floatValue);
                         so.ApplyModifiedProperties();
                     }
