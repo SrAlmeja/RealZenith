@@ -4,6 +4,7 @@ using com.LazyGames;
 using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LaserTrap : TrapsBase, ITrapInteraction
 {
@@ -17,6 +18,9 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
     [SerializeField] private float interludeTime;
+
+    [Header("Functionality")]
+    [SerializeField] private bool NeedsTimer;
     
     [Header("Trap Interaction")]
     [SerializeField] private ITrapInteraction _gadgetInteractionType;
@@ -75,7 +79,8 @@ public class LaserTrap : TrapsBase, ITrapInteraction
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
        
-        StartTimer();
+        if(NeedsTimer)
+            StartTimer();
         
     }
     
