@@ -28,6 +28,11 @@ namespace com.LazyGames.Dz.Ai
             return lookTarget;
         }
 
+        private void Update()
+        {
+            LookPosition = GetLookPos();
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -36,14 +41,9 @@ namespace com.LazyGames.Dz.Ai
             Gizmos.DrawSphere(t.position, 0.1f);
             Gizmos.color = Color.red;
             Handles.DrawWireDisc(t.position, Vector3.up, .5f);
-            var forwardVector = new Vector2(t.forward.x, t.forward.z);
-            var lookAngle = CryoMath.AngleFromOffset(forwardVector);
-            
-            var lookTarget = CryoMath.PointOnRadius(transform.position, .5f , lookAngle);
-            Gizmos.DrawSphere(lookTarget, 0.1f);
-            LookPosition = lookTarget;
+            LookPosition = GetLookPos();
+            Gizmos.DrawSphere(LookPosition, 0.1f);
         }
-        
 #endif
     }
 }
