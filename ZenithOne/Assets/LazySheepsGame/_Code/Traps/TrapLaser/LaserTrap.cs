@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames;
+using DG.Tweening;
 using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     [Header("Functionality")]
     [SerializeField] private bool NeedsTimer;
+    [SerializeField] private Transform laserMovPosition;
     
     [Header("Trap Interaction")]
     [SerializeField] private ITrapInteraction _gadgetInteractionType;
@@ -79,8 +81,9 @@ public class LaserTrap : TrapsBase, ITrapInteraction
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
        
-        if(NeedsTimer)
-            StartTimer();
+        if(NeedsTimer) StartTimer();
+
+        if (laserMovPosition != null) MoveLaser();
         
     }
     
@@ -116,7 +119,11 @@ public class LaserTrap : TrapsBase, ITrapInteraction
         laserObject.SetActive(false);
         
     }
-    
+
+    private void MoveLaser()
+    {
+        transform.DOMoveY(laserMovPosition.position.y, 1f).SetLoops(-1, LoopType.Yoyo);
+    }
     private void StartTimer()
     {
         // Debug.Log("Laser Trap Started");
