@@ -25,7 +25,7 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     [SerializeField] private Transform laserMovPosition;
     
     [Header("Trap Interaction")]
-    [SerializeField] private ITrapInteraction _gadgetInteractionType;
+    [SerializeField] private TypeOfGadget _gadgetInteractionType;
 
     #endregion
 
@@ -44,8 +44,8 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     public TypeOfGadget gadgetType
     {
-        get => _gadgetInteractionType.gadgetType;
-        set => _gadgetInteractionType.gadgetType = value;
+        get => _gadgetInteractionType;
+        set => _gadgetInteractionType = value;
     }
 
     public void DamagePlayer(float dmg)
@@ -54,13 +54,13 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     void ITrapInteraction.DestroyTrap(TypeOfGadget gadgetType)
     {
-        if(gadgetType != _gadgetInteractionType.gadgetType) return;
+        if(gadgetType != _gadgetInteractionType) return;
         DestroyTrap();
     }
 
     void ITrapInteraction.DisableTrap(TypeOfGadget gadgetType)
     {
-        if(gadgetType != _gadgetInteractionType.gadgetType) return;
+        if(gadgetType != _gadgetInteractionType) return;
         DisableTrap();
     }
 
