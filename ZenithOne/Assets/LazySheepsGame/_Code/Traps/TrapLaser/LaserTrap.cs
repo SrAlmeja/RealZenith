@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames;
+using DG.Tweening;
 using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LaserTrap : TrapsBase, ITrapInteraction
 {
@@ -17,9 +19,13 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
     [SerializeField] private float interludeTime;
+
+    [Header("Functionality")]
+    [SerializeField] private bool NeedsTimer;
+    [SerializeField] private Transform laserMovPosition;
     
     [Header("Trap Interaction")]
-    [SerializeField] private ITrapInteraction _gadgetInteractionType;
+    [SerializeField] private TypeOfGadget _gadgetInteractionType;
 
     #endregion
 
@@ -38,8 +44,8 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     public TypeOfGadget gadgetType
     {
-        get => _gadgetInteractionType.gadgetType;
-        set => _gadgetInteractionType.gadgetType = value;
+        get => _gadgetInteractionType;
+        set => _gadgetInteractionType = value;
     }
 
     public void DamagePlayer(float dmg)
@@ -48,13 +54,13 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     void ITrapInteraction.DestroyTrap(TypeOfGadget gadgetType)
     {
-        if(gadgetType != _gadgetInteractionType.gadgetType) return;
+        if(gadgetType != _gadgetInteractionType) return;
         DestroyTrap();
     }
 
     void ITrapInteraction.DisableTrap(TypeOfGadget gadgetType)
     {
-        if(gadgetType != _gadgetInteractionType.gadgetType) return;
+        if(gadgetType != _gadgetInteractionType) return;
         DisableTrap();
     }
 
@@ -75,7 +81,9 @@ public class LaserTrap : TrapsBase, ITrapInteraction
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
        
-        StartTimer();
+        if(NeedsTimer) StartTimer();
+
+        if (laserMovPosition != null) MoveLaser();
         
     }
     
@@ -111,7 +119,11 @@ public class LaserTrap : TrapsBase, ITrapInteraction
         laserObject.SetActive(false);
         
     }
-    
+
+    private void MoveLaser()
+    {
+        transform.DOMoveY(laserMovPosition.position.y, 1f).SetLoops(-1, LoopType.Yoyo);
+    }
     private void StartTimer()
     {
         // Debug.Log("Laser Trap Started");

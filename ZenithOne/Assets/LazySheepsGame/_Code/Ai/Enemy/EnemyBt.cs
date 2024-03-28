@@ -42,9 +42,9 @@ namespace com.LazyGames.Dz.Ai
             VisionAngle = parameters.coneAngle;
         }
 
+    #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            bool hasTarget = false;
             var position = transform.position + parameters.heightOffset;
             
             Handles.color = Color.white;
@@ -67,6 +67,7 @@ namespace com.LazyGames.Dz.Ai
                 
             
         }
+    #endif
         
         private Vector3 DirFromAngle(float eulerY, float angleInDegrees)
         {
