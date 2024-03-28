@@ -8,7 +8,7 @@ public class OmnitrixVFXManager : MonoBehaviour
 {
     [Header("Dependencies")]
     [Required][SerializeField] private ScriptableEventNoParam _omnitrixActivationChannel;
-    [Required][SerializeField] private GameObject _platform;
+    [Required][SerializeField] private GameObject _particleSystem;
     [SerializeField] private List<GameObject> _placePointsList = new List<GameObject>();
 
     [Header("Settings")]
@@ -51,11 +51,12 @@ public class OmnitrixVFXManager : MonoBehaviour
         if (_isOmnitrixActive)
         {
             ActivatePlatform();
-            Invoke("ActivateOmnitrix", _activateTime + (_placePointsList.Count * _offsetTimeMultiplier));
+            ActivateOmnitrix();
+            //Invoke("ActivateOmnitrix", _activateTime + (_placePointsList.Count * _offsetTimeMultiplier));
         } else
         {
             DeactivateOmnitrix();
-            Invoke("DeactivatePlatform", _deactivateTime + (_placePointsList.Count * _offsetTimeMultiplier));
+            Invoke("DeactivatePlatform", _deactivateTime);
         }
     }
 
@@ -81,14 +82,14 @@ public class OmnitrixVFXManager : MonoBehaviour
     private void ActivatePlatform()
     {
         ActivateGameObjects(true);
-        _platform.transform.localScale = Vector3.zero;
-        _platform.transform.DOScale(_initialPlatformScale, _activateTime);
+        _particleSystem.transform.localScale = Vector3.zero;
+        _particleSystem.transform.DOScale(_initialPlatformScale, _activateTime);
     }
 
     private void DeactivatePlatform()
     {
-        _platform.transform.localScale = _initialPlatformScale;
-        _platform.transform.DOScale(0, _deactivateTime).OnComplete(()=> ActivateGameObjects(false));
+        _particleSystem.transform.localScale = _initialPlatformScale;
+        _particleSystem.transform.DOScale(0, _deactivateTime).OnComplete(()=> ActivateGameObjects(false));
         _isDoneAnimating = true;
     }
 
@@ -99,7 +100,7 @@ public class OmnitrixVFXManager : MonoBehaviour
             placePoint.SetActive(value);
         }
 
-        _platform.SetActive(value);
+        _particleSystem.SetActive(value);
     }
 
     private void GetInitialScales()
@@ -109,6 +110,6 @@ public class OmnitrixVFXManager : MonoBehaviour
         {
             _initialPlacePointScaleList.Add(placePoint.transform.localScale);
         }
-        _initialPlatformScale = _platform.transform.localScale;
+        _initialPlatformScale = _particleSystem.transform.localScale;
     }
 }
