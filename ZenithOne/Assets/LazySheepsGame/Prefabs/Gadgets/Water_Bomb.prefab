@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 891899705798463789}
+  - component: {fileID: 2431128002800133082}
+  - component: {fileID: 5735980492689669337}
+  - component: {fileID: 7607067713681487117}
   m_Layer: 0
   m_Name: Water_Bomb
   m_TagString: Untagged
@@ -23,8 +26,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516641418632285079}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -304.93, y: 0, z: -43.44}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32,8 +36,80 @@ Transform:
   - {fileID: 3521300682878845889}
   - {fileID: 6397872049251696152}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &2431128002800133082
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516641418632285079}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &5735980492689669337
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516641418632285079}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6029020186122105924, guid: 4fdb6b91864b35c4d9f57ab4ab726d4e, type: 3}
+--- !u!114 &7607067713681487117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516641418632285079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dc57a87cefc9524abafd87cb311f09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 6144640447603626426}
+  _waterReservoir: {fileID: 1278743927234383625}
+  _explosionVFX: {fileID: 0}
+  _vfxDuration: 1
+  _interactWithLayers:
+    serializedVersion: 2
+    m_Bits: 360448
+  _typeOfGadget: 0
+  _interactionRadius: 3
+  _maxDistance: 3
+  _activationTime: 1.3
+  _despawnTime: 3
 --- !u!1 &1278743927234383625
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +122,7 @@ GameObject:
   - component: {fileID: 3371018230930782450}
   - component: {fileID: 5433532296928903942}
   m_Layer: 0
-  m_Name: Water_Bomb.001
+  m_Name: Water_reservoir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,14 +135,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278743927234383625}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.28350377, y: 0.6477852, z: 0.6477852, w: -0.28350377}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 891899705798463789}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -132.727}
 --- !u!33 &3371018230930782450
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -95,7 +171,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 609b0f902ba01924fb867b67121dea1d, type: 2}
+  - {fileID: 2100000, guid: 3ca3e09e518fc2349a38cf8eb36a7c47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,13 +218,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476227867862642049}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 891899705798463789}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &733516226202927763
 MeshFilter:
@@ -225,14 +301,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6144640447603626426}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.0000000057043508, y: 2.0554965, z: 0.0000000016298145}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7010575, y: -0.09229578, z: -0.092295796, w: 0.7010574}
+  m_LocalPosition: {x: -0.0000000057043508, y: 1, z: 0.0000000016298145}
   m_LocalScale: {x: 100, y: 100, z: 243.36674}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 891899705798463789}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -15}
 --- !u!33 &4028356739680456749
 MeshFilter:
   m_ObjectHideFlags: 0
