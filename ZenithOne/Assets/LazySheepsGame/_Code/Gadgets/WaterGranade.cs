@@ -4,11 +4,11 @@ using NaughtyAttributes;
 using UnityEngine;
 using DG.Tweening;
 
-public class EMPGranade : MonoBehaviour
+public class WaterGranade : MonoBehaviour
 {
     [Header("Dependencies")]
-    [Required][SerializeField] private GameObject _topCover;
-    [Required][SerializeField] private GameObject _bottomCover;
+    [Required][SerializeField] private GameObject _button;
+    [Required][SerializeField] private GameObject _waterReservoir;
     [Required][SerializeField] private GameObject _explosionVFX;
     [SerializeField] private float _vfxDuration = 1f;
 
@@ -25,7 +25,7 @@ public class EMPGranade : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!_isActive) return;
-        if((_interactWithLayers.value & 1 << collision.gameObject.layer) != 0)
+        if ((_interactWithLayers.value & 1 << collision.gameObject.layer) != 0)
         {
             ExplodeSphereCast();
             FireVFX();
@@ -36,16 +36,16 @@ public class EMPGranade : MonoBehaviour
     [Button("Activate Granade Test")]
     public void ActivateGranade()
     {
-        _topCover.transform.DOLocalMoveY(0.25f, _activationTime);
-        _bottomCover.transform.DOLocalMoveY(-0.25f, _activationTime);
+        _button.transform.DOLocalMoveY(2.2f, _activationTime);
+        _waterReservoir.transform.DORotate(new Vector3(-90,0,360), _activationTime);
         _isActive = true;
     }
 
     [Button("Deactivate Granade Test")]
     private void DeactivateGranade()
     {
-        _topCover.transform.DOLocalMoveY(0f, 0f);
-        _bottomCover.transform.DOLocalMoveY(0f, 0f);
+        _button.transform.DOLocalMoveY(1f, 0f);
+        _waterReservoir.transform.DORotate(new Vector3(-90, 0, 0), 0f);
         _isActive = false;
     }
 
@@ -53,11 +53,11 @@ public class EMPGranade : MonoBehaviour
     {
         RaycastHit[] explosionHits = Physics.SphereCastAll(transform.position, _interactionRadius, Vector3.up, _maxDistance, _interactWithLayers);
 
-        foreach(RaycastHit hit in explosionHits)
+        foreach (RaycastHit hit in explosionHits)
         {
             IGadgetInteractable gadgetInteractable;
 
-            if(hit.collider.gameObject.TryGetComponent(out gadgetInteractable))
+            if (hit.collider.gameObject.TryGetComponent(out gadgetInteractable))
             {
                 gadgetInteractable.GadgetInteraction(_typeOfGadget);
             }
@@ -92,5 +92,4 @@ public class EMPGranade : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _interactionRadius);
     }
- 
 }
