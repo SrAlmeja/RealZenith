@@ -45,7 +45,7 @@ public class WaterGranade : MonoBehaviour
     private void DeactivateGranade()
     {
         _button.transform.DOLocalMoveY(1f, 0f);
-        _waterReservoir.transform.DORotate(new Vector3(-90, 0, 0), 0);
+        _waterReservoir.transform.DORotate(new Vector3(-90, 0, 0), 0f);
         _isActive = false;
     }
 
