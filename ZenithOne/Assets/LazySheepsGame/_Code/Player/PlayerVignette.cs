@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Obvious.Soap;
@@ -8,8 +9,6 @@ public class PlayerVignette : MonoBehaviour
     #region SerializedFields
     
     [SerializeField] private ScriptableEventNoParam onTransitionEvent;
-
-    
     [SerializeField] private OVRVignette _vignette;
     [SerializeField] private float _transitionDuration = 1f;
     [SerializeField] private float _vignetteMax = 100f;
@@ -32,6 +31,11 @@ public class PlayerVignette : MonoBehaviour
     
     #endregion
 
+    #region public variables
+
+    public Action OnTransitionEnd;
+
+    #endregion
     void Start()
     {
         SetVignetteValue(_vignetteMin);
@@ -87,6 +91,7 @@ public class PlayerVignette : MonoBehaviour
         {
             _transitionState = TransitionState.None;
             _time = 0f;
+            OnTransitionEnd?.Invoke();
         }
     }
     
