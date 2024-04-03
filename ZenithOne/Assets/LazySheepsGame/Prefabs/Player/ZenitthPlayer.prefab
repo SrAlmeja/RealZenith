@@ -1484,6 +1484,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8834320319295017362, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 174577330062717024}
+    - targetCorrespondingSourceObject: {fileID: 8834320319295017362, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3261752048649837829}
   m_SourcePrefab: {fileID: 100100000, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
 --- !u!4 &5415403468665718900 stripped
 Transform:
@@ -1563,8 +1566,21 @@ MonoBehaviour:
   playerReceivedDamageEvent: {fileID: 11400000, guid: 4c5dbb1685598ed4095486dfb2c07a3b, type: 2}
   UpdatePlayerHealthEvent: {fileID: 11400000, guid: bcfabe35d54a56e42b2aaf54f1336959, type: 2}
   playerDeathEvent: {fileID: 11400000, guid: aaee93b4909445f4bbc98fa6ec13dc7c, type: 2}
-  onTransitionEvent: {fileID: 0}
+  onTransitionEvent: {fileID: 11400000, guid: 8a26009c1dc1d5140abec84bfe4f30cb, type: 2}
   _maxHealth: 100
+--- !u!114 &3261752048649837829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5415403468665718905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb818028bf79f914e9c83e476f043520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerVignette: {fileID: 8304405541998552802}
 --- !u!114 &5415403468665718907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8834320319295017360, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}

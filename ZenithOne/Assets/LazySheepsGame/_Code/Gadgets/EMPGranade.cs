@@ -41,6 +41,7 @@ public class EMPGranade : MonoBehaviour
         _isActive = true;
     }
 
+    [Button("Deactivate Granade Test")]
     private void DeactivateGranade()
     {
         _topCover.transform.DOLocalMoveY(0f, 0f);
