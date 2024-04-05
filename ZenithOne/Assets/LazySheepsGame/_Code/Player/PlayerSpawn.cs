@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using com.LazyGames;
 using UnityEngine;
 
 public class PlayerSpawn : MonoBehaviour
@@ -57,6 +58,7 @@ public class PlayerSpawn : MonoBehaviour
         transform.position = _initialPosition;
         _playerVignette.OnTransitionEnd -= EnablePlayer;
         _playerVignette.DoFadeOut();
+        Debug.Log("Player moved to last checkpoint = ".SetColor("#FED744") + _initialPosition);
     }
 
     #endregion
