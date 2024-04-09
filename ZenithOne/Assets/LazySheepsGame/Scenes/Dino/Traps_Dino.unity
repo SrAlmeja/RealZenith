@@ -188,6 +188,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 788816299770384276, guid: de1e5f5c814862a429162edbf8d4938b, type: 3}
+      propertyPath: _checkPointEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: c2afb556791a0b843afed0433e683eef, type: 2}
     - target: {fileID: 3843669345674424614, guid: de1e5f5c814862a429162edbf8d4938b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.66
@@ -722,7 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeathEvent: {fileID: 11400000, guid: aaee93b4909445f4bbc98fa6ec13dc7c, type: 2}
-  _checkPointEvent: {fileID: 11400000, guid: a650927a046a2014593266e7f25f9aaf, type: 2}
+  _checkPointEvent: {fileID: 11400000, guid: b1b5f3766bd24a541a632a4fef22f5f7, type: 2}
 --- !u!1001 &1516939454845310739
 PrefabInstance:
   m_ObjectHideFlags: 0
