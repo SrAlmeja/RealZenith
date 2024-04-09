@@ -18,7 +18,9 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     [SerializeField] private Collider laserCollider;
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
+    [SerializeField] private GameObject railVisual; 
     [SerializeField] private float interludeTime;
+    [SerializeField] private float speedMovement = 2.5f;
 
     [Header("Functionality")]
     [SerializeField] private bool NeedsTimer;
@@ -122,7 +124,8 @@ public class LaserTrap : TrapsBase, ITrapInteraction
 
     private void MoveLaser()
     {
-        transform.DOMoveY(laserMovPosition.position.y, 1f).SetLoops(-1, LoopType.Yoyo);
+        railVisual.SetActive(true);
+        boxVisual.transform.DOLocalMove(laserMovPosition.position, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
     }
     private void StartTimer()
     {

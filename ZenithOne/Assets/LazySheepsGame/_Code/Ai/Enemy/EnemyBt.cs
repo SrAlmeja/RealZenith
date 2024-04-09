@@ -31,7 +31,7 @@ namespace com.LazyGames.Dz.Ai
                     new TaskGoToTarget(t, parameters),
                 }),
                 new TaskSearchLastKnownPosition(t, parameters),
-                new TaskPatrol(t, enemyWayPoints.WayPoints, parameters),
+                new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray(), parameters),
             });
             
             return root;
