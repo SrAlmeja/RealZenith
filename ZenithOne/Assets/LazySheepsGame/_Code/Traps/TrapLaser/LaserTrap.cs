@@ -125,7 +125,7 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     private void MoveLaser()
     {
         railVisual.SetActive(true);
-        boxVisual.transform.DOLocalMove(laserMovPosition.position, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
     }
     private void StartTimer()
     {
