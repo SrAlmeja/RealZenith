@@ -5,6 +5,7 @@ public class OmnitrixHingeActivator : MonoBehaviour
 {
     [Header("Dependencies Channel SO")]
     [SerializeField] private ScriptableEventNoParam _omnitrixActivationChannel;
+    [SerializeField] private ScriptableEventInt _omnitrixGadgetChannel;
 
     [Header("Dependencies")]
     [SerializeField] private GameObject _omnitrixTopFace;
@@ -30,5 +31,13 @@ public class OmnitrixHingeActivator : MonoBehaviour
                 _isOmnitrixActive = false;
             }
         }
+
     }
+
+    //====================================================================================================================//
+
+
+    //Apagar menor a 43 y mayor a 312
+    // Gadgets se activan en 270, 180 y 90
+
 }
