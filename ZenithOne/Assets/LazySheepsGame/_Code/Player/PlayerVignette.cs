@@ -24,8 +24,6 @@ public class PlayerVignette : MonoBehaviour
     
     private TransitionState _transitionState = TransitionState.None;
     
-    private ITunnelingVignetteProvider provider = new LocomotionVignetteProvider();
-
     
     private enum TransitionState
     {
@@ -73,7 +71,7 @@ public class PlayerVignette : MonoBehaviour
     
     private void SetVignetteValue(float value)
     {
-        Debug.Log("Vignette Value = " + value);
+        // Debug.Log("Vignette Value = " + value);
         _vignetteMaterial.SetFloat("_ApertureSize", value);
         
     }
@@ -83,12 +81,12 @@ public class PlayerVignette : MonoBehaviour
         if (_transitionState == TransitionState.FadingOut)
         {
             _valueVignette = Mathf.Lerp(_vignetteMin, _vignetteMax, _time / _transitionDuration);
-            Debug.Log("Fading Out");
+            // Debug.Log("Fading Out");
         }
         else
         {
             _valueVignette = Mathf.Lerp(_vignetteMax, _vignetteMin, _time / _transitionDuration);
-            Debug.Log("Fading In");
+            // Debug.Log("Fading In");
         }
 
         SetVignetteValue(_valueVignette);

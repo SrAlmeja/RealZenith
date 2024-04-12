@@ -21,7 +21,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     [SerializeField] private GameObject railVisual; 
     [SerializeField] private float interludeTime;
     [SerializeField] private float speedMovement = 2.5f;
-    [SerializeField] private ParticleSystem deactivateParticles;
+    [SerializeField] private GameObject deactivateParticles;
 
     [Header("Functionality")]
     [SerializeField] private bool NeedsTimer;
@@ -69,6 +69,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         
         laserCollisionEvent.OnRaised += LaserCollisionEvent;
         
+        deactivateParticles.SetActive(false);
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
        
@@ -85,7 +86,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         laserObject.SetActive(false);
         StopAllCoroutines();
         StopMovementLaser();
-        deactivateParticles.Play();
+        deactivateParticles.SetActive(true);
         
         
     }
@@ -165,25 +166,3 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         DeactivateTrap();
     }
 }
-#if UNITY_EDITOR_WIN
-[CustomEditor(typeof(LaserTrap))]
-public class LaserTrapEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        LaserTrap laserTrap = (LaserTrap) target;
-        if (GUILayout.Button("Activate Trap"))
-        {
-            laserTrap.SetATrapActive();
-        }
-
-        if (GUILayout.Button("Deactivate Trap"))
-        {
-            laserTrap.SetDeactiveTrap();
-        }
-    }
-    
-}
-
-#endif
