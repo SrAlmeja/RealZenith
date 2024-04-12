@@ -2227,6 +2227,7 @@ GameObject:
   - component: {fileID: 1547292622929977490}
   - component: {fileID: 1185958388307040904}
   - component: {fileID: 4105262827494236983}
+  - component: {fileID: 4081096910062123602}
   m_Layer: 0
   m_Name: DoorPivot
   m_TagString: Untagged
@@ -2341,6 +2342,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.26123512, y: 2.8416488, z: 1.4749154}
   m_Center: {x: 0.0035745576, y: 0.042619586, z: -0.8133267}
+--- !u!208 &4081096910062123602
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643721398318871367}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.2, y: 1.4, z: 0.8}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: -0.8}
+  m_TimeToStationary: 0.5
 --- !u!1 &6733730852773804836
 GameObject:
   m_ObjectHideFlags: 0
