@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7524749528456364286}
   - component: {fileID: 8851734743961617095}
   - component: {fileID: 7026014054385971120}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: ProyectorParticles 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: 7506666669673842578}
   - component: {fileID: 5791661637155397354}
   - component: {fileID: 5586274776325255546}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: ProyectorParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9731,7 +9731,7 @@ GameObject:
   - component: {fileID: 2172292495286107508}
   - component: {fileID: 5913428310522391340}
   - component: {fileID: 7242291952375690975}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: lower part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9839,7 +9839,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7199189612850319487}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: =PlacePoints=
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9874,7 +9874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4992052744270166067}
   - component: {fileID: 7884342386914645049}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: OmnitrixFinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9891,7 +9891,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -176.37094, y: 0, z: -49.96116}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.068977, y: 0.068977, z: 0.068977006}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 438443584523155246}
@@ -9912,13 +9912,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _omnitrixActivationChannel: {fileID: 11400000, guid: bf603f6eacf363f4a8c67726ac11c949, type: 2}
-  _omnitrixGadgetChannel: {fileID: 11400000, guid: 3933de50eef63b647a5d64cff3e2b065, type: 2}
+  _omnitrixGadgetChannel: {fileID: 11400000, guid: e553c59b2c3e7d4479738a77265050ca, type: 2}
   _particleSystem: {fileID: 2156543273251847722}
   _placePointsList:
   - {fileID: 81954481813744928}
   - {fileID: 6941988593793372370}
   - {fileID: 4827130885091556231}
-  _activateTime: 0.1
+  _activateTime: 0.2
   _deactivateTime: 0.15
   _offsetTimeMultiplier: 0.15
 --- !u!1 &7294545546698343983
@@ -9937,7 +9937,7 @@ GameObject:
   - component: {fileID: 6283679569856882280}
   - component: {fileID: 2574799056465564935}
   - component: {fileID: 3092801690643482077}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: top part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10178,7 +10178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _omnitrixActivationChannel: {fileID: 11400000, guid: bf603f6eacf363f4a8c67726ac11c949, type: 2}
-  _omnitrixGadgetChannel: {fileID: 11400000, guid: 3933de50eef63b647a5d64cff3e2b065, type: 2}
+  _omnitrixGadgetChannel: {fileID: 11400000, guid: e553c59b2c3e7d4479738a77265050ca, type: 2}
   _omnitrixTopFace: {fileID: 7294545546698343983}
 --- !u!1 &8592409241189488325
 GameObject:
@@ -10191,7 +10191,7 @@ GameObject:
   - component: {fileID: 438443584523155246}
   - component: {fileID: 5931459583245732770}
   - component: {fileID: 1167989006956817808}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: handles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10274,6 +10274,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7199189612850319487}
     m_Modifications:
+    - target: {fileID: 3829950912198295710, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756350662604727441, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5036763119639061055, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 6229024719499488592, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _itemCount
       value: 
@@ -10281,10 +10293,22 @@ PrefabInstance:
     - target: {fileID: 6229024719499488592, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _grabbableItem
       value: 
-      objectReference: {fileID: 1690539468710596259, guid: 0060474cb9f41c644956245409394bd3, type: 3}
+      objectReference: {fileID: 516641418632285079, guid: 1d8ae806e99eb294db4719a31401b077, type: 3}
+    - target: {fileID: 6732734861279374695, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781729772131301569, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Name
       value: Omnitrix Place Point (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8084642544157078287, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_LocalScale.x
@@ -10342,6 +10366,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8186334025678078327, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: _intVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 97360fd5ed004aa43b6f364062e9315b, type: 2}
     - target: {fileID: 9145681987569014536, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _itemCount
       value: 
@@ -10369,6 +10397,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7199189612850319487}
     m_Modifications:
+    - target: {fileID: 3829950912198295710, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756350662604727441, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5036763119639061055, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 6229024719499488592, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _itemCount
       value: 
@@ -10377,9 +10417,21 @@ PrefabInstance:
       propertyPath: _grabbableItem
       value: 
       objectReference: {fileID: 1690539468710596259, guid: 0060474cb9f41c644956245409394bd3, type: 3}
+    - target: {fileID: 6732734861279374695, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781729772131301569, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Name
       value: Omnitrix Place Point (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8084642544157078287, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_LocalScale.x
@@ -10437,6 +10489,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8186334025678078327, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: _intVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 24762c80c25a49b45a31fe72d6c89c65, type: 2}
     - target: {fileID: 9145681987569014536, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _itemCount
       value: 
@@ -10464,6 +10520,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7199189612850319487}
     m_Modifications:
+    - target: {fileID: 3829950912198295710, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756350662604727441, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5036763119639061055, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 6229024719499488592, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _itemCount
       value: 
@@ -10472,9 +10540,21 @@ PrefabInstance:
       propertyPath: _grabbableItem
       value: 
       objectReference: {fileID: 1690539468710596259, guid: 0060474cb9f41c644956245409394bd3, type: 3}
+    - target: {fileID: 6732734861279374695, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781729772131301569, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Name
       value: Omnitrix Place Point (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8084642544157078287, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_LocalScale.x
@@ -10532,6 +10612,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8186334025678078327, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: _intVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dfd4bb0c9225bc43995f2a7beb56b96, type: 2}
     - target: {fileID: 9145681987569014536, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: _itemCount
       value: 
