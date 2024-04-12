@@ -158,7 +158,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
 
     public void GadgetInteraction(TypeOfGadget interactedGadget)
     {
-        if(gadgetType != _gadgetInteractionType) return;
+        if(interactedGadget!= _gadgetInteractionType) return;
 
         DeactivateTrap();
     }
