@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
             foreach (Node child in children)
                 _Attach(child);
         }
-
+        
         private void _Attach(Node node)
         {
             node.parent = this;
@@ -55,6 +55,11 @@ namespace com.LazyGames.Dz.Ai
                 node = node.parent;
             }
             return null;
+        }
+
+        public void WipeData()
+        {
+            _dataContext.Clear();
         }
 
         public bool ClearData(string key)

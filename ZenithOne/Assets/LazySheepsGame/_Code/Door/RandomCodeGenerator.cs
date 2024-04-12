@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Meta.WitAi.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 using Obvious.Soap;
+using Random = UnityEngine.Random;
 
 public class RandomCodeGenerator : MonoBehaviour
 {
@@ -10,7 +12,9 @@ public class RandomCodeGenerator : MonoBehaviour
         [SerializeField] private int _codeLength;
         [SerializeField] private List<Image> _arrowImages;
         [SerializeField] private GenericDataChannelSO _doorCodeEvent;
+        [SerializeField] private GameObject _door;
         private int stringConfirm = 0;
+        [SerializeField] private List<GameObject> buttons;
         
         private string _doorCode;
 
@@ -27,6 +31,16 @@ public class RandomCodeGenerator : MonoBehaviour
         {
             GenerateRandomCode();
             _doorCodeEvent.StringEventGO += CheckCode;
+        }
+
+        private void Update()
+        {
+            if (stringConfirm == _codeLength)
+            {
+                _door.SetActive(false);
+                buttons.ForEach(button => button.SetActive(false));
+                enabled = false;
+            }
         }
 
         private void GenerateRandomCode()

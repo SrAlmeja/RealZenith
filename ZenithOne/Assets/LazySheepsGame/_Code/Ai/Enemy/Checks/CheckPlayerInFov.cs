@@ -13,7 +13,7 @@ namespace com.LazyGames.Dz.Ai
         private EnemyParameters _parameters;
 
         private float _detectionMeter;
-        private float _alertnessMultiplier = 1f;
+        // private float _alertnessMultiplier = 1f;
         private Animator _animator;
         
         public CheckPlayerInFov(Transform transform, EnemyParameters parameters, LayerMask playerLayerMask)
