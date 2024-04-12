@@ -10,7 +10,7 @@ namespace com.LazyGames.Dz.Ai
         private Animator _animator;
         private EnemyParameters _parameters;
         
-        public CheckPlayerInAttackRange(Transform transform, EnemyParameters parameters)
+        public  CheckPlayerInAttackRange(Transform transform, EnemyParameters parameters)
         {
             _transform = transform;
             _parameters = parameters;
@@ -29,7 +29,7 @@ namespace com.LazyGames.Dz.Ai
             // Debug.Log($"attackRange: {_parameters.attackRange}, Dist: {Vector3.Distance(_transform.position, target.position)}");
             if (Vector3.Distance(_transform.position, target.position) <= _parameters.attackRange)
             {
-                state = NodeState.Running;
+                state = NodeState.Success;
                 return state;
             }
             state = NodeState.Failure;
