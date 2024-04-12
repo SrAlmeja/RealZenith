@@ -8,6 +8,7 @@ public class OmnitrixVFXManager : MonoBehaviour
 {
     [Header("Dependencies")]
     [Required][SerializeField] private ScriptableEventNoParam _omnitrixActivationChannel;
+    [Required][SerializeField] private ScriptableEventInt _omnitrixGadgetChannel;
     [Required][SerializeField] private GameObject _particleSystem;
     [SerializeField] private List<GameObject> _placePointsList = new List<GameObject>();
 
@@ -20,15 +21,18 @@ public class OmnitrixVFXManager : MonoBehaviour
     private Vector3 _initialPlatformScale;
     private bool _isOmnitrixActive = true;
     private bool _isDoneAnimating = true;
+    private int _activeGadget = 3;
 
     private void OnEnable()
     {
         _omnitrixActivationChannel.OnRaised += DOActivate;
+        _omnitrixGadgetChannel.OnRaised += ActivateSingleGadget;
     }
 
     private void OnDisable()
     {
         _omnitrixActivationChannel.OnRaised -= DOActivate;
+        _omnitrixGadgetChannel.OnRaised -= ActivateSingleGadget;
     }
 
     private void Start()
@@ -111,5 +115,21 @@ public class OmnitrixVFXManager : MonoBehaviour
             _initialPlacePointScaleList.Add(placePoint.transform.localScale);
         }
         _initialPlatformScale = _particleSystem.transform.localScale;
+    }
+
+    private void ActivateSingleGadget(int gadgetToActivate)
+    {
+        if(_activeGadget == gadgetToActivate) return;
+        _activeGadget = gadgetToActivate;
+        Debug.Log(gadgetToActivate);
+        for (int i = _placePointsList.Count - 1; i >= 0; i--)
+        {
+            _placePointsList[i].transform.localScale = Vector3.zero;
+            _placePointsList[i].SetActive(false);
+        }
+        if (gadgetToActivate == 3) return;
+        _placePointsList[gadgetToActivate].SetActive(true);
+        _placePointsList[gadgetToActivate].transform.DOScale(_initialPlacePointScaleList[gadgetToActivate], _activateTime + (gadgetToActivate * _offsetTimeMultiplier));
+        _placePointsList[gadgetToActivate].transform.DOScale(_initialPlacePointScaleList[gadgetToActivate], _activateTime + _offsetTimeMultiplier);
     }
 }
