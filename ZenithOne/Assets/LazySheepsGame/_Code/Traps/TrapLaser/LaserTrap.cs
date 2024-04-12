@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class LaserTrap : TrapsBase, ITrapInteraction
+public class LaserTrap : TrapsBase, IGadgetInteractable
 {
     #region Serialized fields
 
@@ -53,19 +53,7 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     public void DamagePlayer(float dmg)
     {
     }
-
-    void ITrapInteraction.DestroyTrap(TypeOfGadget gadgetType)
-    {
-        if(gadgetType != _gadgetInteractionType) return;
-        DestroyTrap();
-    }
-
-    void ITrapInteraction.DisableTrap(TypeOfGadget gadgetType)
-    {
-        if(gadgetType != _gadgetInteractionType) return;
-        DisableTrap();
-    }
-
+    
     public void EnableTrap()
     {
         ActivateTrap();
@@ -95,6 +83,9 @@ public class LaserTrap : TrapsBase, ITrapInteraction
         laserCollisionEvent.OnRaised -= LaserCollisionEvent;
         laserObject.SetActive(false);
         StopAllCoroutines();
+        StopMovementLaser();
+        
+        
     }
     protected override void ResetTrap()
     {
@@ -119,13 +110,21 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     {
         base.DisableTrap();
         laserObject.SetActive(false);
+        StopMovementLaser();
         
     }
 
     private void MoveLaser()
     {
         railVisual.SetActive(true);
-        boxVisual.transform.DOLocalMove(laserMovPosition.position, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+    }
+    private void StopMovementLaser()
+    {
+        if (laserMovPosition != null) 
+            boxVisual.transform.DOKill();
+        
+        
     }
     private void StartTimer()
     {
@@ -157,6 +156,12 @@ public class LaserTrap : TrapsBase, ITrapInteraction
     }
     #endregion
 
+    public void GadgetInteraction(TypeOfGadget interactedGadget)
+    {
+        if(interactedGadget!= _gadgetInteractionType) return;
+
+        DeactivateTrap();
+    }
 }
 #if UNITY_EDITOR_WIN
 [CustomEditor(typeof(LaserTrap))]
