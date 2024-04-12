@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8971220942358350471}
   - component: {fileID: 7060812662177752021}
   - component: {fileID: -6350324759758040174}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickRate: 0.3
+  parameters: {fileID: 11400000, guid: c2eb447488102d6408a73d4fcfdbdf6c, type: 2}
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
   enemyWayPoints: {fileID: 0}
-  parameters: {fileID: 11400000, guid: c2eb447488102d6408a73d4fcfdbdf6c, type: 2}
-  VisionAngle: 0
+  stunTime: 5
 --- !u!136 &7060812662177752021
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4133704605832338349}
   - component: {fileID: 5043089944970425194}
   - component: {fileID: 3690594124562267957}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 4956604610611183322}
   - component: {fileID: 7066077439405238615}
   - component: {fileID: 6651019500889400194}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2161478300688010005}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: vfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
