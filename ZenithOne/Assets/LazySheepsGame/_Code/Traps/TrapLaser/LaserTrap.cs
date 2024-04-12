@@ -21,6 +21,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     [SerializeField] private GameObject railVisual; 
     [SerializeField] private float interludeTime;
     [SerializeField] private float speedMovement = 2.5f;
+    [SerializeField] private ParticleSystem deactivateParticles;
 
     [Header("Functionality")]
     [SerializeField] private bool NeedsTimer;
@@ -84,6 +85,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         laserObject.SetActive(false);
         StopAllCoroutines();
         StopMovementLaser();
+        deactivateParticles.Play();
         
         
     }
