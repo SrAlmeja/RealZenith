@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4613097441020182359}
   - component: {fileID: 8783694797636595950}
   - component: {fileID: 892583134788943549}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: pared (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3844399604211300426, guid: 56e6276ccab522949a476a6059b47bbb, type: 3}
       propertyPath: m_Name
-      value: pared (8) Variant
+      value: Long wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844399604211300426, guid: 56e6276ccab522949a476a6059b47bbb, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -221,6 +225,10 @@ PrefabInstance:
     - target: {fileID: 6632566754924433031, guid: b913bebffc1f5bc438f57e60dea5bcd6, type: 3}
       propertyPath: m_Name
       value: pared (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6632566754924433031, guid: b913bebffc1f5bc438f57e60dea5bcd6, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
