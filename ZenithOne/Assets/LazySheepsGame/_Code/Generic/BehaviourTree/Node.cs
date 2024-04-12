@@ -57,6 +57,11 @@ namespace com.LazyGames.Dz.Ai
             return null;
         }
 
+        public void WipeData()
+        {
+            _dataContext.Clear();
+        }
+
         public bool ClearData(string key)
         {
             if (_dataContext.ContainsKey(key))

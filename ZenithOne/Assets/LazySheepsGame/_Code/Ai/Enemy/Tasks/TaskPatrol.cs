@@ -37,8 +37,8 @@ namespace com.LazyGames.Dz.Ai
             {
                 _waitCounter += Time.deltaTime;
                 var pos = _transform.position;
-                _transform.LookAt(_lookPos);
-                Debug.DrawLine( pos, _lookPos, Color.red);
+                // _transform.LookAt(_lookPos);
+                // Debug.DrawLine( pos, _lookPos, Color.red);
                 if (_waitCounter >= _waitTime)
                 {
                     _waiting = false;

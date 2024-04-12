@@ -20,15 +20,20 @@ namespace com.LazyGames.Dz.Ai
 
         public override NodeState Evaluate()
         {
-
             Transform target = (Transform)GetData("target");
-            if(Vector3.Distance(_transform.position, target.position) < _parameters.attackRange)
+            Debug.Log(Vector3.Distance(_transform.position, target.position));
+
+            if(Vector3.Distance(_transform.position, target.position) <= _parameters.attackRange)
             {
+                Debug.Log("returning success");
+                _agent.isStopped = true;
                 state = NodeState.Success;
                 return state;
             }
-
-            _agent.SetDestination(target.position);
+            
+            _agent.isStopped = false;
+            Debug.Log("evaluating go to target");
+            _agent.SetDestination(target.transform.position);
             state = NodeState.Running;
             return state;
         }

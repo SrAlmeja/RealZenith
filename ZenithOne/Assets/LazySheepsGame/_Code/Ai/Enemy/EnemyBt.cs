@@ -1,28 +1,32 @@
 using System.Collections.Generic;
+using com.LazyGames.DZ;
 using UnityEditor;
 using UnityEngine;
 
 namespace com.LazyGames.Dz.Ai
 {
     [SelectionBase]
-    public class EnemyBt : Tree
+    public class EnemyBt : Tree, INoiseSensitive
     {
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
         public EnemyParameters parameters;
         [HideInInspector] public float VisionAngle;
+
+        private Node _root;
         
         
         protected override Node SetupTree()
         {
             Prepare();
             var t = transform;
-            Node root = new Selector(new List<Node>
+            _root = new Selector(new List<Node>
             { 
                 new Sequence(new List<Node>
                 {
                     new CheckCanSeeTarget(t, parameters),
                     new CheckPlayerInAttackRange(t, parameters),
+                    new TaskGoToTarget(t, parameters),
                     new TaskAttack(t, parameters),
                 }),
                 new Sequence(new List<Node>
@@ -31,10 +35,11 @@ namespace com.LazyGames.Dz.Ai
                     new TaskGoToTarget(t, parameters),
                 }),
                 new TaskSearchLastKnownPosition(t, parameters),
+                new TaskInvestigateNoise(t),
                 new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray(), parameters),
             });
             
-            return root;
+            return _root;
         }
 
         private void Prepare()
@@ -73,6 +78,13 @@ namespace com.LazyGames.Dz.Ai
         {
             angleInDegrees += eulerY;
             return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+        }
+
+        public void HearNoise(float intensity, Vector3 position, bool dangerous)
+        {
+            Debug.Log("heardNoise");
+            _root.WipeData();
+            _root.SetData("NoisePosition", position);
         }
     }
 }
