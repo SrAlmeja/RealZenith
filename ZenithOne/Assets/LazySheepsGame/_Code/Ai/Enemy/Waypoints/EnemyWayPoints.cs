@@ -53,6 +53,7 @@ namespace com.LazyGames.Dz.Ai
         private void OnEnable()
         {
             _enemyWayPoints = (EnemyWayPoints)target;
+            _enemyWayPoints.BuildArray();
             _wayPointsProp = serializedObject.FindProperty("wayPoints");
         }
 

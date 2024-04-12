@@ -39,10 +39,10 @@ namespace com.LazyGames.Dz.Ai
             var t = transform;
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(t.position, 0.1f);
-            Gizmos.color = Color.red;
+            // Gizmos.color = Color.red;
             Handles.DrawWireDisc(t.position, Vector3.up, .5f);
             LookPosition = GetLookPos();
-            Gizmos.DrawSphere(LookPosition, 0.1f);
+            // Gizmos.DrawSphere(LookPosition, 0.1f);
         }
 #endif
     }

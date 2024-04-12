@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Obvious.Soap;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Comfort;
 
 public class PlayerVignette : MonoBehaviour
 {
     #region SerializedFields
     
     [SerializeField] private ScriptableEventNoParam onTransitionEvent;
-    [SerializeField] private OVRVignette _vignette;
+    [SerializeField] private MeshRenderer _vignetteMesh;
     [SerializeField] private float _transitionDuration = 1f;
     [SerializeField] private float _vignetteMax = 100f;
     [SerializeField] private float _vignetteMin = -10f;
@@ -17,10 +18,12 @@ public class PlayerVignette : MonoBehaviour
 
     #region private variables
     
+    private Material _vignetteMaterial;
     private float _valueVignette = 0f;
     private float _time = 0f;
     
     private TransitionState _transitionState = TransitionState.None;
+    
     
     private enum TransitionState
     {
@@ -38,6 +41,7 @@ public class PlayerVignette : MonoBehaviour
     #endregion
     void Start()
     {
+        _vignetteMaterial = _vignetteMesh.material;
         SetVignetteValue(_vignetteMin);
         StartCoroutine(TransitionCoroutine());
         
@@ -67,7 +71,9 @@ public class PlayerVignette : MonoBehaviour
     
     private void SetVignetteValue(float value)
     {
-        _vignette.VignetteFieldOfView = value;
+        // Debug.Log("Vignette Value = " + value);
+        _vignetteMaterial.SetFloat("_ApertureSize", value);
+        
     }
     
     private void PerformTransition()
@@ -75,10 +81,12 @@ public class PlayerVignette : MonoBehaviour
         if (_transitionState == TransitionState.FadingOut)
         {
             _valueVignette = Mathf.Lerp(_vignetteMin, _vignetteMax, _time / _transitionDuration);
+            // Debug.Log("Fading Out");
         }
         else
         {
             _valueVignette = Mathf.Lerp(_vignetteMax, _vignetteMin, _time / _transitionDuration);
+            // Debug.Log("Fading In");
         }
 
         SetVignetteValue(_valueVignette);

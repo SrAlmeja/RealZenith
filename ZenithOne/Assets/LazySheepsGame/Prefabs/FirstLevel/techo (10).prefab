@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1012163154358017665}
   - component: {fileID: 8735555438876531273}
   - component: {fileID: 5820116009373430691}
-  m_Layer: 0
+  - component: {fileID: 5252758040109908811}
+  m_Layer: 17
   m_Name: techo (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,3 +104,24 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!65 &5252758040109908811
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9185778383290187448}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.019999996, z: 0.019999998}
+  m_Center: {x: 0, y: 0, z: 0}
