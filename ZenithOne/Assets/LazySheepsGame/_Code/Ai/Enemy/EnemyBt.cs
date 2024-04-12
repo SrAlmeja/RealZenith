@@ -79,7 +79,7 @@ namespace com.LazyGames.Dz.Ai
 
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
-            if (interactedGadget != TypeOfGadget.WaterGranade) return;
+            if (interactedGadget != TypeOfGadget.EMPGranade) return;
             Stun();
         }
         
