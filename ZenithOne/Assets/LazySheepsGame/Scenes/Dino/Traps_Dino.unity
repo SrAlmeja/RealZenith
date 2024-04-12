@@ -898,6 +898,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2650033353760578626, guid: f0d1c0a4859677249a3fb68559807c93, type: 3}
+      propertyPath: _vignetteMesh
+      value: 
+      objectReference: {fileID: 1516939454845310741}
     - target: {fileID: 8665330217392853823, guid: f0d1c0a4859677249a3fb68559807c93, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.411
@@ -943,6 +947,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0d1c0a4859677249a3fb68559807c93, type: 3}
+--- !u!23 &1516939454845310741 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7621125743136954451, guid: f0d1c0a4859677249a3fb68559807c93, type: 3}
+  m_PrefabInstance: {fileID: 1516939454845310739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3991449056802065631
 PrefabInstance:
   m_ObjectHideFlags: 0
