@@ -69,6 +69,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         
         laserCollisionEvent.OnRaised += LaserCollisionEvent;
         
+        deactivateParticles.SetActive(false);
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
        
@@ -165,25 +166,3 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         DeactivateTrap();
     }
 }
-#if UNITY_EDITOR_WIN
-[CustomEditor(typeof(LaserTrap))]
-public class LaserTrapEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        LaserTrap laserTrap = (LaserTrap) target;
-        if (GUILayout.Button("Activate Trap"))
-        {
-            laserTrap.SetATrapActive();
-        }
-
-        if (GUILayout.Button("Deactivate Trap"))
-        {
-            laserTrap.SetDeactiveTrap();
-        }
-    }
-    
-}
-
-#endif
