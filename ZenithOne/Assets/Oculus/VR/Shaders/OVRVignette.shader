@@ -15,13 +15,13 @@
         {
             Blend [_BlendSrc] [_BlendDst]
             ZTest Always
-            ZWrite [_ZWrite]
+            ZWrite [ZWrite]
             Cull Off
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile _ QUADRATIC_FALLOFF
+            #pragma multi_compile  QUADRATIC_FALLOFF
 
             #include "UnityCG.cginc"
 
