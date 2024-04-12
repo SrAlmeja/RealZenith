@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
             foreach (Node child in children)
                 _Attach(child);
         }
-
+        
         private void _Attach(Node node)
         {
             node.parent = this;
