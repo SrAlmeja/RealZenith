@@ -15,14 +15,13 @@
         {
             Blend [_BlendSrc] [_BlendDst]
             ZTest Always
-            ZWrite [_ZWrite]
+            ZWrite [ZWrite]
             Cull Off
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile _ QUADRATIC_FALLOFF
-            #pragma shader_feature UNITY_SINGLE_PASS_STEREO
+            #pragma multi_compile  QUADRATIC_FALLOFF
 
             #include "UnityCG.cginc"
 
@@ -48,12 +47,7 @@
 
                 float4 scaleAndOffset = lerp(_ScaleAndOffset0[unity_StereoEyeIndex], _ScaleAndOffset1[unity_StereoEyeIndex], v.uv.x);
 
-                #ifdef UNITY_SINGLE_PASS_STEREO
-                float4  vertexPos = mul(unity_StereoMatrixVP[unity_StereoEyeIndex], float4(v.vertex.xy * _ScaleAndOffset.xy, 0, 1));
-                o.vertex = UnityApplyScreenSpaceScaleOffset(vertexPos);
-                #else
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                #endif
+                o.vertex = float4(scaleAndOffset.zw + v.vertex.xy * scaleAndOffset.xy, _ProjectionParams.y, 1);
 
                 o.color.rgb = _Color.rgb;
                 o.color.a = v.uv.y;
@@ -71,4 +65,3 @@
         }
     }
 }
-
