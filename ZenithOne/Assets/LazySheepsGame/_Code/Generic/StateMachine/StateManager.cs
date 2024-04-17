@@ -62,7 +62,7 @@ public abstract class StateManager<BState, TContext> : MonoBehaviour where BStat
 
     protected virtual bool ShouldTransition()
     {
-        return !_queuedState.Equals(CurrentState.StateKey);
+        return _queuedState.Equals(CurrentState.StateKey);
     }
 
     protected virtual void ExecuteTransition(BState stateKey)
