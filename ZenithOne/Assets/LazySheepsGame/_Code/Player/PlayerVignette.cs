@@ -81,12 +81,10 @@ public class PlayerVignette : MonoBehaviour
         if (_transitionState == TransitionState.FadingOut)
         {
             _valueVignette = Mathf.Lerp(_vignetteMin, _vignetteMax, _time / _transitionDuration);
-            // Debug.Log("Fading Out");
         }
         else
         {
             _valueVignette = Mathf.Lerp(_vignetteMax, _vignetteMin, _time / _transitionDuration);
-            // Debug.Log("Fading In");
         }
 
         SetVignetteValue(_valueVignette);

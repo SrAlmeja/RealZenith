@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 47385507756863621}
   - component: {fileID: 5084203018587286201}
   - component: {fileID: 3082636904409534561}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerTestTraps
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -294,6 +294,10 @@ PrefabInstance:
     - target: {fileID: 4198918816143122860, guid: c58ee973aa4230842b17fd036b4e389e, type: 3}
       propertyPath: m_Name
       value: PlayerVignette
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198918816143122860, guid: c58ee973aa4230842b17fd036b4e389e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8321233033718628854, guid: c58ee973aa4230842b17fd036b4e389e, type: 3}
       propertyPath: m_LocalPosition.x
