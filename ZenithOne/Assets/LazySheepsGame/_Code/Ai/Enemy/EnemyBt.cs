@@ -17,6 +17,7 @@ namespace com.LazyGames.Dz.Ai
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
         [SerializeField] private float stunTime = 5f;
+        [SerializeField]private TypeOfGadget stunElement;
 
         private Node _root;
         private EnemyState _state;
@@ -27,6 +28,11 @@ namespace com.LazyGames.Dz.Ai
             Prepare();
             _root = BuildTree();
             return _root;
+        }
+
+        private void Update()
+        {
+            _root?.Evaluate(_state == EnemyState.Stunned);
         }
 
         private Node BuildTree()
@@ -79,7 +85,7 @@ namespace com.LazyGames.Dz.Ai
 
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
-            if (interactedGadget != TypeOfGadget.EMPGranade) return;
+            if (interactedGadget != stunElement) return;
             Stun();
         }
         

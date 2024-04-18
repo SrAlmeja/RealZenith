@@ -15,7 +15,7 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
             _agent = transform.GetComponent<NavMeshAgent>();
         }
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             object t = GetData("NoisePosition");
             if(t == null)

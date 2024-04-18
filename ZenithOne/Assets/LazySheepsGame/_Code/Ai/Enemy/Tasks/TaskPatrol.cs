@@ -31,7 +31,7 @@ namespace com.LazyGames.Dz.Ai
             _waitTime = _wayPoints[_currentWayPoint].WaitTime;
         }
         
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             if (_waiting)
             {

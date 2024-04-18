@@ -8,8 +8,13 @@ namespace com.LazyGames.Dz.Ai
         public Selector() : base() { }
         public Selector(List<Node> children) : base(children) { }
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
+            if (overrideStop)
+            {
+                state = NodeState.Failure;
+                return state;
+            }
             foreach (Node node in children)
             {
                 switch (node.Evaluate())

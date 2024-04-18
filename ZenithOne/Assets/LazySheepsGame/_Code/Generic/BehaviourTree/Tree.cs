@@ -28,11 +28,11 @@ namespace com.LazyGames.Dz.Ai
                 }
             }
 
-            private void Update()
-            {
-                if (ActiveNode != null)
-                    ActiveNode.Evaluate();
-            }
+            // private void Update()
+            // {
+            //     if (ActiveNode != null)
+            //         ActiveNode.Evaluate();
+            // }
 
             protected abstract Node SetupTree();
 

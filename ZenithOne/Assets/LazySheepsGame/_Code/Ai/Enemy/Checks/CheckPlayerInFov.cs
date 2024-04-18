@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
         }
 
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             object wary = GetData("wary");
             if (wary != null)
