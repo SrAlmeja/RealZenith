@@ -22,6 +22,7 @@ namespace com.LazyGames.Dz.Ai
         private Node _root;
         private EnemyState _state;
         private NavMeshAgent _agent;
+        private EnemyAnimHandler _animHandler;
         
         protected override Node SetupTree()
         {
@@ -63,9 +64,9 @@ namespace com.LazyGames.Dz.Ai
         private void Prepare()
         {
             _agent = GetComponent<NavMeshAgent>();
-            //var animator = GetComponent<Animator>();
-            //var animHandler = gameObject.AddComponent<EnemyAnimHandler>();
-            //animHandler.Initiate(animator, this);
+            var animator = GetComponentInChildren<Animator>();
+            var animHandler = GetComponent<EnemyAnimHandler>();
+            animHandler.Initiate(animator, this);
         }
         
         private Vector3 DirFromAngle(float eulerY, float angleInDegrees)
