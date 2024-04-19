@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
             Vector3 noisePosition = (Vector3) t;
             _agent.SetDestination(noisePosition);
             
-            if(Vector3.Distance(_transform.position, noisePosition) < 0.6f)
+            if(Vector3.Distance(_transform.position, noisePosition) < 2f)
             {
                 ClearData("NoisePosition"); 
                 state = NodeState.Success;

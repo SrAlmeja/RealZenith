@@ -93,7 +93,6 @@ namespace com.LazyGames.Dz.Ai
         {
             _state = EnemyState.Stunned;
             _agent.isStopped = true;
-            _root = null;
             StartCoroutine(CorStunTime());
         }
 
@@ -101,7 +100,6 @@ namespace com.LazyGames.Dz.Ai
         {
             yield return new WaitForSeconds(stunTime);
             _state = EnemyState.Idle;
-            _root = BuildTree();
             _agent.isStopped = false;
         }
         
