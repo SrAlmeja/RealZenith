@@ -95,6 +95,7 @@ namespace com.LazyGames.Dz.Ai
                                 if (_wayPointsProp.arraySize > 0)
                                 {
                                     _enemyWayPoints.Remove(i);  
+                                    
                                     DestroyImmediate(_wayPointsProp.GetArrayElementAtIndex(_wayPointsProp.arraySize - 1).objectReferenceValue.GameObject());
                                     _enemyWayPoints.BuildArray();
                                 }
