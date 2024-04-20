@@ -45,8 +45,9 @@ namespace com.LazyGames.Dz.Ai
                     new CheckCanSeeTarget(t, parameters),
                     new CheckPlayerInAttackRange(t, parameters),
                     new TaskGoToTarget(t, parameters),
+                    new TaskLookAt(t),
                     new TaskAttack(t, parameters),
-                }),
+                }), 
                 new Sequence(new List<Node>
                 {
                     new CheckPlayerInFov(t, parameters, playerLayer),
