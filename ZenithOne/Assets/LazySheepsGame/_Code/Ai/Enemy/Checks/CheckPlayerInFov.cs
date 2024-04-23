@@ -58,7 +58,7 @@ namespace com.LazyGames.Dz.Ai
                         {
                             if (hit.collider.CompareTag("Player"))
                             {
-                                Debug.Log("player detected");
+                                // Debug.Log("player detected");
                                 parent.parent.SetData("target", targetPos);
                                 state = NodeState.Running;
                                 return state;

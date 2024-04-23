@@ -8,26 +8,28 @@ using UnityEngine.AI;
 namespace com.LazyGames.Dz.Ai
 {
     public enum EnemyState { Idle, Patrolling, Investigating, Chasing, Attacking, Stunned }
+
     [SelectionBase]
     public class EnemyBt : Tree, INoiseSensitive, IGadgetInteractable
     {
         public EnemyState State => _state;
-        
+
         public EnemyParameters parameters;
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
         [SerializeField] private float stunTime = 5f;
-        [SerializeField]private TypeOfGadget stunElement;
+        [SerializeField] private TypeOfGadget stunElement;
 
         private Node _root;
         private EnemyState _state;
         private NavMeshAgent _agent;
         private EnemyAnimHandler _animHandler;
-        
+
         protected override Node SetupTree()
         {
             Prepare();
             _root = BuildTree();
+            _state = EnemyState.Patrolling;
             return _root;
         }
 
@@ -40,7 +42,7 @@ namespace com.LazyGames.Dz.Ai
         {
             var t = transform;
             _root = new Selector(new List<Node>
-            { 
+            {
                 new Sequence(new List<Node>
                 {
                     new CheckCanSeeTarget(t, parameters),
@@ -48,7 +50,7 @@ namespace com.LazyGames.Dz.Ai
                     new TaskGoToTarget(t, parameters),
                     new TaskLookAt(t),
                     new TaskAttack(t, parameters),
-                }), 
+                }),
                 new Sequence(new List<Node>
                 {
                     new CheckPlayerInFov(t, parameters, playerLayer),
@@ -58,18 +60,18 @@ namespace com.LazyGames.Dz.Ai
                 new TaskInvestigateNoise(t),
                 new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray(), parameters),
             });
-            
+
             return _root;
         }
-        
+
         private void Prepare()
         {
             _agent = GetComponent<NavMeshAgent>();
             var animator = GetComponentInChildren<Animator>();
             var animHandler = GetComponent<EnemyAnimHandler>();
-            animHandler.Initiate(animator, this);
+            animHandler.Initialize(animator, this);
         }
-        
+
         private Vector3 DirFromAngle(float eulerY, float angleInDegrees)
         {
             angleInDegrees += eulerY;
@@ -90,7 +92,7 @@ namespace com.LazyGames.Dz.Ai
             if (interactedGadget != stunElement) return;
             Stun();
         }
-        
+
         private void Stun()
         {
             _state = EnemyState.Stunned;
@@ -104,32 +106,5 @@ namespace com.LazyGames.Dz.Ai
             _state = EnemyState.Idle;
             _agent.isStopped = false;
         }
-        
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            var position = transform.position + parameters.heightOffset;
-            
-            Handles.color = Color.white;
-            Handles.DrawWireDisc(position, Vector3.up, parameters.hardDetectionRange);
-            
-            var eulerAngles = transform.eulerAngles;
-            Vector3 viewAngle01 = DirFromAngle(eulerAngles.y, -parameters.coneAngle / 2);
-            Vector3 viewAngle02 = DirFromAngle(eulerAngles.y, parameters.coneAngle / 2);
-        
-            Handles.color = Color.yellow;
-            Handles.DrawLine(position, position + viewAngle01 * parameters.hardDetectionRange);
-            Handles.DrawLine(position, position + viewAngle02 * parameters.hardDetectionRange);
-            
-            Vector3 viewAngle03 = DirFromAngle(eulerAngles.y, (-parameters.coneAngle -40f) / 2);
-            Vector3 viewAngle04 = DirFromAngle(eulerAngles.y, (parameters.coneAngle + 40f)/ 2);
-            
-            Handles.color = Color.red;
-            Handles.DrawLine(position, position + viewAngle03 * parameters.hardDetectionRange);
-            Handles.DrawLine(position, position + viewAngle04 * parameters.hardDetectionRange);
-                
-            
-        }
-#endif
     }
 }
