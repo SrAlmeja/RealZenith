@@ -31,14 +31,14 @@ namespace com.LazyGames.Dz.Ai
             _waitTime = _wayPoints[_currentWayPoint].WaitTime;
         }
         
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             if (_waiting)
             {
                 _waitCounter += Time.deltaTime;
                 var pos = _transform.position;
-                _transform.LookAt(_lookPos);
-                Debug.DrawLine( pos, _lookPos, Color.red);
+                // _transform.LookAt(_lookPos);
+                // Debug.DrawLine( pos, _lookPos, Color.red);
                 if (_waitCounter >= _waitTime)
                 {
                     _waiting = false;

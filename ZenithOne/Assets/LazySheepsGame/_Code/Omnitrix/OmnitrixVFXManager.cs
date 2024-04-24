@@ -121,7 +121,7 @@ public class OmnitrixVFXManager : MonoBehaviour
     {
         if(_activeGadget == gadgetToActivate) return;
         _activeGadget = gadgetToActivate;
-        Debug.Log(gadgetToActivate);
+        // Debug.Log(gadgetToActivate);
         for (int i = _placePointsList.Count - 1; i >= 0; i--)
         {
             _placePointsList[i].transform.localScale = Vector3.zero;

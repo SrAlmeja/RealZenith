@@ -26,14 +26,14 @@ namespace com.LazyGames.Dz.Ai
             foreach (Node child in children)
                 _Attach(child);
         }
-
+        
         private void _Attach(Node node)
         {
             node.parent = this;
             children.Add(node);
         }
 
-        public virtual NodeState Evaluate() => NodeState.Failure;
+        public virtual NodeState Evaluate(bool overrideStop = false) => NodeState.Failure;
 
         public void SetData(string key, object value)
         {
@@ -55,6 +55,11 @@ namespace com.LazyGames.Dz.Ai
                 node = node.parent;
             }
             return null;
+        }
+
+        public void WipeData()
+        {
+            _dataContext.Clear();
         }
 
         public bool ClearData(string key)

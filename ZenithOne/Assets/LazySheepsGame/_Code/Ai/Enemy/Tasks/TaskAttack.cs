@@ -22,9 +22,9 @@ namespace com.LazyGames.Dz.Ai
             // _animator = transform.GetComponent<Animator>();
         }
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
-            Transform target = (Transform)GetData("target");
+            _target = (Transform)GetData("target");
             _attackCounter += Time.fixedDeltaTime;
             if (_attackCounter >= _parameters.attackSpeed)
             {
@@ -39,10 +39,10 @@ namespace com.LazyGames.Dz.Ai
         public void SendAggression()
         {
             Debug.Log($"{_transform.gameObject.name} Attacked");
-        //     if(_attackCounter <= _parameters.attackSpeed) return;
-        //     if (!_target.gameObject.TryGetComponent<IGeneralTarget>(out var generalTarget)) return;
-        //     Debug.Log("Enemy attacked player");
-        //     generalTarget.ReceiveAggression(Vector3.Normalize(_transform.position - _target.position), _parameters.attackPower);   
+        // if(_attackCounter <= _parameters.attackSpeed) return;
+        if (!_target.gameObject.TryGetComponent<IGeneralTarget>(out var generalTarget)) return;
+        Debug.Log("Enemy attacked player");
+        generalTarget.ReceiveAggression(Vector3.Normalize(_transform.position - _target.position), _parameters.attackPower);   
         }
 
     }

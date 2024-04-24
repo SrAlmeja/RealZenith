@@ -13,7 +13,7 @@ namespace com.LazyGames.Dz.Ai
         private EnemyParameters _parameters;
 
         private float _detectionMeter;
-        private float _alertnessMultiplier = 1f;
+        // private float _alertnessMultiplier = 1f;
         private Animator _animator;
         
         public CheckPlayerInFov(Transform transform, EnemyParameters parameters, LayerMask playerLayerMask)
@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
         }
 
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             object wary = GetData("wary");
             if (wary != null)

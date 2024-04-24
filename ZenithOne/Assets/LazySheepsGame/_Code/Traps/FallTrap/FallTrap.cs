@@ -12,7 +12,7 @@ public class FallTrap : MonoBehaviour
 
     private void Start()
     {
-        ResizeTrap();
+        // ResizeTrap();
     }
 
     private void OnTriggerEnter(Collider other)

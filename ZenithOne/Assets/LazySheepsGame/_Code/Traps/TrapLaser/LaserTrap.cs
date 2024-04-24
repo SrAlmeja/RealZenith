@@ -12,15 +12,16 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     #region Serialized fields
 
     [Header("Laser Trap")]
-    [SerializeField] private ScriptableEvent<string> laserCollisionEvent;
     [SerializeField] private ScriptableEvent<Vector3> playerPositionEvent;
     [SerializeField] private ScriptableEvent<float> playerReceivedDamageEvent;
-    [SerializeField] private Collider laserCollider;
     [SerializeField] private GameObject laserObject;
     [SerializeField] private GameObject boxVisual;
     [SerializeField] private GameObject railVisual; 
     [SerializeField] private float interludeTime;
     [SerializeField] private float speedMovement = 2.5f;
+    [SerializeField] private GameObject deactivateParticles;
+    
+    [SerializeField] private LaserCollision laserCollision;
 
     [Header("Functionality")]
     [SerializeField] private bool NeedsTimer;
@@ -65,9 +66,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     protected override void ActivateTrap()
     {
         base.ActivateTrap();
-        
-        laserCollisionEvent.OnRaised += LaserCollisionEvent;
-        
+        deactivateParticles.SetActive(false);
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
        
@@ -80,10 +79,10 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     protected override void DeactivateTrap()
     {
         base.DeactivateTrap();
-        laserCollisionEvent.OnRaised -= LaserCollisionEvent;
         laserObject.SetActive(false);
         StopAllCoroutines();
         StopMovementLaser();
+        deactivateParticles.SetActive(true);
         
         
     }
@@ -100,7 +99,6 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     protected override void DestroyTrap()
     {
         base.DestroyTrap();
-        laserCollisionEvent.OnRaised -= LaserCollisionEvent;
         laserObject.SetActive(false);
         boxVisual.SetActive(false);
         StopAllCoroutines();
@@ -133,17 +131,18 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
 
     }
     
-    private void LaserCollisionEvent(string message)
-    {
-        if (message == "Player Hit by Laser")
-        {
-            // playerPositionEvent.Raise(transform.position);
-            // playerReceivedDamageEvent.Raise(50);
-        }
-    }
+   
     private void  EnableLaser( bool enable)
     {
         laserObject.SetActive(enable);
+        if (enable)
+        {
+            laserCollision.ActivateLaser();
+        }
+        else
+        {
+            laserCollision.DeactivateLaser();
+        }
     }
 
     IEnumerator InitTimer()
@@ -163,25 +162,3 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         DeactivateTrap();
     }
 }
-#if UNITY_EDITOR_WIN
-[CustomEditor(typeof(LaserTrap))]
-public class LaserTrapEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        LaserTrap laserTrap = (LaserTrap) target;
-        if (GUILayout.Button("Activate Trap"))
-        {
-            laserTrap.SetATrapActive();
-        }
-
-        if (GUILayout.Button("Deactivate Trap"))
-        {
-            laserTrap.SetDeactiveTrap();
-        }
-    }
-    
-}
-
-#endif
