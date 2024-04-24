@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames.DZ;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace com.LazyGames.Dz.Ai
 {
-    public enum EnemyState { Idle, Patrolling, Investigating, Chasing, Attacking, Stunned }
+    public enum EnemyState { Idle, Patrolling, Investigating, Chasing, Attacking, Stunned, None }
 
     [SelectionBase]
-    public class EnemyBt : Tree, INoiseSensitive, IGadgetInteractable
+    public class EnemyBt : Tree, IGadgetInteractable
     {
         public EnemyState State => _state;
 
@@ -24,12 +23,13 @@ namespace com.LazyGames.Dz.Ai
         private EnemyState _state;
         private NavMeshAgent _agent;
         private EnemyAnimHandler _animHandler;
+        private EnemyVision _vision;
+        private EnemyHearing _hearing;
 
         protected override Node SetupTree()
         {
             Prepare();
             _root = BuildTree();
-            _state = EnemyState.Patrolling;
             return _root;
         }
 
@@ -64,28 +64,15 @@ namespace com.LazyGames.Dz.Ai
             return _root;
         }
 
-        private void Prepare()
-        {
-            _agent = GetComponent<NavMeshAgent>();
-            var animator = GetComponentInChildren<Animator>();
-            var animHandler = GetComponent<EnemyAnimHandler>();
-            animHandler.Initialize(animator, this);
-        }
 
-        private Vector3 DirFromAngle(float eulerY, float angleInDegrees)
-        {
-            angleInDegrees += eulerY;
-            return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-        }
-
-        public void HearNoise(float intensity, Vector3 position, bool dangerous)
-        {
-            Debug.Log("heard noise");
-            object t = _root.GetData("target");
-            if (t != null) return;
-            _root.WipeData();
-            _root.SetData("NoisePosition", position);
-        }
+        // public void HearNoise(float intensity, Vector3 position, bool dangerous)
+        // {
+        //     Debug.Log("heard noise");
+        //     object t = _root.GetData("target");
+        //     if (t != null) return;
+        //     _root.WipeData();
+        //     _root.SetData("NoisePosition", position);
+        // }
 
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
@@ -99,12 +86,34 @@ namespace com.LazyGames.Dz.Ai
             _agent.isStopped = true;
             StartCoroutine(CorStunTime());
         }
-
+        
+        public void PlayerDetected(Transform target)
+        {
+            //reset tree pending
+            _root.SetData("target", target);
+        }
+        
+        public void PlayerLost(Vector3 lastKnownPosition)
+        {
+            //reset tree pending
+            _root.ClearData("target");
+            _root.SetData("lastKnownPosition", lastKnownPosition);
+        }
+        
         private IEnumerator CorStunTime()
         {
             yield return new WaitForSeconds(stunTime);
             _state = EnemyState.Idle;
             _agent.isStopped = false;
+        }
+        
+        private void Prepare()
+        {
+            _agent = GetComponent<NavMeshAgent>();
+            _vision = GetComponent<EnemyVision>();
+            var animator = GetComponentInChildren<Animator>();
+            var animHandler = GetComponent<EnemyAnimHandler>();
+            animHandler.Initialize(animator, this);
         }
     }
 }

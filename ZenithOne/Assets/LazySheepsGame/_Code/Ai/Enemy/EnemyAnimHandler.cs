@@ -32,8 +32,8 @@ namespace com.LazyGames.Dz.Ai
             AnimatorStateMachine rootStateMachine = controller.layers[0].stateMachine;
             foreach (ChildAnimatorState state in rootStateMachine.states)
             {
-                // _animIndex = (_animIndex + 1) % anims.animations.Count;
-                _animator.CrossFade(anims.animations[_animIndex].name, .02f);
+                // _animator.CrossFade(anims.animations[_animIndex].name, .02f);
+                _animIndex = (_animIndex + 1) % anims.animations.Count;
                 state.state.motion = anims.animations[_animIndex];
                 break;
             }
