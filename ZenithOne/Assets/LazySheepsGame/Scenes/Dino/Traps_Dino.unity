@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4f39298102012449c6b3703bd1f9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onDialogueSend: {fileID: 11400000, guid: 6b11ed75a61e1504e9cfe59e03487db8, type: 2}
 --- !u!4 &366389648
 Transform:
   m_ObjectHideFlags: 0
@@ -1408,6 +1409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1299264735}
+  - component: {fileID: 1299264736}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -1432,6 +1434,22 @@ Transform:
   - {fileID: 877758517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1299264736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299264734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb8e47ec6224cc4eaf17314d3467cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDialogueSend: {fileID: 11400000, guid: 6b11ed75a61e1504e9cfe59e03487db8, type: 2}
+  _dialogueContainer: {fileID: 11400000, guid: 575f39f0a79e8cf4eb8c6304a81b803d, type: 2}
+  _dialogueMeshUI: {fileID: 719569082}
+  _dialogueText: {fileID: 1169373944}
 --- !u!1001 &1608948982
 PrefabInstance:
   m_ObjectHideFlags: 0
