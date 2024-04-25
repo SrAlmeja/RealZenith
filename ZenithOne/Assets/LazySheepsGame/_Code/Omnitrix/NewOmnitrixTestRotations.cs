@@ -56,8 +56,8 @@ public class NewOmnitrixTestRotations : MonoBehaviour
     private void UpdateGrabbing(bool value)
     {
         if (value == _grabbingOmnitrix) return;
-        UpdateRotations();
         _grabbingOmnitrix = value;
+        if(_grabbingOmnitrix) UpdateRotations();
     }
 
     private void UpdateRotations()
@@ -67,6 +67,9 @@ public class NewOmnitrixTestRotations : MonoBehaviour
         {
             _initialControllerRotation = rightRotation;
         }
+        //Debug.Log("Initial Controller Rotation: " + _initialControllerRotation);
+        Debug.Log("Initial Controller Rotation: " + _initialControllerRotation.eulerAngles);
+        //Debug.Log("Initial Object Rotation: " + _initialObjectRotation);
     }
 
     private void RotateObject()
@@ -81,8 +84,8 @@ public class NewOmnitrixTestRotations : MonoBehaviour
         Vector3 eulerDelta = deltaQuaternion.eulerAngles;
         float rotationZ = eulerDelta.x;
 
-        Debug.Log(deltaQuaternion);
-        Debug.Log("Euler X "+ eulerDelta.x);
+        //Debug.Log(eulerDelta);
+       // Debug.Log("Euler X "+ eulerDelta.x);
 
         // Apply the change in rotation to the object's local rotation
         /*
