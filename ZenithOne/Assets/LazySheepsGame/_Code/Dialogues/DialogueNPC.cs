@@ -11,7 +11,11 @@ public class DialogueNPC : DialogueBase
     [SerializeField] private TextMeshProUGUI _dialogueText;
     
     
-    
+    public void SetDialogueText(string text)
+    {
+        _dialogueMeshUI.SetActive(true);
+        _dialogueText.text = text;
+    }
     
     
     

@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
 {
 
     [SerializeField] ScriptableEventTextAsset _onDialogueSend;
+    [SerializeField] DialogueContainer[] _dialoguesData;
     
     private Story _currentStory;
 
