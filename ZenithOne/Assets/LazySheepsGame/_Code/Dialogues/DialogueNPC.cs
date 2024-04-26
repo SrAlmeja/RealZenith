@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Obvious.Soap;
 using TMPro;
 using UnityEngine;
@@ -19,10 +20,20 @@ public class DialogueNPC : DialogueBase
     public void SetDialogueText(string text)
     {
         _dialogueMeshUI.SetActive(true);
-        _dialogueText.text = text;
-        Debug.Log("Dialogue text set" + text);
+        
+        DisplayTextEffect(text);
     }
-    
+
+    private void DisplayTextEffect(string text)
+    {
+        DOTweenTMPAnimator doTweenTMPAnimator = new DOTweenTMPAnimator(_dialogueText);
+        _dialogueText.text = "";
+        _dialogueText.DOText(text, text.Length * 0.05f).SetEase(Ease.Linear).OnComplete(() =>
+        { 
+            // _dialogueMeshUI.SetActive(false);
+        });
+
+    }
     
     
     
