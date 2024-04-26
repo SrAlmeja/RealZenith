@@ -7,11 +7,11 @@ using UnityEngine;
 public class DialogueBase : MonoBehaviour
 {
     [Header("Events")]
-    [SerializeField] private ScriptableEventTextAsset _onDialogueSend;
+    [SerializeField] private ScriptableEventDialogueBase _onDialogueSend;
     
     [Header("Container")]
     [SerializeField] private DialogueContainer _dialogueContainer;
-    
+    public TextAsset InkJSON => _dialogueContainer.InkJSON;
     void Start()
     {
         
@@ -21,8 +21,7 @@ public class DialogueBase : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _onDialogueSend.Raise(_dialogueContainer.InkJSON);
-            Debug.Log("Dialogue Sent".SetColor("#3CE4FF"));
+            _onDialogueSend.Raise(this);
         }
     }
 }

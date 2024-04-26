@@ -1,38 +1,95 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using Obvious.Soap;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour
+namespace com.LazyGames
 {
 
-    [SerializeField] ScriptableEventTextAsset _onDialogueSend;
-    [SerializeField] DialogueContainer[] _dialoguesData;
-    
-    private Story _currentStory;
 
-
-    private void Start()
+    public class DialogueManager : MonoBehaviour
     {
-        _onDialogueSend.OnRaised += EnterDialogueMode;
-    }
+        [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
 
-    public void EnterDialogueMode(TextAsset inkJSON)
-    {
-        _currentStory = new Story(inkJSON.text);
-        
-        Debug.Log(_currentStory.currentText);
+        private Story _currentStory;
+        private DialogueBase _currentDialogue;
 
-        if (_currentStory.canContinue)
+        private const string SPEAKER_TAG = "speaker";
+        private const string VOICE_TAG = "voice";
+
+
+        private void Start()
         {
-            Debug.Log(_currentStory.Continue());
-        }else
+            _onDialogueSend.OnRaised += EnterDialogueMode;
+        }
+
+        private void EnterDialogueMode(DialogueBase dialogue)
         {
-            Debug.Log("No more content");
+            _onDialogueSend.OnRaised -= EnterDialogueMode;
+            _currentDialogue = dialogue;
+            TextAsset inkJSON = dialogue.InkJSON;
+            _currentStory = new Story(inkJSON.text);
+
+            ContinueStory();
+
+        }
+
+        private void ContinueStory()
+        {
+            if (_currentStory.canContinue)
+            {
+                Debug.Log(_currentStory.Continue());
+                SendInfoToUI(_currentStory.currentText);
+                HandleTags(_currentStory.currentTags);
+            }
+            else
+            {
+                Debug.Log("No more content");
+            }
+        }
+
+        private void HandleTags(List<string> currentTags)
+        {
+            foreach (var tag in currentTags)
+            {
+                string[] tagParts = tag.Split(':');
+                
+                if(tagParts.Length != 2) 
+                    Debug.LogError("Invalid tag format: " + tag);
+                
+                string tagKey = tagParts[0].Trim();
+                string tagValue = tagParts[1].Trim();
+                
+                switch (tagKey)
+                {
+                    case SPEAKER_TAG:
+                        Debug.Log("speaker:" + tagValue);
+                        
+                        break;
+                    case VOICE_TAG:
+                        Debug.Log("voice:" + tagValue);
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown tag:" + tagKey);  
+                        break;
+                }
+            }
         }
         
+        private void SendInfoToUI(string text)
+        {
+            if(_currentDialogue is DialogueNPC npc)
+            {
+                npc.SetDialogueText(text);
+            }
+            else
+            {
+                Debug.LogError("Current dialogue is not a NPC");
+            }
+        }
+        
+        
+        
+        
     }
-
 }

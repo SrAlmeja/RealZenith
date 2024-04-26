@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4f39298102012449c6b3703bd1f9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onDialogueSend: {fileID: 11400000, guid: 6b11ed75a61e1504e9cfe59e03487db8, type: 2}
+  _onDialogueSend: {fileID: 11400000, guid: b53d3a97cad21444ba132357348ebd29, type: 2}
 --- !u!4 &366389648
 Transform:
   m_ObjectHideFlags: 0
@@ -1277,7 +1277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1304,8 +1304,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.09
+  m_fontSizeBase: 0.09
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb8e47ec6224cc4eaf17314d3467cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onDialogueSend: {fileID: 11400000, guid: 6b11ed75a61e1504e9cfe59e03487db8, type: 2}
+  _onDialogueSend: {fileID: 11400000, guid: b53d3a97cad21444ba132357348ebd29, type: 2}
   _dialogueContainer: {fileID: 11400000, guid: 575f39f0a79e8cf4eb8c6304a81b803d, type: 2}
   _dialogueMeshUI: {fileID: 719569082}
   _dialogueText: {fileID: 1169373944}

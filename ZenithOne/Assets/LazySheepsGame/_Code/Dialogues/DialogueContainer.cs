@@ -7,16 +7,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue System/Dialogue Container")]
 public class DialogueContainer : ScriptableObject
 {
-    // public string DialogueName
-    // {
-    //     get => InkJSON.s
-    //     
-    // }
+    
     public TextAsset InkJSON;
-    
-    
+    public AudiosDialogueData[] AudiosDialogueData;
     
     
     
 }
 
+[Serializable]
+public class AudiosDialogueData
+{
+    public string Section;
+    public AudioClip[] DialoguesAudioClips;
+}
