@@ -7,21 +7,33 @@ public class LayerSwitcher : MonoBehaviour
 {
     [SerializeField] public int _layerNumberToSwitch;
     [SerializeField] public GameObject _objectToTest;
-    
-    
-    
+    private int _originalLayer;
+
+
     [ContextMenu("Switch Layer")]
-    public void TheSwitcher(GameObject testBudy, int layerNumberToSwitch)
+    private void Start()
     {
-        int originalLayer = testBudy.layer;
-        if (testBudy.layer != layerNumberToSwitch)
+        _originalLayer = _objectToTest.layer;
+    }
+
+    public void GetMyLayer()
+    {
+        
+    }
+    
+    public void TheSwitcher(int layerNumberToSwitch)
+    {
+        
+        if (this.gameObject.layer != layerNumberToSwitch)
         {
             
-            testBudy.layer = layerNumberToSwitch;    
+            this.gameObject.layer = layerNumberToSwitch;
+            
         }
         else
         {
-            testBudy.layer = originalLayer;
+            this.gameObject.layer = _originalLayer;
+            
         }
     }
 }
