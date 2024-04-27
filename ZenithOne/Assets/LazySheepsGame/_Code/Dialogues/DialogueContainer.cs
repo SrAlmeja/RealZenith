@@ -19,5 +19,11 @@ public class DialogueContainer : ScriptableObject
 public class AudiosDialogueData
 {
     public string Section;
-    public AudioClip[] DialoguesAudioClips;
+    public AudioDialogue[] AudioDialogues;
+}
+[Serializable]
+public class AudioDialogue
+{
+    public string ID;
+    public AudioClip DialogueAudioClip;
 }

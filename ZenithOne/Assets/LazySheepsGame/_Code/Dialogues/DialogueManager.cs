@@ -10,6 +10,7 @@ namespace com.LazyGames
     public class DialogueManager : MonoBehaviour
     {
         [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
+        [SerializeField] ScriptableEventNoParam _onContinueDialogue;
 
         private Story _currentStory;
         private DialogueBase _currentDialogue;
@@ -21,6 +22,7 @@ namespace com.LazyGames
         private void Start()
         {
             _onDialogueSend.OnRaised += EnterDialogueMode;
+            _onContinueDialogue.OnRaised += ContinueStory;
         }
 
         private void EnterDialogueMode(DialogueBase dialogue)
@@ -36,6 +38,12 @@ namespace com.LazyGames
 
         private void ContinueStory()
         {
+            if(_currentStory == null)
+            {
+                Debug.LogError("Current story is null");
+                return;
+            }
+            
             if (_currentStory.canContinue)
             {
                 Debug.Log(_currentStory.Continue());
@@ -44,8 +52,18 @@ namespace com.LazyGames
             }
             else
             {
-                Debug.Log("No more content");
+                ExitDialogueMode();
             }
+        }
+        
+        private void ExitDialogueMode()
+        {
+            _onDialogueSend.OnRaised += EnterDialogueMode;
+            _currentDialogue = null;
+            _currentStory = null;
+            
+            Debug.Log("Dialogue ended");   
+            
         }
 
         private void HandleTags(List<string> currentTags)
@@ -68,6 +86,7 @@ namespace com.LazyGames
                         break;
                     case VOICE_TAG:
                         Debug.Log("voice:" + tagValue);
+                        
                         break;
                     default:
                         Debug.LogWarning("Unknown tag:" + tagKey);  
@@ -92,4 +111,5 @@ namespace com.LazyGames
         
         
     }
+
 }

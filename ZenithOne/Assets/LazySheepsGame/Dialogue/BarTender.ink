@@ -1,7 +1,11 @@
 -> PrimerEntradaBar
 === PrimerEntradaBar ===
 
- Hey, Dammon… see that guy behind the bar? Go greet him. This’ll be our new… “base”, let’s call it. The man is named John, met him some years back when developing the bunkers, got one right in his backyard. And of course, he owns the place. #speaker:Marth #voice:Marth_1
+ Hey, Dammon… see that guy behind the bar? Go greet him. 
+ 
+ This’ll be our new… “base”, let’s call it. 
+ 
+ The man is named John, met him some years back when developing the bunkers, got one right in his backyard. And of course, he owns the place. #speaker:Marth #voice:Marth_1
 -> DONE
 
 Yeah I know you, and that’s right, this piece of wood is in the safe zone so I didn’t mind the extra security. Plus, it’s good for my “Buzzards”. #speaker:Jhon #voice:John_1

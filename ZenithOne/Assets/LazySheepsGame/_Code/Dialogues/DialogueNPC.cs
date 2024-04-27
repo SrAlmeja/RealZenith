@@ -20,7 +20,6 @@ public class DialogueNPC : DialogueBase
     public void SetDialogueText(string text)
     {
         _dialogueMeshUI.SetActive(true);
-        
         DisplayTextEffect(text);
     }
 

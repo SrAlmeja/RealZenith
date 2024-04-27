@@ -8,20 +8,24 @@ public class DialogueBase : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private ScriptableEventDialogueBase _onDialogueSend;
+    [SerializeField] private ScriptableEventNoParam _onConinueDialogue;
     
     [Header("Container")]
     [SerializeField] private DialogueContainer _dialogueContainer;
     public TextAsset InkJSON => _dialogueContainer.InkJSON;
+    public 
     void Start()
     {
         
     }
     
-    void Update()
+    public void SendDialogue()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _onDialogueSend.Raise(this);
-        }
+        _onDialogueSend.Raise(this);
+    }
+    
+    public void ContinueDialogue()
+    {
+        _onConinueDialogue.Raise();
     }
 }
