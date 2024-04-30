@@ -14,6 +14,7 @@ public class LayerSwitcherEditor : Editor
         if (GUILayout.Button("Switch Layer"))
         {
             layerSwitcher.TheSwitcher();
+            
         }
     }
 }
