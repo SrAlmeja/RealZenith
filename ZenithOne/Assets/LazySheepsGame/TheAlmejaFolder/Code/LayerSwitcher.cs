@@ -5,35 +5,16 @@ using UnityEngine;
 
 public class LayerSwitcher : MonoBehaviour
 {
-    [SerializeField] public int _layerNumberToSwitch;
-    [SerializeField] public GameObject _objectToTest;
-    private int _originalLayer;
-
-
-    [ContextMenu("Switch Layer")]
-    private void Start()
+    public void TheSwitcher(GameObject selectedObject)
     {
-        _originalLayer = _objectToTest.layer;
-    }
-
-    public void GetMyLayer()
-    {
-        
-    }
-    
-    public void TheSwitcher(int layerNumberToSwitch)
-    {
-        
-        if (this.gameObject.layer != layerNumberToSwitch)
+        //Cambiar el DEFAULT_LAYER por el layer que contenga enemy o los que necesiten
+        if (selectedObject.layer != StaticLayer.SELECTED_SHADER_LAYER)
         {
-            
-            this.gameObject.layer = layerNumberToSwitch;
-            
+            selectedObject.layer = StaticLayer.SELECTED_SHADER_LAYER;
         }
         else
         {
-            this.gameObject.layer = _originalLayer;
-            
+            selectedObject.layer = StaticLayer.DEFAULT_LAYER;
         }
     }
 }

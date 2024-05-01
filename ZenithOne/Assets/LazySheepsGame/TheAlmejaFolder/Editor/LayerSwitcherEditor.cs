@@ -13,7 +13,7 @@ public class LayerSwitcherEditor : Editor
         // Dibuja un botón en el inspector
         if (GUILayout.Button("Switch Layer"))
         {
-            layerSwitcher.TheSwitcher();
+            //layerSwitcher.TheSwitcher();
         }
     }
 }
