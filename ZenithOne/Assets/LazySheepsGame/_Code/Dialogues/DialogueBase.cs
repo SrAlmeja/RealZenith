@@ -9,6 +9,8 @@ public class DialogueBase : MonoBehaviour
     [Header("Events")]
     [SerializeField] private ScriptableEventDialogueBase _onDialogueSend;
     [SerializeField] private ScriptableEventNoParam _onConinueDialogue;
+    [SerializeField] ScriptableEventNoParam _onDialogueEnd;
+
     
     [Header("Container")]
     [SerializeField] private DialogueContainer _dialogueContainer;
@@ -16,7 +18,7 @@ public class DialogueBase : MonoBehaviour
     public 
     void Start()
     {
-        
+        _onDialogueEnd.OnRaised += OnDialogueEnd;
     }
     
     public void SendDialogue()
@@ -28,4 +30,11 @@ public class DialogueBase : MonoBehaviour
     {
         _onConinueDialogue.Raise();
     }
+
+     protected virtual void OnDialogueEnd()
+    {
+        Debug.Log("Dialogue Ended Base Class");
+    }
+    
+    
 }

@@ -5,15 +5,36 @@ using UnityEngine;
 
 namespace com.LazyGames
 {
-
-
     public class DialogueManager : MonoBehaviour
     {
         [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
         [SerializeField] ScriptableEventNoParam _onContinueDialogue;
+        [SerializeField] ScriptableEventNoParam _onDialogueEnd;
 
         private Story _currentStory;
         private DialogueBase _currentDialogue;
+        private string _currentSpeaker;
+        private string _currentVoice;
+        private int _currentDialogueIndex;
+        
+        private int CountDialogueLines(string inkText)
+        {
+            var lines = inkText.Split('\n');
+            int dialogueLinesCount = 0;
+
+            foreach (var line in lines)
+            {
+                // Considera que una línea de diálogo es cualquier línea que no esté vacía y no comienza con un comentario
+                if (!string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("//"))
+                {
+                    dialogueLinesCount++;
+                }
+            }
+
+            return dialogueLinesCount;
+        }
+        
+        
 
         private const string SPEAKER_TAG = "speaker";
         private const string VOICE_TAG = "voice";
@@ -40,15 +61,27 @@ namespace com.LazyGames
         {
             if(_currentStory == null)
             {
-                Debug.LogError("Current story is null");
+                // Debug.LogError("Current story is null");
                 return;
             }
             
             if (_currentStory.canContinue)
             {
-                Debug.Log(_currentStory.Continue());
-                SendInfoToUI(_currentStory.currentText);
-                HandleTags(_currentStory.currentTags);
+                _currentStory.Continue();
+                SetTags(_currentStory.currentTags);
+                _currentDialogueIndex++;
+                
+                DialogueInfoUI dialogueInfoUI = new DialogueInfoUI();
+                dialogueInfoUI.Text = _currentStory.currentText;
+                dialogueInfoUI.Speaker = _currentSpeaker;
+                dialogueInfoUI.Voice = _currentVoice;
+                dialogueInfoUI.CurrentDialogueIndex = _currentDialogueIndex;
+                // dialogueInfoUI.TotalDialogueLines = CountDialogueLines(_currentStory.);
+                
+                Debug.Log("Current Dialogue Index: ".SetColor("#41E85D") + _currentDialogueIndex);
+                Debug.Log("Total Dialogue Lines: ".SetColor("#41E85D") + dialogueInfoUI.TotalDialogueLines);
+                
+                SendInfoToUI(dialogueInfoUI);
             }
             else
             {
@@ -59,14 +92,19 @@ namespace com.LazyGames
         private void ExitDialogueMode()
         {
             _onDialogueSend.OnRaised += EnterDialogueMode;
+            _onDialogueEnd.Raise();
+            
             _currentDialogue = null;
             _currentStory = null;
+            _currentSpeaker = null;
+            _currentVoice = null;
+            _currentDialogueIndex = 0; 
             
             Debug.Log("Dialogue ended");   
             
         }
 
-        private void HandleTags(List<string> currentTags)
+        private void SetTags(List<string> currentTags)
         {
             foreach (var tag in currentTags)
             {
@@ -81,12 +119,13 @@ namespace com.LazyGames
                 switch (tagKey)
                 {
                     case SPEAKER_TAG:
-                        Debug.Log("speaker:" + tagValue);
+                        Debug.Log("speaker: " + tagValue);
+                        _currentSpeaker = tagValue;
                         
                         break;
                     case VOICE_TAG:
-                        Debug.Log("voice:" + tagValue);
-                        
+                        Debug.Log("voice: " + tagValue);
+                        _currentVoice = tagValue;
                         break;
                     default:
                         Debug.LogWarning("Unknown tag:" + tagKey);  
@@ -95,11 +134,11 @@ namespace com.LazyGames
             }
         }
         
-        private void SendInfoToUI(string text)
+        private void SendInfoToUI(DialogueInfoUI dialogueInfoUI)
         {
             if(_currentDialogue is DialogueNPC npc)
             {
-                npc.SetDialogueText(text);
+                npc.SetDialogueToNpc(dialogueInfoUI);
             }
             else
             {
@@ -111,5 +150,17 @@ namespace com.LazyGames
         
         
     }
+    
+    public struct DialogueInfoUI
+    {
+        public string Speaker;
+        public string Voice;
+        public string Text;
+        public int CurrentDialogueIndex;
+        public int TotalDialogueLines;
+        
+        
+    }
 
 }
+
