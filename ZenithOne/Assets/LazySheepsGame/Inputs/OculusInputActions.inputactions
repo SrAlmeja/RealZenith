@@ -1,0 +1,45 @@
+{
+    "name": "OculusInputActions",
+    "maps": [
+        {
+            "name": "Interaction Dialogues",
+            "id": "ba090013-eee0-411c-bcf1-4e3b1e5a6ef0",
+            "actions": [
+                {
+                    "name": "Trigguer_ContinueDialogue",
+                    "type": "Button",
+                    "id": "9d8463d6-2700-4782-b27b-97c8a9826199",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "72b76af4-235b-4964-bd42-5b7b7507c860",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigguer_ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "065c6974-3d5b-4037-a99f-84a01fb970f7",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigguer_ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
