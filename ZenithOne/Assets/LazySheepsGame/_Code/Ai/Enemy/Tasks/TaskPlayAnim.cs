@@ -16,7 +16,7 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
         }
         
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             _animator.Play(_clip.name);
             if (!(_waitTime < _clip.length)) return NodeState.Success;

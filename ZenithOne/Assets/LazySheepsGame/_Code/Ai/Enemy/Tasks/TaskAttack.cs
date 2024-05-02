@@ -22,7 +22,7 @@ namespace com.LazyGames.Dz.Ai
             // _animator = transform.GetComponent<Animator>();
         }
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             _target = (Transform)GetData("target");
             _attackCounter += Time.fixedDeltaTime;

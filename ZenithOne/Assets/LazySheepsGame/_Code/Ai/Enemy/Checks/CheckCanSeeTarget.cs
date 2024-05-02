@@ -15,7 +15,7 @@ namespace com.LazyGames.Dz.Ai
             _parameters = parameters;
         }
         
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             object t = GetData("target");
             if (t == null)
