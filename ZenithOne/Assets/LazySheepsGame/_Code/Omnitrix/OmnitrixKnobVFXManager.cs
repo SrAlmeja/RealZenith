@@ -28,7 +28,6 @@ public class OmnitrixKnobVFXManager : MonoBehaviour
     {
         if(_activeKnob == currentKnob) return;
         _activeKnob = currentKnob;
-        Debug.Log("Knob requested " + currentKnob);
         if (currentKnob >= _knobPoints.Count || currentKnob < 0)
         {
             DeactivateAllKnobs();
