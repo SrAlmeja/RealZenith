@@ -10,7 +10,7 @@ namespace com.LazyGames.Dz.Ai
         {
             _waitTime = waitTime;
         }
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             _waitTime -= Time.deltaTime;
             if (_waitTime <= 0)
