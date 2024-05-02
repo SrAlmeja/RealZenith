@@ -18,7 +18,7 @@ namespace com.LazyGames.Dz.Ai
             _agent = transform.GetComponent<NavMeshAgent>();
         }
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             Transform target = (Transform)GetData("target");
 

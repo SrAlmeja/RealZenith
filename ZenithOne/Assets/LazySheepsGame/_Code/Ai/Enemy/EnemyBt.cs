@@ -17,16 +17,23 @@ namespace com.LazyGames.Dz.Ai
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
         [SerializeField] private float stunTime = 5f;
+        [SerializeField]private TypeOfGadget stunElement;
 
         private Node _root;
         private EnemyState _state;
         private NavMeshAgent _agent;
+        private EnemyAnimHandler _animHandler;
         
         protected override Node SetupTree()
         {
             Prepare();
             _root = BuildTree();
             return _root;
+        }
+
+        private void Update()
+        {
+            _root?.Evaluate(_state == EnemyState.Stunned);
         }
 
         private Node BuildTree()
@@ -57,9 +64,9 @@ namespace com.LazyGames.Dz.Ai
         private void Prepare()
         {
             _agent = GetComponent<NavMeshAgent>();
-            //var animator = GetComponent<Animator>();
-            //var animHandler = gameObject.AddComponent<EnemyAnimHandler>();
-            //animHandler.Initiate(animator, this);
+            var animator = GetComponentInChildren<Animator>();
+            var animHandler = GetComponent<EnemyAnimHandler>();
+            animHandler.Initiate(animator, this);
         }
         
         private Vector3 DirFromAngle(float eulerY, float angleInDegrees)
@@ -79,7 +86,7 @@ namespace com.LazyGames.Dz.Ai
 
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
-            if (interactedGadget != TypeOfGadget.EMPGranade) return;
+            if (interactedGadget != stunElement) return;
             Stun();
         }
         
@@ -87,7 +94,6 @@ namespace com.LazyGames.Dz.Ai
         {
             _state = EnemyState.Stunned;
             _agent.isStopped = true;
-            _root = null;
             StartCoroutine(CorStunTime());
         }
 
@@ -95,7 +101,6 @@ namespace com.LazyGames.Dz.Ai
         {
             yield return new WaitForSeconds(stunTime);
             _state = EnemyState.Idle;
-            _root = BuildTree();
             _agent.isStopped = false;
         }
         
