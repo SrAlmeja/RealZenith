@@ -7,9 +7,14 @@ namespace com.LazyGames.Dz.Ai
         public Sequence() : base() { }
         public Sequence(List<Node> children) : base(children) { }
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
-            bool anyChildIsRunning = false;
+             if (overrideStop) 
+             {
+                state = NodeState.Failure;
+                return state; 
+             } 
+             bool anyChildIsRunning = false;
 
             foreach (Node node in children)
             {

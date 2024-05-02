@@ -18,7 +18,7 @@ namespace com.LazyGames.Dz.Ai
         }
         
 
-        public override NodeState Evaluate()
+        public override NodeState Evaluate(bool overrideStop = false)
         {
             object pos = GetData("lastKnownPosition");
             if (pos == null)

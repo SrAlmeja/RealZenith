@@ -33,7 +33,7 @@ namespace com.LazyGames.Dz.Ai
             children.Add(node);
         }
 
-        public virtual NodeState Evaluate() => NodeState.Failure;
+        public virtual NodeState Evaluate(bool overrideStop = false) => NodeState.Failure;
 
         public void SetData(string key, object value)
         {
