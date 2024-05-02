@@ -7,11 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue System/Dialogue Container")]
 public class DialogueContainer : ScriptableObject
 {
-    
     public TextAsset InkJSON;
     public AudiosDialogueData[] AudiosDialogueData;
-    
-    
     
 }
 
