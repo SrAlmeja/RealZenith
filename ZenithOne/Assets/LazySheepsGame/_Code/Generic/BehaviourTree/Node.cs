@@ -8,6 +8,11 @@ namespace com.LazyGames.Dz.Ai
         Success,
         Failure
     }
+    
+    public enum Decorators
+    {
+        Sequence, Selector, Inverter, Repeater, RepeatUntilFail, RepeatUntilSuccess, RunOnce
+    }
     public class Node
     {
         protected NodeState state;

@@ -9,12 +9,12 @@ namespace com.LazyGames.Dz.Ai
 
         public override NodeState Evaluate(bool overrideStop = false)
         {
-             if (overrideStop) 
-             {
-                state = NodeState.Failure;
+            if (overrideStop) 
+            { 
+                state = NodeState.Failure; 
                 return state; 
-             } 
-             bool anyChildIsRunning = false;
+            } 
+            bool anyChildIsRunning = false;
 
             foreach (Node node in children)
             {
