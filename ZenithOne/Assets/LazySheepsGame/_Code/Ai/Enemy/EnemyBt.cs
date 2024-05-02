@@ -1,29 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames.DZ;
+using CryoStorage;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace com.LazyGames.Dz.Ai
 {
-    public enum EnemyState { Idle, Patrolling, Investigating, Chasing, Attacking, Stunned }
+    // public enum EnemyState { Waiting, Moving, Investigating, Chasing, Attacking, Stunned, None }
+
     [SelectionBase]
-    public class EnemyBt : Tree, INoiseSensitive, IGadgetInteractable
+    public class EnemyBt : Tree, IGadgetInteractable
     {
-        public EnemyState State => _state;
-        
-        public EnemyParameters parameters;
+
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
         [SerializeField] private float stunTime = 5f;
-        [SerializeField]private TypeOfGadget stunElement;
-
-        private Node _root;
-        private EnemyState _state;
-        private NavMeshAgent _agent;
-        private EnemyAnimHandler _animHandler;
+        [SerializeField] private TypeOfGadget stunElement;
+        [Header("Parameters")]
+        [SerializeField] private EnemyParameters defaultParameters;
+        [SerializeField] private EnemyParameters alertParameters;
         
+        private Node _root;
+        // private EnemyState _state;
+        private NavMeshAgent _agent;
+        // private EnemyAnimHandler _animHandler;
+        private Animator _animator;
+
+        private EnemyVision _vision;
+        private EnemyHearing _hearing;
+        private EnemyParameters _parameters;
+        private bool _stunned;
+        private bool _chasing;
+        
+        private static readonly int Startled = Animator.StringToHash("startled");
+        private static readonly int Attack = Animator.StringToHash("attack");
+        private static readonly int Stunned = Animator.StringToHash("stunned");
+        private static readonly int Moving = Animator.StringToHash("moving");
+        private static readonly int Chasing = Animator.StringToHash("chasing");
+
         protected override Node SetupTree()
         {
             Prepare();
@@ -33,102 +49,144 @@ namespace com.LazyGames.Dz.Ai
 
         private void Update()
         {
-            _root?.Evaluate(_state == EnemyState.Stunned);
+            _root?.Evaluate(_stunned);
+            _vision.Step();
+            _agent.speed = _parameters.movementSpeed;
+            ManageAnimatorParameters();
+        }
+
+        private void ManageAnimatorParameters()
+        {
+            _animator.SetBool(Moving, _agent.velocity.magnitude > 0.3f);
+            _animator.SetBool(Chasing, _chasing);
+            // _animator.SetTrigger(Startled);
+            // _animator.ResetTrigger(Startled);
+            //
+            // _animator.SetTrigger(Attack);
+            // _animator.ResetTrigger(Attack);
+            //
+            // _animator.SetTrigger(Stunned);
+            // _animator.ResetTrigger(Stunned);
         }
 
         private Node BuildTree()
         {
             var t = transform;
             _root = new Selector(new List<Node>
-            { 
+            {
                 new Sequence(new List<Node>
                 {
-                    new CheckCanSeeTarget(t, parameters),
-                    new CheckPlayerInAttackRange(t, parameters),
-                    new TaskGoToTarget(t, parameters),
-                    new TaskAttack(t, parameters),
+                    new CheckHasTarget(t, _parameters),
+                    new CheckPlayerInAttackRange(t, _parameters),
+                    new TaskGoToTarget(t, _parameters),
+                    // new TaskLookAt(t),
+                    new TaskAttack(t, _parameters),
                 }),
                 new Sequence(new List<Node>
                 {
-                    new CheckPlayerInFov(t, parameters, playerLayer),
-                    new TaskGoToTarget(t, parameters),
+                    new CheckHasTarget(t, _parameters),
+                    new TaskGoToTarget(t, _parameters),
                 }),
-                new TaskSearchLastKnownPosition(t, parameters),
-                new TaskInvestigateNoise(t),
-                new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray(), parameters),
+                new TaskSearchLastKnownPosition(t, _parameters),
+                new TaskInvestigateNoise(t,_parameters),
+                new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray(), _parameters),
             });
-            
+
             return _root;
         }
         
-        private void Prepare()
-        {
-            _agent = GetComponent<NavMeshAgent>();
-            var animator = GetComponentInChildren<Animator>();
-            var animHandler = GetComponent<EnemyAnimHandler>();
-            animHandler.Initiate(animator, this);
-        }
-        
-        private Vector3 DirFromAngle(float eulerY, float angleInDegrees)
-        {
-            angleInDegrees += eulerY;
-            return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-        }
-
-        public void HearNoise(float intensity, Vector3 position, bool dangerous)
-        {
-            Debug.Log("heard noise");
-            object t = _root.GetData("target");
-            if (t != null) return;
-            _root.WipeData();
-            _root.SetData("NoisePosition", position);
-        }
-
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
             if (interactedGadget != stunElement) return;
             Stun();
         }
+
+
+        public void PlayerDetected(Transform target)
+        {
+            _root.SetData("target", target);
+            _parameters = alertParameters;
+            _agent.speed = _parameters.movementSpeed;
+            _vision.Parameters.coneAngle = _parameters.coneAngle;
+            _chasing = true;
+            StopAllCoroutines();
+        }
+        
+        public void PlayerLost(Vector3 lastKnownPosition)
+        {
+            _root.WipeData();
+            _root.SetData("lastKnownPosition", lastKnownPosition);
+            StartCoroutine(CorAlertCooldown());
+        }
+        
+        private IEnumerator CorAlertCooldown()
+        {
+            yield return new WaitForSeconds(_parameters.alertTime);
+            _parameters = defaultParameters;
+            _vision.Parameters.coneAngle = _parameters.coneAngle;
+            _vision.Parameters.coneAngle = _parameters.coneAngle;
+            _chasing = false;
+
+        }
+        public void NoiseHeard(Vector3 noisePosition)
+        {
+            // Debug.Log("heard noise");
+            object t = _root.GetData("target");
+            if (t != null) return;
+            _animator.Play("enemy_startled");
+            _root.WipeData();
+            _root.SetData("NoisePosition", noisePosition);
+        }
         
         private void Stun()
         {
-            _state = EnemyState.Stunned;
+            _stunned = true;
             _agent.isStopped = true;
+            // _animator.SetBool(Stunned, true);
+            // _animator.Play("enemy_stunned");
             StartCoroutine(CorStunTime());
         }
-
         private IEnumerator CorStunTime()
         {
             yield return new WaitForSeconds(stunTime);
-            _state = EnemyState.Idle;
+            _stunned = false;
             _agent.isStopped = false;
         }
         
-#if UNITY_EDITOR
+        private void Prepare()
+        {
+            _parameters = ScriptableObject.CreateInstance<EnemyParameters>();
+            _parameters = defaultParameters;
+            _agent = GetComponent<NavMeshAgent>();
+            _agent.speed = _parameters.movementSpeed;
+            _hearing = gameObject.AddComponent<EnemyHearing>();
+            _vision = gameObject.AddComponent<EnemyVision>();
+            _animator = GetComponentInChildren<Animator>();
+            
+            // var animHandler = GetComponent<EnemyAnimHandler>();
+            // animHandler.Initialize(_animator, this);
+            
+            _hearing.Initialize(this);
+            _vision.Initialize(this, _parameters, LayerMask.GetMask("Player"));
+        }
+
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            var position = transform.position + parameters.heightOffset;
-            
+            if(_parameters == null) return;
+            var position = transform.position + _parameters.heightOffset;
             Handles.color = Color.white;
-            Handles.DrawWireDisc(position, Vector3.up, parameters.hardDetectionRange);
-            
+            Handles.DrawWireDisc(position, Vector3.up, _parameters.detectionRange);
+        
             var eulerAngles = transform.eulerAngles;
-            Vector3 viewAngle01 = DirFromAngle(eulerAngles.y, -parameters.coneAngle / 2);
-            Vector3 viewAngle02 = DirFromAngle(eulerAngles.y, parameters.coneAngle / 2);
+            Vector3 viewAngle01 = CryoMath.DirFromAngle(eulerAngles.y, -_parameters.coneAngle / 2);
+            Vector3 viewAngle02 = CryoMath.DirFromAngle(eulerAngles.y, _parameters.coneAngle / 2);
         
             Handles.color = Color.yellow;
-            Handles.DrawLine(position, position + viewAngle01 * parameters.hardDetectionRange);
-            Handles.DrawLine(position, position + viewAngle02 * parameters.hardDetectionRange);
-            
-            Vector3 viewAngle03 = DirFromAngle(eulerAngles.y, (-parameters.coneAngle -40f) / 2);
-            Vector3 viewAngle04 = DirFromAngle(eulerAngles.y, (parameters.coneAngle + 40f)/ 2);
-            
-            Handles.color = Color.red;
-            Handles.DrawLine(position, position + viewAngle03 * parameters.hardDetectionRange);
-            Handles.DrawLine(position, position + viewAngle04 * parameters.hardDetectionRange);
-                
-            
+            Handles.DrawLine(position, position + viewAngle01 * _parameters.detectionRange);
+            Handles.DrawLine(position, position + viewAngle02 * _parameters.detectionRange);
         }
-#endif
+        #endif
+
     }
 }
