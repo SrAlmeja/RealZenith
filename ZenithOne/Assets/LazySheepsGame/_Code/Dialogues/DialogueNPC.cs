@@ -6,6 +6,7 @@ using DG.Tweening;
 using Obvious.Soap;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueNPC : DialogueBase
 {
@@ -15,6 +16,11 @@ public class DialogueNPC : DialogueBase
     [SerializeField] private TextMeshProUGUI _speakerText;
     [SerializeField] private TextMeshProUGUI _numberText;
 
+    [SerializeField] private GameObject _interactButtonUI;
+    
+    [Header("Input Events")]
+    [SerializeField] private InputActionReference _interactAction;
+
     private string _currentText;
     private bool _isDialogueActive;
 
@@ -22,7 +28,12 @@ public class DialogueNPC : DialogueBase
     {
         _dialogueMeshUI.SetActive(false);
     }
-    
+
+    private void OnEnable()
+    {
+        _interactAction.action.performed += Interact;
+    }
+
     public void SetDialogueToNpc(DialogueInfoUI dialogueInfoUI)
     {
         _dialogueMeshUI.SetActive(true);
@@ -57,8 +68,6 @@ public class DialogueNPC : DialogueBase
         {
             _isDialogueActive = false;
         });
-        
-        
     }
     
     private void SkipTextEffect(string text)
@@ -68,12 +77,39 @@ public class DialogueNPC : DialogueBase
         _isDialogueActive = false;
     }
     
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            EnableInteractButton(true);
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            EnableInteractButton(false);
+        }
+    }
+    
+    private void EnableInteractButton(bool enable)
+    {
+        if (_interactButtonUI == null || _interactButtonUI.activeSelf == enable)
+            return;
+        
+        _interactButtonUI.SetActive(enable);
+    }
+
+    private void Interact(InputAction.CallbackContext context)
+    {
+        if (_currentText == "")
+        {
             SendDialogue();
+        }
+        else
+        {
+            ContinueDialogue();
         }
     }
 }

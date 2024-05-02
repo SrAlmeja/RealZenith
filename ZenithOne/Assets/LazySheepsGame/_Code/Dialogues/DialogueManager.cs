@@ -17,24 +17,6 @@ namespace com.LazyGames
         private string _currentVoice;
         private int _currentDialogueIndex;
         
-        private int CountDialogueLines(string inkText)
-        {
-            var lines = inkText.Split('\n');
-            int dialogueLinesCount = 0;
-
-            foreach (var line in lines)
-            {
-                // Considera que una línea de diálogo es cualquier línea que no esté vacía y no comienza con un comentario
-                if (!string.IsNullOrWhiteSpace(line) && !line.TrimStart().StartsWith("//"))
-                {
-                    dialogueLinesCount++;
-                }
-            }
-
-            return dialogueLinesCount;
-        }
-        
-        
 
         private const string SPEAKER_TAG = "speaker";
         private const string VOICE_TAG = "voice";
@@ -76,10 +58,6 @@ namespace com.LazyGames
                 dialogueInfoUI.Speaker = _currentSpeaker;
                 dialogueInfoUI.Voice = _currentVoice;
                 dialogueInfoUI.CurrentDialogueIndex = _currentDialogueIndex;
-                // dialogueInfoUI.TotalDialogueLines = CountDialogueLines(_currentStory.);
-                
-                Debug.Log("Current Dialogue Index: ".SetColor("#41E85D") + _currentDialogueIndex);
-                Debug.Log("Total Dialogue Lines: ".SetColor("#41E85D") + dialogueInfoUI.TotalDialogueLines);
                 
                 SendInfoToUI(dialogueInfoUI);
             }
