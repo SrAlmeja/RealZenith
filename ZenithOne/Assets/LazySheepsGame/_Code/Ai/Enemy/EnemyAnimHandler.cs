@@ -23,14 +23,14 @@ namespace com.LazyGames.Dz.Ai
         {
             var len = anims.animations.Count;
             _animIndex = (_animIndex + 1) % len;
-            PlayAnim();
+            PlayNextAnim();
         }
 
-        private void PlayAnim()
+        private void PlayNextAnim()
         {
-            AnimatorController controller = _animator.runtimeAnimatorController as AnimatorController;
-            AnimatorStateMachine rootStateMachine = controller.layers[0].stateMachine;
-            foreach (ChildAnimatorState state in rootStateMachine.states)
+            var controller = _animator.runtimeAnimatorController as AnimatorController;
+            var rootStateMachine = controller.layers[0].stateMachine;
+            foreach (var state in rootStateMachine.states)
             {
                 // _animator.CrossFade(anims.animations[_animIndex].name, .02f);
                 _animIndex = (_animIndex + 1) % anims.animations.Count;
@@ -38,27 +38,6 @@ namespace com.LazyGames.Dz.Ai
                 break;
             }
         }
-
-        // void Update()
-        // {
-        //     switch (_parentBt.State)
-        //     {
-        //         case EnemyState.Idle:
-        //             break;
-        //         case EnemyState.Patrolling:
-        //             Debug.Log("playing anim");
-        //             _animator.CrossFade(anims[0].Key.name, 0.2f);
-        //             break;
-        //         case EnemyState.Investigating:
-        //             break;
-        //         case EnemyState.Chasing:
-        //             break;
-        //         case EnemyState.Attacking:
-        //             break;
-        //         case EnemyState.Stunned:
-        //             break;
-        //     }
-        // }
     }
     #if UNITY_EDITOR
     [CustomEditor(typeof(EnemyAnimHandler))]

@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4003999623428904403}
   - component: {fileID: 8971220942358350471}
-  - component: {fileID: 6064568663383605534}
   - component: {fileID: 7060812662177752021}
   - component: {fileID: -6350324759758040174}
-  m_Layer: 18
+  m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,26 +48,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickRate: 0.3
-  parameters: {fileID: 11400000, guid: c2eb447488102d6408a73d4fcfdbdf6c, type: 2}
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
   enemyWayPoints: {fileID: 0}
   stunTime: 10
   stunElement: 0
---- !u!114 &6064568663383605534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828267338819695287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e356d8d67b74ef54c9d19507da45575a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anims: {fileID: 11400000, guid: b1d5fbad498c2ee44aab02abb621f8d3, type: 2}
+  defaultParameters: {fileID: 11400000, guid: c2eb447488102d6408a73d4fcfdbdf6c, type: 2}
+  alertParameters: {fileID: 11400000, guid: a1f934b109ac6ae4ab2a15df2a9d803a, type: 2}
 --- !u!136 &7060812662177752021
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -125,7 +112,7 @@ GameObject:
   - component: {fileID: 4133704605832338349}
   - component: {fileID: 5043089944970425194}
   - component: {fileID: 3690594124562267957}
-  m_Layer: 18
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +196,7 @@ GameObject:
   - component: {fileID: 4956604610611183322}
   - component: {fileID: 7066077439405238615}
   - component: {fileID: 6651019500889400194}
-  m_Layer: 18
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2161478300688010005}
   - component: {fileID: 8235842302069022603}
-  m_Layer: 18
+  m_Layer: 2
   m_Name: vfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}

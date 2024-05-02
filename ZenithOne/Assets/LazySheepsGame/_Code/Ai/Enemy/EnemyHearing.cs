@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames.DZ;
+using com.LazyGames.Dz.Ai;
 using UnityEngine;
 
 public class EnemyHearing : MonoBehaviour, INoiseSensitive
 {
-   //pending
+   private EnemyBt _parentBt;
+   public void Initialize(EnemyBt parentBt)
+   {
+      _parentBt = parentBt;
+   }
    public void HearNoise(float intensity, Vector3 position, bool dangerous)
    {
-      throw new System.NotImplementedException();
+      _parentBt.NoiseHeard(position);
    }
 }
