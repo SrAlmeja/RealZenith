@@ -1,32 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ink.Runtime;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue System/Dialogue Container")]
 public class DialogueContainer : ScriptableObject
-{    
-    public string name;
-    public Dialogue[] dialogues;
+{
+    
+    public TextAsset InkJSON;
+    public AudiosDialogueData[] AudiosDialogueData;
+    
+    
     
 }
 
 [Serializable]
-public class Dialogue
+public class AudiosDialogueData
 {
-    public bool _canRepeat;
-    public bool _hasFinished;
-    public string[] sentences;
-    
-    public bool CanRepeat
-    {
-        get => _canRepeat;
-        set => _canRepeat = value;
-    }
-    
-    public bool HasFinished
-    {
-        get => _hasFinished;
-        set => _hasFinished = value;
-    }
+    public string Section;
+    public AudioDialogue[] AudioDialogues;
+}
+[Serializable]
+public class AudioDialogue
+{
+    public string ID;
+    public AudioClip DialogueAudioClip;
 }
