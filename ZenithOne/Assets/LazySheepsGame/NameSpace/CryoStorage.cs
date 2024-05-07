@@ -23,6 +23,12 @@ namespace CryoStorage
             Vector3 result = center.position + new Vector3(xOffset, 0f, zOffset);
             return result;
         }
+        
+        public static Vector3 DirFromAngle(float eulerY, float angleInDegrees)
+        {
+            angleInDegrees += eulerY;
+            return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+        }
 
         public static Quaternion AimAtDirection(Vector3 center, Vector3 position)
         {

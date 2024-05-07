@@ -15,18 +15,17 @@ public class DialogueBase : MonoBehaviour
     [Header("Container")]
     [SerializeField] private DialogueContainer _dialogueContainer;
     public TextAsset InkJSON => _dialogueContainer.InkJSON;
-    public 
-    void Start()
+    protected virtual void Start()
     {
         _onDialogueEnd.OnRaised += OnDialogueEnd;
     }
     
-    public void SendDialogue()
+    public virtual void SendDialogue()
     {
         _onDialogueSend.Raise(this);
     }
     
-    public void ContinueDialogue()
+    public virtual void ContinueDialogue()
     {
         _onConinueDialogue.Raise();
     }

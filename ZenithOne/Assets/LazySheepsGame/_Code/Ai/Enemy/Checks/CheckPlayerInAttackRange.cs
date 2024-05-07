@@ -14,7 +14,6 @@ namespace com.LazyGames.Dz.Ai
         {
             _transform = transform;
             _parameters = parameters;
-            // _animator = transform.GetComponent<Animator>();
         }
         
         public override NodeState Evaluate(bool overrideStop = false)
@@ -26,7 +25,6 @@ namespace com.LazyGames.Dz.Ai
                 return state;
             }
             Transform target = (Transform) t;
-            // Debug.Log($"attackRange: {_parameters.attackRange}, Dist: {Vector3.Distance(_transform.position, target.position)}");
             if (Vector3.Distance(_transform.position, target.position) <= _parameters.attackRange)
             {
                 state = NodeState.Success;
