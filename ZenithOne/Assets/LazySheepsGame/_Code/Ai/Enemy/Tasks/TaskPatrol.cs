@@ -27,7 +27,7 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
             _wayPoints = wayPoints;
             _agent = transform.GetComponent<NavMeshAgent>();
-            _agent.speed = _parameters.patrolSpeed;
+            _agent.speed = _parameters.movementSpeed;
             _waitTime = _wayPoints[_currentWayPoint].WaitTime;
         }
         
