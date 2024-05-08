@@ -2,115 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.SceneManagement;
+using System;
 
 namespace Verpha.HierarchyDesigner
 {
     [InitializeOnLoad]
     public class HierarchyDesigner_Visual_Separator
     {
-        #region Default Values
-        private static readonly Color defaultBackgroundColor = Color.gray;
-        private static readonly Color defaultTextColor = Color.white;
-        private static readonly FontStyle defaultFontStyle = FontStyle.Normal;
-        private static readonly int defaultFontSize = 12;
-        private static readonly TextAnchor defaultTextAlignment = TextAnchor.MiddleCenter;
-        private static readonly HierarchyDesigner_Info_Separator.BackgroundImageType defaultImageType = HierarchyDesigner_Info_Separator.BackgroundImageType.Classic;
+        #region Cached Properties
+        private static readonly (Color textColor, Color backgroundColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment, HierarchyDesigner_Info_Separator.BackgroundImageType imageType) defaultSeparatorInfo = (Color.white, Color.gray, FontStyle.Normal, 12, TextAnchor.MiddleCenter, HierarchyDesigner_Info_Separator.BackgroundImageType.Classic);
+        private static Dictionary<int, WeakReference<GameObject>> separatorCache = new Dictionary<int, WeakReference<GameObject>>();
+        private static Dictionary<string, (Color textColor, Color backgroundColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment, HierarchyDesigner_Info_Separator.BackgroundImageType imageType)> separatorInfoCache = new Dictionary<string, (Color, Color, FontStyle, int, TextAnchor, HierarchyDesigner_Info_Separator.BackgroundImageType)>();
         #endregion
-        #region Text Style Struct
-        struct TextStyleKey
-        {
-            public Color TextColor;
-            public FontStyle FontStyle;
-            public int FontSize;
-            public TextAnchor TextAlignment;
-
-            public TextStyleKey(Color textColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment)
-            {
-                TextColor = textColor;
-                FontStyle = fontStyle;
-                FontSize = fontSize;
-                TextAlignment = textAlignment;
-            }
-
-            public override bool Equals(object obj)
-            {
-                return obj is TextStyleKey key &&
-                       TextColor.Equals(key.TextColor) &&
-                       FontStyle == key.FontStyle &&
-                       FontSize == key.FontSize &&
-                       TextAlignment == key.TextAlignment;
-            }
-
-            public override int GetHashCode()
-            {
-                return System.HashCode.Combine(TextColor, FontStyle, FontSize, TextAlignment);
-            }
-        }
-        #endregion      
-        private static readonly HashSet<int> separatorInstanceIDs = new HashSet<int>();
-        private static readonly HierarchyDesigner_Info_Separator defaultSeparatorInfo = new HierarchyDesigner_Info_Separator("Separator", defaultTextColor, defaultBackgroundColor, defaultFontStyle, defaultFontSize, defaultTextAlignment, defaultImageType);
-        private static readonly Dictionary<TextStyleKey, GUIStyle> textStyleCache = new Dictionary<TextStyleKey, GUIStyle>();
 
         static HierarchyDesigner_Visual_Separator()
         {
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyItemCB;
-            HierarchySeparatorWindow.LoadSeparators();
-            EditorApplication.delayCall += UpdateSeparatorVisuals;
-            UnityEditor.SceneManagement.EditorSceneManager.sceneOpened += (scene, mode) => { UpdateSeparatorVisuals(); };
-        }
-
-        public static void UpdateSeparatorVisuals()
-        {
-            CacheAllSeparators();
-            EditorApplication.RepaintHierarchyWindow();
-        }
-
-        private static void CacheAllSeparators()
-        {
-            separatorInstanceIDs.Clear();
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                Scene scene = SceneManager.GetSceneAt(i);
-                if (!scene.isLoaded) continue;
-
-                foreach (GameObject rootObj in scene.GetRootGameObjects())
-                {
-                    CacheSeparatorsInHierarchy(rootObj.transform);
-                }
-            }
-        }
-
-        private static void CacheSeparatorsInHierarchy(Transform root)
-        {
-            if (IsSeparator(root.gameObject))
-            {
-                separatorInstanceIDs.Add(root.gameObject.GetInstanceID());
-            }
-            foreach (Transform child in root)
-            {
-                CacheSeparatorsInHierarchy(child);
-            }
-        }
-
-        private static bool IsSeparator(GameObject gameObject)
-        {
-            return gameObject.tag == "EditorOnly" && gameObject.name.StartsWith("//");
+            UpdateSeparatorVisuals();
         }
 
         private static void HierarchyItemCB(int instanceID, Rect selectionRect)
         {
-            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && EditorApplication.isPlaying) return;
-            if (!separatorInstanceIDs.Contains(instanceID)) return;
+            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && HierarchyDesigner_Shared_EditorState.IsPlaying) return;
+            if (Event.current.type != EventType.Repaint) return;
+            if (!TryGetGameObject(instanceID, out GameObject gameObject)) return;
 
-            GameObject gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
-            if (gameObject != null && IsSeparator(gameObject))
-            {
-                DrawSeparator(gameObject, selectionRect);
-            }
+            string separatorKey = gameObject.name.Replace("//", "").Trim();
+            (Color textColor, Color backgroundColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment, HierarchyDesigner_Info_Separator.BackgroundImageType imageType) separatorInfo = GetSeparatorInfo(separatorKey);
+            DrawSeparator(selectionRect, separatorInfo, instanceID, separatorKey);
         }
 
-        private static void DrawSeparator(GameObject gameObject, Rect selectionRect)
+        private static bool TryGetGameObject(int instanceID, out GameObject gameObject)
+        {
+            if (separatorCache.TryGetValue(instanceID, out WeakReference<GameObject> weakRef) && weakRef.TryGetTarget(out gameObject))
+            {
+                return IsSeparator(gameObject);
+            }
+            gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
+            if (gameObject != null && IsSeparator(gameObject))
+            {
+                separatorCache[instanceID] = new WeakReference<GameObject>(gameObject);
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsSeparator(GameObject gameObject)
+        {
+            if (gameObject == null) return false;
+            return gameObject.tag == "EditorOnly" && gameObject.name.StartsWith("//");
+        }
+
+        private static void DrawSeparator(Rect selectionRect, (Color textColor, Color backgroundColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment, HierarchyDesigner_Info_Separator.BackgroundImageType imageType) separatorInfo, int instanceID, string separatorKey)
         {
             GUI.color = HierarchyDesigner_Shared_ColorUtility.GetEditorBackgroundColor();
             GUI.DrawTexture(new Rect(32, selectionRect.y, EditorGUIUtility.currentViewWidth, selectionRect.height), EditorGUIUtility.whiteTexture);
@@ -119,40 +62,27 @@ namespace Verpha.HierarchyDesigner
             selectionRect.x = 32;
             selectionRect.width = EditorGUIUtility.currentViewWidth;
 
-            string separatorKey = gameObject.name.Replace("//", "").Trim();
-            HierarchyDesigner_Info_Separator separatorInfo;
-
-            if (!HierarchySeparatorWindow.separators.TryGetValue(separatorKey, out separatorInfo))
+            if (!separatorInfoCache.TryGetValue(separatorKey, out var info))
             {
-                separatorInfo = defaultSeparatorInfo;
+                info = defaultSeparatorInfo;
             }
 
-            GUIStyle textStyle = GetCachedTextStyle(separatorInfo.TextColor, separatorInfo.FontStyle, separatorInfo.FontSize, separatorInfo.TextAlignment);
-            Texture2D backgroundTexture = HierarchyDesigner_Manager_Background.GetBackgroundImage(separatorInfo.ImageType);
+            GUIStyle textStyle = new GUIStyle
+            {
+                alignment = info.textAlignment,
+                fontSize = info.fontSize,
+                fontStyle = info.fontStyle,
+                normal = { textColor = info.textColor }
+            };
 
-            GUI.color = separatorInfo.BackgroundColor;
+            Texture2D backgroundTexture = HierarchyDesigner_Manager_Background.GetBackgroundImage(info.imageType);
+
+            GUI.color = info.backgroundColor;
             GUI.DrawTexture(selectionRect, backgroundTexture);
             GUI.color = Color.white;
 
-            Rect textRect = AdjustRect(selectionRect, separatorInfo.TextAlignment);
-            GUI.Label(textRect, separatorInfo.Name, textStyle);
-        }
-
-        private static GUIStyle GetCachedTextStyle(Color textColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment)
-        {
-            TextStyleKey key = new TextStyleKey(textColor, fontStyle, fontSize, textAlignment);
-            if (!textStyleCache.TryGetValue(key, out GUIStyle textStyle))
-            {
-                textStyle = new GUIStyle
-                {
-                    alignment = textAlignment,
-                    fontSize = fontSize,
-                    fontStyle = fontStyle,
-                    normal = { textColor = textColor }
-                };
-                textStyleCache[key] = textStyle;
-            }
-            return textStyle;
+            Rect textRect = AdjustRect(selectionRect, info.textAlignment);
+            GUI.Label(textRect, separatorKey, textStyle);
         }
 
         private static Rect AdjustRect(Rect rect, TextAnchor textAlignment)
@@ -171,6 +101,36 @@ namespace Verpha.HierarchyDesigner
                     break;
             }
             return rect;
+        }
+
+        private static (Color textColor, Color backgroundColor, FontStyle fontStyle, int fontSize, TextAnchor textAlignment, HierarchyDesigner_Info_Separator.BackgroundImageType imageType) GetSeparatorInfo(string separatorName)
+        {
+            if (!separatorInfoCache.TryGetValue(separatorName, out var info))
+            {
+                if (HierarchySeparatorWindow.separators.TryGetValue(separatorName, out HierarchyDesigner_Info_Separator separator))
+                {
+                    info = (separator.TextColor, separator.BackgroundColor, separator.FontStyle, separator.FontSize, separator.TextAlignment, separator.ImageType);
+                    separatorInfoCache[separatorName] = info;
+                }
+                else
+                {
+                    info = defaultSeparatorInfo;
+                }
+            }
+            return info;
+        }
+
+        public static void UpdateSeparatorVisuals()
+        {
+            if (HierarchyDesigner_Data_Separator.separators.Count > 0)
+            {
+                separatorInfoCache.Clear();
+                foreach (var separator in HierarchyDesigner_Data_Separator.separators)
+                {
+                    separatorInfoCache[separator.Key] = (separator.Value.TextColor, separator.Value.BackgroundColor, separator.Value.FontStyle, separator.Value.FontSize, separator.Value.TextAlignment, separator.Value.ImageType);
+                }
+                EditorApplication.RepaintHierarchyWindow();
+            }
         }
     }
 }

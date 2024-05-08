@@ -16,7 +16,7 @@ namespace Verpha.HierarchyDesigner
 
         private static void OnHierarchyWindowItemGUI(int instanceID, Rect selectionRect)
         {
-            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && EditorApplication.isPlaying) return;
+            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && HierarchyDesigner_Shared_EditorState.IsPlaying) return;
             if (actionApplied) return;
 
             Event currentEvent = Event.current;
@@ -28,21 +28,21 @@ namespace Verpha.HierarchyDesigner
             bool isHovered = selectionRect.Contains(currentEvent.mousePosition);
             GameObject[] selectedObjects = Selection.gameObjects;
 
-            bool isEnableDisableShortcutPressed = IsShortcutPressed(HierarchyDesigner_Manager_Settings.EnableDisableShortcut);
-            bool isLockUnlockShortcutPressed = IsShortcutPressed(HierarchyDesigner_Manager_Settings.LockUnlockShortcut);
+            bool isShortcutPressed = IsShortcutPressed(HierarchyDesigner_Manager_Settings.EnableDisableShortcut) || IsShortcutPressed(HierarchyDesigner_Manager_Settings.LockUnlockShortcut);
+            if (!isShortcutPressed) return;
 
-            if (selectedObjects.Length >= 2 && (isEnableDisableShortcutPressed || isLockUnlockShortcutPressed))
+            if (selectedObjects.Length >= 1)
             {
                 foreach (GameObject obj in selectedObjects)
                 {
-                    ApplyShortcutAction(obj, isEnableDisableShortcutPressed, isLockUnlockShortcutPressed);
+                    ApplyShortcutAction(obj, IsShortcutPressed(HierarchyDesigner_Manager_Settings.EnableDisableShortcut), IsShortcutPressed(HierarchyDesigner_Manager_Settings.LockUnlockShortcut));
                 }
                 actionApplied = true;
                 EditorApplication.delayCall += ResetActionAppliedFlag;
             }
-            else if (isHovered && (isEnableDisableShortcutPressed || isLockUnlockShortcutPressed))
+            else if (isHovered)
             {
-                ApplyShortcutAction(hoveredObj, isEnableDisableShortcutPressed, isLockUnlockShortcutPressed);
+                ApplyShortcutAction(hoveredObj, IsShortcutPressed(HierarchyDesigner_Manager_Settings.EnableDisableShortcut), IsShortcutPressed(HierarchyDesigner_Manager_Settings.LockUnlockShortcut));
             }
         }
 
@@ -52,7 +52,7 @@ namespace Verpha.HierarchyDesigner
             {
                 ToggleActiveState(obj);
             }
-            else if (isLockUnlockShortcutPressed)
+            if (isLockUnlockShortcutPressed)
             {
                 ToggleLockState(obj);
             }

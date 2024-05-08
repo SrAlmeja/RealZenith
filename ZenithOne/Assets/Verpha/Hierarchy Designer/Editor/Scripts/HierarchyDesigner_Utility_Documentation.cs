@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEditor;
 using System.Diagnostics;
 using System.IO;
-using System.Collections.Generic;
 
 namespace Verpha.HierarchyDesigner
 {
@@ -15,28 +14,26 @@ namespace Verpha.HierarchyDesigner
         private static void OpenDocumentation()
         {
             string assetsPath = Application.dataPath;
-            string searchPattern = "Verpha" + Path.DirectorySeparatorChar +
-                                   "Hierarchy Designer" + Path.DirectorySeparatorChar +
-                                   "Editor" + Path.DirectorySeparatorChar +
-                                   "Documentation" + Path.DirectorySeparatorChar +
-                                   DocumentationFileName;
-
             string[] allFiles = Directory.GetFiles(assetsPath, DocumentationFileName, SearchOption.AllDirectories);
-            List<string> filteredFiles = new List<string>();
 
+            string documentationFile = null;
             foreach (string file in allFiles)
             {
-                if (file.EndsWith(searchPattern))
+                if (file.Contains("Hierarchy Designer") &&
+                    file.Contains("Editor") &&
+                    file.Contains("Documentation") &&
+                    Path.GetFileName(file) == DocumentationFileName)
                 {
-                    filteredFiles.Add(file);
+                    documentationFile = file;
+                    break;
                 }
             }
 
-            if (filteredFiles.Count > 0)
+            if (!string.IsNullOrEmpty(documentationFile))
             {
                 try
                 {
-                    Process.Start(filteredFiles[0]);
+                    Process.Start(new ProcessStartInfo { FileName = documentationFile, UseShellExecute = true });
                 }
                 catch (System.Exception ex)
                 {

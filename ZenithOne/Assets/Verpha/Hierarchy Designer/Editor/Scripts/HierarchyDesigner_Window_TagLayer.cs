@@ -88,10 +88,7 @@ namespace Verpha.HierarchyDesigner
             
             EditorGUILayout.EndVertical();
 
-            if (cancelLayout)
-            {
-                return;
-            }
+            if (cancelLayout) { return; }
         }
 
         private static int AskToChangeChildrenLayers(GameObject obj, int newLayer)

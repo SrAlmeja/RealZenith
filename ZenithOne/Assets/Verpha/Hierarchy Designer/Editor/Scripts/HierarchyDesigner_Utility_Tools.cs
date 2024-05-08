@@ -92,6 +92,10 @@ namespace Verpha.HierarchyDesigner
         [MenuItem(MenuPath + "Counting/3D Object/Count All Wind Zones", false, priorityBase + priorityDivisorTwo + 1)]
         [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Counting)]
         public static void CountAllWindZones() => CountAllOfComponentType<WindZone>("Wind Zones");
+
+        [MenuItem(MenuPath + "Counting/3D Object/Count All Skinned Mesh Renderers", false, priorityBase + priorityDivisorTwo + 1)]
+        [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Counting)]
+        public static void CountAllSkinnedMeshRenderers() => CountAllOfComponentType<SkinnedMeshRenderer>("Skinned Mesh Renderers");
         #endregion
 
         #region Audio
@@ -228,6 +232,12 @@ namespace Verpha.HierarchyDesigner
         public static void CountAllCameras() => CountAllOfComponentType<Camera>("Cameras");
         #endregion
 
+        #region Others
+        [MenuItem(MenuPath + "Counting/Others/Count All MonoBehaviours", false, priorityBase + 4)]
+        [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Counting)]
+        public static void CountAllMonoBehaviours() => CountAllOfComponentsType<MonoBehaviour>("MonoBehaviour (Scripts)");
+        #endregion
+
         #region Integrations
         [MenuItem(MenuPath + "Counting/Integrations/Count All Folders", false, priorityBase + priorityDivisor + 4)]
         [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Counting)]
@@ -358,6 +368,10 @@ namespace Verpha.HierarchyDesigner
         [MenuItem(MenuPath + "Selecting/3D Object/Select All Wind Zones", false, priorityBase + priorityDivisorTwo + 1)]
         [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Selecting)]
         public static void SelectAllTerrainsWindZones() => SelectAllOfComponentType<WindZone>();
+
+        [MenuItem(MenuPath + "Selecting/3D Object/Select All Skinned Mesh Renderers", false, priorityBase + priorityDivisorTwo + 1)]
+        [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Selecting)]
+        public static void SelectAllSkinnedMeshRenderers() => SelectAllOfComponentType<SkinnedMeshRenderer>();
         #endregion
 
         #region Audio
@@ -503,6 +517,12 @@ namespace Verpha.HierarchyDesigner
         public static void SelectAllCameras() => SelectAllOfComponentType<Camera>();
         #endregion
 
+        #region Others
+        [MenuItem(MenuPath + "Selecting/Others/Select All MonoBehaviours", false, priorityBase + 4)]
+        [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Selecting)]
+        public static void SelectAllMonoBehaviours() => SelectAllOfComponentType<MonoBehaviour>();
+        #endregion
+
         #region Integrations
         [MenuItem(MenuPath + "Selecting/Integrations/Select All Folders", false, priorityBase + priorityDivisor + 4)]
         [HierarchyDesigner_Tool(HierarchyDesigner_ToolCategory.Selecting)]
@@ -615,6 +635,60 @@ namespace Verpha.HierarchyDesigner
 
             string namesString = names.Count > 0 ? string.Join(", ", names) : "none";
             Debug.Log($"Total {componentName} in the scene: {count}.\n{componentName} Found: {namesString}.\n");
+        }
+
+        private static void CountAllOfComponentsType<T>(string componentName) where T : Component
+        {
+            var allGameObjects = GetAllGameObjectsInScene();
+            int totalComponentCount = 0;
+            List<string> detailedNames = new List<string>();
+
+            foreach (GameObject gameObject in allGameObjects)
+            {
+                T[] components = gameObject.GetComponents<T>();
+                if (components.Length > 0)
+                {
+                    List<string> componentNames = new List<string>();
+                    foreach (T component in components)
+                    {
+                        if (component != null)
+                        {
+                            componentNames.Add(component.GetType().Name);
+                        }
+                        else
+                        {
+                            componentNames.Add("Invalid MonoBehaviour");
+                        }
+                    }
+                    if (componentNames.Count > 0)
+                    {
+                        totalComponentCount += components.Length;
+                        string componentDetails = $"{gameObject.name} ({string.Join(", ", componentNames)})";
+                        detailedNames.Add(componentDetails);
+                    }
+                }
+            }
+
+            string namesString = detailedNames.Count > 0 ? string.Join(", ", detailedNames) : "none";
+            Debug.Log($"Total {componentName} in the scene: {totalComponentCount}.\n{componentName} Found: {namesString}.\n");
+        }
+
+        private static IEnumerable<GameObject> GetAllGameObjectsInScene()
+        {
+            GameObject[] rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+            List<GameObject> allGameObjects = new List<GameObject>();
+            Stack<GameObject> stack = new Stack<GameObject>(rootObjects);
+
+            while (stack.Count > 0)
+            {
+                GameObject current = stack.Pop();
+                allGameObjects.Add(current);
+                foreach (Transform child in current.transform)
+                {
+                    stack.Push(child.gameObject);
+                }
+            }
+            return allGameObjects;
         }
 
         private static void CountAll2DSpritesByType(string spriteType)

@@ -6,10 +6,12 @@ namespace Verpha.HierarchyDesigner
     [InitializeOnLoad]
     public class HierarchyDesigner_Utility_ImportReload : AssetPostprocessor
     {
+        #region Properties
         static string ReloadedAssetsSessionStateName = "HierarchyDesigner_ImportReload";
         static string SpecificScriptToReimport = "HierarchyDesigner_Shared_TextureLoader";
         static string ReimportAttemptCountKey = "HierarchyDesigner_ReimportAttemptCount";
         static int MaxReimportAttempts = 2;
+        #endregion
 
         static HierarchyDesigner_Utility_ImportReload()
         {
@@ -37,17 +39,9 @@ namespace Verpha.HierarchyDesigner
             }
         }
 
-        static void OnPostprocessAllAssets(
-        string[] importedAssets,
-        string[] deletedAssets,
-        string[] movedAssets,
-        string[] movedFromAssetPaths)
+        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            if (SessionState.GetBool(ReloadedAssetsSessionStateName, false) || TexturesLoaded())
-            {
-                return;
-            }
-
+            if (SessionState.GetBool(ReloadedAssetsSessionStateName, false) || TexturesLoaded()) { return; }
             foreach (string asset in importedAssets)
             {
                 if (asset.Contains(SpecificScriptToReimport))
@@ -70,7 +64,7 @@ namespace Verpha.HierarchyDesigner
 
         private static void PerformReimport()
         {
-            var guids = AssetDatabase.FindAssets(SpecificScriptToReimport + " t:Script");
+            string[] guids = AssetDatabase.FindAssets(SpecificScriptToReimport + " t:Script");
             if (guids.Length > 0)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guids[0]);

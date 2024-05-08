@@ -4,12 +4,15 @@ using UnityEngine;
 namespace Verpha.HierarchyDesigner
 {
     [System.Serializable]
-    public class HierarchyDesigner_Info_TagLayer
+    public class HierarchyDesigner_Info_Tag
     {
-        private Color textColor = Color.white;
-        private FontStyle fontStyle = FontStyle.Normal;
-        private int fontSize = 12;
+        #region Properties
+        private Color textColor = Color.gray;
+        private FontStyle fontStyle = FontStyle.BoldAndItalic;
+        private int fontSize = 9;
+        #endregion
 
+        #region Accessors
         public Color TextColor
         {
             get { return textColor; }
@@ -27,8 +30,9 @@ namespace Verpha.HierarchyDesigner
             get { return fontSize; }
             set { fontSize = value; }
         }
+        #endregion
 
-        public HierarchyDesigner_Info_TagLayer(Color textColor, FontStyle fontStyle, int fontSize)
+        public HierarchyDesigner_Info_Tag(Color textColor, FontStyle fontStyle, int fontSize)
         {
             this.textColor = textColor;
             this.fontStyle = fontStyle;
