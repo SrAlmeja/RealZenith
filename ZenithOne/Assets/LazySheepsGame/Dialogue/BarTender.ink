@@ -1,18 +1,9 @@
 
-//Marth Primera entrada al bar
- Hey, Dammon… see that guy behind the bar? Go greet him. #speaker:Marth #voice:Marth_1
- 
- This’ll be our new… “base”, let’s call it. #speaker:Marth #voice:Marth_2
- 
- The man is named John, met him some years back when developing the bunkers, got one right in his backyard. And of course, he owns the place. #speaker:Marth #voice:Marth_3
-
--> Jhon_1
 ===  Jhon_1 ===
-Yeah I know you, and that’s right, this piece of wood is in the safe zone so I didn’t mind the extra security. Plus, it’s good for my “Buzzards”. #speaker:Jhon #voice:John_1
+Hey, I've heard about you.
 
--> DONE
-=== Marth_2 ===
-Right, your buzzards… sure don’t know how y’all do it. We’ll be planning every bunker infiltration right ‘ere. Why? Hand-distance booze oughta be a nice one... The bunker below this bar is our only accessible safe entrance “downstairs”. Plus, from here, the device that was meant to end it all is not far…  #speaker:Marth #voice:Marth_2
+And that’s right, this piece of wood has got its own bunker entrance in the backyard, we're in “Safe Zone” so this is your freeway pass in and out. #speaker:Jhon #voice:John_1
+
 -> DONE
 ===  Jhon_2 ===
 Talking about that gas contraption, right? #speaker:Jhon #voice:John_2
