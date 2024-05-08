@@ -24,3 +24,11 @@ public class AudioDialogue
     public string ID;
     public AudioClip DialogueAudioClip;
 }
+
+[Serializable]
+public class InksContainers
+{
+    public string Section;
+    public TextAsset InkJSON;
+    //public Action<string>
+}
