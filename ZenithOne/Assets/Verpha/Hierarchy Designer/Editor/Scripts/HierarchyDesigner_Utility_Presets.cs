@@ -23,7 +23,9 @@ namespace Verpha.HierarchyDesigner
                 HierarchyDesigner_Info_Presets.BlackAndGoldPreset(),
                 HierarchyDesigner_Info_Presets.BlackAndWhitePreset(),
                 HierarchyDesigner_Info_Presets.BloodyMaryPreset(),
+                HierarchyDesigner_Info_Presets.BlueHarmonyPreset(),
                 HierarchyDesigner_Info_Presets.DeepOceanPreset(),
+                HierarchyDesigner_Info_Presets.DunesPreset(),
                 HierarchyDesigner_Info_Presets.MinimalBlackPreset(),
                 HierarchyDesigner_Info_Presets.MinimalWhitePreset(),
                 HierarchyDesigner_Info_Presets.NaturePreset(),
@@ -42,19 +44,20 @@ namespace Verpha.HierarchyDesigner
 
         public static void ApplyPresetToFolders(HierarchyDesigner_Info_Presets preset)
         {
-            foreach (HierarchyDesigner_Info_Folder folder in HierarchyFolderWindow.folders.Values)
+            HierarchyDesigner_Data_Folder.LoadFolders();
+            foreach (HierarchyDesigner_Info_Folder folder in HierarchyDesigner_Data_Folder.folders.Values)
             {
                 folder.FolderColor = preset.folderColor;
                 folder.ImageType = preset.folderImageType;
             }
-
+            HierarchyDesigner_Data_Folder.SaveFolders();
             HierarchyDesigner_Visual_Folder.UpdateFolderVisuals();
-            HierarchyFolderWindow.SaveFolders();
         }
 
         public static void ApplyPresetToSeparators(HierarchyDesigner_Info_Presets preset)
         {
-            foreach (HierarchyDesigner_Info_Separator separator in HierarchySeparatorWindow.separators.Values)
+            HierarchyDesigner_Data_Separator.LoadSeparators();
+            foreach (HierarchyDesigner_Info_Separator separator in HierarchyDesigner_Data_Separator.separators.Values)
             {
                 separator.TextColor = preset.separatorTextColor;
                 separator.BackgroundColor = preset.separatorBackgroundColor;
@@ -63,16 +66,23 @@ namespace Verpha.HierarchyDesigner
                 separator.TextAlignment = preset.separatorTextAlignment;
                 separator.ImageType = preset.separatorBackgroundImageType;
             }
-
+            HierarchyDesigner_Data_Separator.SaveSeparators();
             HierarchyDesigner_Visual_Separator.UpdateSeparatorVisuals();
-            HierarchySeparatorWindow.SaveSeparators();
         }
 
-        public static void ApplyPresetToTagLayer(HierarchyDesigner_Info_Presets preset)
+        public static void ApplyPresetToTag(HierarchyDesigner_Info_Presets preset)
         {
-            HierarchyDesigner_Manager_Settings.TagLayerTextColor = preset.tagLayerTextColor;
-            HierarchyDesigner_Manager_Settings.TagLayerFontStyle = preset.tagLayerFontStyle;
-            HierarchyDesigner_Manager_Settings.TagLayerFontSize = preset.tagLayerFontSize;
+            HierarchyDesigner_Manager_Settings.TagTextColor = preset.tagTextColor;
+            HierarchyDesigner_Manager_Settings.TagFontStyle = preset.tagFontStyle;
+            HierarchyDesigner_Manager_Settings.TagFontSize = preset.tagFontSize;
+            HierarchyDesigner_Visual_GameObject.RecalculateTagAndLayerSizes();
+        }
+
+        public static void ApplyPresetToLayer(HierarchyDesigner_Info_Presets preset)
+        {
+            HierarchyDesigner_Manager_Settings.LayerTextColor = preset.layerTextColor;
+            HierarchyDesigner_Manager_Settings.LayerFontStyle = preset.layerFontStyle;
+            HierarchyDesigner_Manager_Settings.LayerFontSize = preset.layerFontSize;
             HierarchyDesigner_Visual_GameObject.RecalculateTagAndLayerSizes();
         }
 

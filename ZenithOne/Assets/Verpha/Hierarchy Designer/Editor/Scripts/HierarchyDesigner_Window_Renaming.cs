@@ -21,7 +21,7 @@ namespace Verpha.HierarchyDesigner
         public static void OpenWindow(GameObject[] gameObjects, Vector2 position, bool autoIndex = true)
         {
             HierarchyDesigner_Window_Renaming window = GetWindow<HierarchyDesigner_Window_Renaming>("Hierarchy Designer Renaming");
-            Vector2 size = new Vector2(350, 115);
+            Vector2 size = new Vector2(350, 118);
             window.minSize = size;
 
             autoIncrementation = autoIndex;

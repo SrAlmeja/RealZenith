@@ -34,6 +34,10 @@ namespace Verpha.HierarchyDesigner
                         childFolder.RecursivelyFlatten(child);
                         Destroy(child.gameObject);
                     }
+                    else
+                    {
+                        child.SetParent(null);
+                    }
                 }
                 else
                 {
