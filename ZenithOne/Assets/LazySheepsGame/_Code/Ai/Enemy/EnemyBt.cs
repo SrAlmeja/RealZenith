@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using com.LazyGames.DZ;
 using CryoStorage;
 using UnityEditor;
 using UnityEngine;
@@ -32,10 +31,8 @@ namespace com.LazyGames.Dz.Ai
         private EnemyHearing _hearing;
         private EnemyParameters _parameters;
         private bool _stunned;
-        private bool _chasing;
+        private bool _startled;
         
-        private static readonly int Startled = Animator.StringToHash("startled");
-        private static readonly int Attack = Animator.StringToHash("attack");
         private static readonly int Stunned = Animator.StringToHash("stunned");
         private static readonly int Moving = Animator.StringToHash("moving");
         private static readonly int Chasing = Animator.StringToHash("chasing");
@@ -52,21 +49,7 @@ namespace com.LazyGames.Dz.Ai
             _root?.Evaluate(_stunned);
             _vision.Step();
             _agent.speed = _parameters.movementSpeed;
-            ManageAnimatorParameters();
-        }
-
-        private void ManageAnimatorParameters()
-        {
             _animator.SetBool(Moving, _agent.velocity.magnitude > 0.3f);
-            _animator.SetBool(Chasing, _chasing);
-            // _animator.SetTrigger(Startled);
-            // _animator.ResetTrigger(Startled);
-            //
-            // _animator.SetTrigger(Attack);
-            // _animator.ResetTrigger(Attack);
-            //
-            // _animator.SetTrigger(Stunned);
-            // _animator.ResetTrigger(Stunned);
         }
 
         private Node BuildTree()
@@ -108,8 +91,13 @@ namespace com.LazyGames.Dz.Ai
             _parameters = alertParameters;
             _agent.speed = _parameters.movementSpeed;
             _vision.Parameters.coneAngle = _parameters.coneAngle;
-            _chasing = true;
+            _animator.SetBool(Chasing, true);
+
             StopAllCoroutines();
+            
+            if(_startled) return;
+            _animator.Play("enemy_startled");
+            _startled = true;
         }
         
         public void PlayerLost(Vector3 lastKnownPosition)
@@ -125,32 +113,39 @@ namespace com.LazyGames.Dz.Ai
             _parameters = defaultParameters;
             _vision.Parameters.coneAngle = _parameters.coneAngle;
             _vision.Parameters.coneAngle = _parameters.coneAngle;
-            _chasing = false;
+            _animator.SetBool(Chasing, true);
+            _startled = false;
 
         }
+        
         public void NoiseHeard(Vector3 noisePosition)
         {
             // Debug.Log("heard noise");
             object t = _root.GetData("target");
             if (t != null) return;
-            _animator.Play("enemy_startled");
             _root.WipeData();
             _root.SetData("NoisePosition", noisePosition);
+            if(_startled) return;
+            _animator.Play("enemy_startled");
+            _startled = true;
         }
         
         private void Stun()
         {
             _stunned = true;
             _agent.isStopped = true;
+            _animator.Play("enemy_stunned");
+            _animator.SetBool(Stunned, true);
             // _animator.SetBool(Stunned, true);
             // _animator.Play("enemy_stunned");
             StartCoroutine(CorStunTime());
         }
         private IEnumerator CorStunTime()
         {
-            yield return new WaitForSeconds(stunTime);
+            yield return new WaitForSeconds(_parameters.stunTime);
             _stunned = false;
             _agent.isStopped = false;
+            _animator.SetBool(Stunned, false);
         }
         
         private void Prepare()

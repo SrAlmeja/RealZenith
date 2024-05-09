@@ -9,15 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a09e99fda66679849bc9cf35b3c55bb2, type: 3}
-  m_Name: DefaultEnemyParameters
+  m_Script: {fileID: 11500000, guid: a49b7e678b3ebb7418adb84806d24646, type: 3}
+  m_Name: OnBeginSceneTransition
   m_EditorClassIdentifier: 
-  searchTime: 8
-  alertTime: 20
-  movementSpeed: 1.2
-  detectionRange: 8
-  coneAngle: 110
-  heightOffset: {x: 0, y: 1.5, z: 0}
-  attackPower: 50
-  attackRange: 3
-  attackSpeed: 1.5
+  CategoryIndex: 0
+  _debugLogEnabled: 0
