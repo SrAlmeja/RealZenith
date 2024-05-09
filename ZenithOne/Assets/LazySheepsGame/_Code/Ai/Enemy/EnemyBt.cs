@@ -62,8 +62,11 @@ namespace com.LazyGames.Dz.Ai
                     new CheckHasTarget(t, _parameters),
                     new CheckPlayerInAttackRange(t, _parameters),
                     new TaskGoToTarget(t, _parameters),
-                    // new TaskLookAt(t),
-                    new TaskAttack(t, _parameters),
+                    new Sequence(new List<Node>
+                    {
+                        new TaskAttack(t, _parameters),
+                        new TaskFaceTarget(t, _parameters), 
+                    }),
                 }),
                 new Sequence(new List<Node>
                 {

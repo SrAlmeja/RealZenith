@@ -70,7 +70,23 @@ namespace com.LazyGames.Dz.Ai
                 // }
 
                 
+                using (new GUILayout.HorizontalScope())
+                {
+                    if (GUILayout.Button("Add Waypoint", GUILayout.Height(35)))
+                    {
+                        int count = _wayPointsProp.arraySize;
+                        GameObject go = new GameObject("Waypoint");
+                        go.transform.SetParent(_enemyWayPoints.transform);
+                        go.transform.position = _enemyWayPoints.transform.position;
+                        Waypoint waypointComponent = go.AddComponent<Waypoint>();
+                        waypointComponent.WaitTime = 0.3f; // Set default wait time
+                        go.name = $"Waypoint {count}";
+                        _enemyWayPoints.BuildArray();
+                    }
+                }
+                
                 if (_wayPointsProp.arraySize <= 0) return;
+                GUILayout.FlexibleSpace();
                 
                 for (int i = 0; i < _wayPointsProp.arraySize; i++)
                 {
@@ -105,22 +121,6 @@ namespace com.LazyGames.Dz.Ai
                     }
                 }
                 
-                GUILayout.FlexibleSpace();
-                
-                using (new GUILayout.HorizontalScope())
-                {
-                    if (GUILayout.Button("Add Waypoint", GUILayout.Height(35)))
-                    {
-                        int count = _wayPointsProp.arraySize;
-                        GameObject go = new GameObject("Waypoint");
-                        go.transform.SetParent(_enemyWayPoints.transform);
-                        go.transform.position = _enemyWayPoints.transform.position;
-                        Waypoint waypointComponent = go.AddComponent<Waypoint>();
-                        waypointComponent.WaitTime = 0.3f; // Set default wait time
-                        go.name = $"Waypoint {count}";
-                        _enemyWayPoints.BuildArray();
-                    }
-                }
                 serializedObject.ApplyModifiedProperties();
 
             }
