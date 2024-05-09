@@ -118,9 +118,12 @@ namespace com.LazyGames
             {
                 npc.SetDialogueToNpc(dialogueInfoUI);
             }
-            else
+            else if (_currentDialogue is TriggerDialog triggerDialog)
             {
-                Debug.LogError("Current dialogue is not a NPC");
+                if(triggerDialog.DialogueContainer.DialogueType == DialogueType.Subtitles)
+                {
+                    PlayerSubtitles.Instance.SetUISubtitles(dialogueInfoUI);
+                }
             }
         }
         
