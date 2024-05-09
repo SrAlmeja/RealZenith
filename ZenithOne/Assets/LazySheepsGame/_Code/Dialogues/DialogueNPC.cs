@@ -23,17 +23,25 @@ public class DialogueNPC : DialogueBase
 
     private string _currentText;
     private bool _isDialogueActive;
+    private bool _canInteract;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _dialogueMeshUI.SetActive(false);
+        _interactAction.action.performed += Interact;
+
     }
 
     private void OnEnable()
     {
-        _interactAction.action.performed += Interact;
+        _interactAction.action.Enable();
     }
-
+    private void OnDisable()
+    {
+        _interactAction.action.Disable();
+    }
+    
     public void SetDialogueToNpc(DialogueInfoUI dialogueInfoUI)
     {
         _dialogueMeshUI.SetActive(true);
@@ -63,11 +71,11 @@ public class DialogueNPC : DialogueBase
         }
         
         _currentText = text;
-        _dialogueText.text = "";
-        _dialogueText.DOText(_currentText, _currentText.Length * 0.03f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            _isDialogueActive = false;
-        });
+        _dialogueText.text = _currentText;
+        // _dialogueText.DOText(_currentText, _currentText.Length * 0.03f).SetEase(Ease.Linear).OnComplete(() =>
+        // {
+        //     _isDialogueActive = false;
+        // });
     }
     
     private void SkipTextEffect(string text)
@@ -81,6 +89,7 @@ public class DialogueNPC : DialogueBase
     {
         if (other.CompareTag("Player"))
         {
+            _canInteract = true;
             EnableInteractButton(true);
         }
     }
@@ -89,6 +98,7 @@ public class DialogueNPC : DialogueBase
     {
         if (other.CompareTag("Player"))
         {
+            _canInteract = false;
             EnableInteractButton(false);
         }
     }
@@ -103,7 +113,11 @@ public class DialogueNPC : DialogueBase
 
     private void Interact(InputAction.CallbackContext context)
     {
-        if (_currentText == "")
+        if (!_canInteract)
+            return;
+        
+        Debug.Log("Interact with NPC");
+        if (String.IsNullOrEmpty(_currentText))
         {
             SendDialogue();
         }
@@ -111,5 +125,11 @@ public class DialogueNPC : DialogueBase
         {
             ContinueDialogue();
         }
+    }
+
+    public override void SendDialogue()
+    {
+        EnableInteractButton(false);
+        base.SendDialogue();
     }
 }
