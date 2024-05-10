@@ -30,10 +30,12 @@ public class PlayerSubtitles : MonoBehaviour
 
     private void OnEndDialogue()
     {
-        if (_subtitlesUI.activeSelf && !String.IsNullOrEmpty(_currentText))
+        Debug.Log("End Dialogue from PlayerSubtitles");
+        if (!String.IsNullOrEmpty(_currentText))
         {
             // _subtitlesUI.SetActive(false);
             _currentText = "";
+            _subtitlesText.text = "";
         }
     }
 
