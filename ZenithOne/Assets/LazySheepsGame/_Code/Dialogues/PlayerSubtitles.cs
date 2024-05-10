@@ -42,8 +42,6 @@ public class PlayerSubtitles : MonoBehaviour
         if (dialogue.DialogueContainer.DialogueType == DialogueType.Subtitles)
         {
             _subtitlesUI.SetActive(true);
-            
-            
         }
     }
 
@@ -58,10 +56,5 @@ public class PlayerSubtitles : MonoBehaviour
         _subtitlesText.text = _currentText;
     }
     
-    private IEnumerator DeactivateSubtitles(float time)
-    {
-        yield return new WaitForSeconds(time);
-        _subtitlesUI.SetActive(false);
-        _currentText = "";
-    }
+    
 }

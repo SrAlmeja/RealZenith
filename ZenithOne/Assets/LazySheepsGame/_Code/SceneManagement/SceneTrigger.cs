@@ -12,6 +12,8 @@ namespace com.LazyGames.Dz
         [SerializeField] private float delay;
         [SerializeField] private SceneAsset sceneToLoad;
         [SerializeField] private ScriptableEventNoParam onSceneLoad;
+        // [SerializeField] private ScriptableEventNoParam onTransitionEvent;
+
         
         private void Start()
         {
