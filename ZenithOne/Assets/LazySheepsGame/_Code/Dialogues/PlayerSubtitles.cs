@@ -39,10 +39,10 @@ public class PlayerSubtitles : MonoBehaviour
 
     private void OnStartDialogue(DialogueBase dialogue)
     {
-        if (dialogue.DialogueContainer.DialogueType == DialogueType.Subtitles)
-        {
-            _subtitlesUI.SetActive(true);
-        }
+        // if (dialogue.DialogueContainer.DialogueType == DialogueType.Subtitles)
+        // {
+        //     _subtitlesUI.SetActive(true);
+        // }
     }
 
     public void SetUISubtitles(DialogueInfoUI dialogueInfoUI)
