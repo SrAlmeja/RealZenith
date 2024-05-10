@@ -5,10 +5,11 @@ using Ink.Parsed;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TriggerDialog : DialogueBase
+public class MarthDialog : DialogueBase
 {
     [SerializeField] private float _timeToContinue = 4f;
     private TimerBase _timerBase;
+    
     
     
     public override void SendDialogue()
@@ -45,14 +46,14 @@ public class TriggerDialog : DialogueBase
         _timerBase = null;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // Debug.Log("Interact with trigguer Dialogue");
-            SendDialogue();
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         // Debug.Log("Interact with trigguer Dialogue");
+    //         SendDialogue();
+    //     }
+    // }
 
     private void SetTimer()
     {

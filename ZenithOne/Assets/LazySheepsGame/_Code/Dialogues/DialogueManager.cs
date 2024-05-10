@@ -119,13 +119,18 @@ namespace com.LazyGames
             {
                 npc.SetDialogueToNpc(dialogueInfoUI);
             }
-            else if (_currentDialogue is TriggerDialog triggerDialog)
+            else if (_currentDialogue is MarthDialog triggerDialog)
             {
                 if(triggerDialog.CurrentInkContainer.DialogueType == DialogueType.Subtitles)
                 {
-                    PlayerSubtitles.Instance.SetUISubtitles(dialogueInfoUI);
+                    PlayerSubtitlesUI.Instance.SetUISubtitles(dialogueInfoUI);
                 }
             }
+        }
+
+        private void TriggerDialogueSubtitle()
+        {
+            
         }
         
         

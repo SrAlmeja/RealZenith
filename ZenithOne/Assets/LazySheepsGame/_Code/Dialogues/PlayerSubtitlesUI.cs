@@ -6,9 +6,9 @@ using Obvious.Soap;
 using TMPro;
 using UnityEngine;
 
-public class PlayerSubtitles : MonoBehaviour
+public class PlayerSubtitlesUI : MonoBehaviour
 {
-    public static PlayerSubtitles Instance;
+    public static PlayerSubtitlesUI Instance;
     
     [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
     [SerializeField] ScriptableEventNoParam _onDialogueEnd;
