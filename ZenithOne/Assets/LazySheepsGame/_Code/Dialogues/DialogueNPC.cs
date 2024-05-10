@@ -20,6 +20,8 @@ public class DialogueNPC : DialogueBase
     
     [Header("Input Events")]
     [SerializeField] private InputActionReference _interactAction;
+    
+   
 
     private string _currentText;
     private bool _isDialogueActive;
