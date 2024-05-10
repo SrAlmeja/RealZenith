@@ -14,6 +14,7 @@ public class PlayerVignette : MonoBehaviour
     [SerializeField] private float _transitionDuration = 1f;
     [SerializeField] private float _vignetteMax = 100f;
     [SerializeField] private float _vignetteMin = -10f;
+
     #endregion
 
     #region private variables
