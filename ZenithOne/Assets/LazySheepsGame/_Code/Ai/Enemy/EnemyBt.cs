@@ -1,32 +1,28 @@
+// Modificado Raymundo Mosqueda 09/05/24
+
 using System.Collections;
 using System.Collections.Generic;
 using CryoStorage;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace com.LazyGames.Dz.Ai
 {
-    // public enum EnemyState { Waiting, Moving, Investigating, Chasing, Attacking, Stunned, None }
-
     [SelectionBase]
     public class EnemyBt : Tree, IGadgetInteractable
     {
-
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
-        [SerializeField] private float stunTime = 5f;
         [SerializeField] private TypeOfGadget stunElement;
         [Header("Parameters")]
         [SerializeField] private EnemyParameters defaultParameters;
         [SerializeField] private EnemyParameters alertParameters;
         
         private Node _root;
-        // private EnemyState _state;
         private NavMeshAgent _agent;
-        // private EnemyAnimHandler _animHandler;
         private Animator _animator;
-
         private EnemyVision _vision;
         private EnemyHearing _hearing;
         private EnemyParameters _parameters;
@@ -36,6 +32,8 @@ namespace com.LazyGames.Dz.Ai
         private static readonly int Stunned = Animator.StringToHash("stunned");
         private static readonly int Moving = Animator.StringToHash("moving");
         private static readonly int Chasing = Animator.StringToHash("chasing");
+        private static readonly int Attacking = Animator.StringToHash("attacking");
+        
 
         protected override Node SetupTree()
         {
@@ -75,7 +73,7 @@ namespace com.LazyGames.Dz.Ai
                 }),
                 new TaskSearchLastKnownPosition(t, _parameters),
                 new TaskInvestigateNoise(t,_parameters),
-                new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray(), _parameters),
+                new TaskPatrol(t, enemyWayPoints.WayPoints.ToArray()),
             });
 
             return _root;
@@ -86,7 +84,15 @@ namespace com.LazyGames.Dz.Ai
             if (interactedGadget != stunElement) return;
             Stun();
         }
-
+        
+        public void ResetPosition()
+        {
+            var rand = Random.Range(0, enemyWayPoints.WayPoints.Count);
+            _agent.Warp(enemyWayPoints.WayPoints[rand].transform.position);
+            
+            _root.WipeData();   
+            Invoke(nameof(DelayedWipe), 0.1f);
+        }   
 
         public void PlayerDetected(Transform target)
         {
@@ -101,6 +107,15 @@ namespace com.LazyGames.Dz.Ai
             if(_startled) return;
             _animator.Play("enemy_startled");
             _startled = true;
+        }
+
+        // avoids race condition where player is lost after resetting
+        private void DelayedWipe()
+        {
+            _root.WipeData();
+            _animator.SetBool(Attacking, false);
+            _animator.SetBool(Chasing, false);
+            _animator.SetBool(Stunned, false);
         }
         
         public void PlayerLost(Vector3 lastKnownPosition)
@@ -118,7 +133,6 @@ namespace com.LazyGames.Dz.Ai
             _vision.Parameters.coneAngle = _parameters.coneAngle;
             _animator.SetBool(Chasing, true);
             _startled = false;
-
         }
         
         public void NoiseHeard(Vector3 noisePosition)
@@ -139,8 +153,6 @@ namespace com.LazyGames.Dz.Ai
             _agent.isStopped = true;
             _animator.Play("enemy_stunned");
             _animator.SetBool(Stunned, true);
-            // _animator.SetBool(Stunned, true);
-            // _animator.Play("enemy_stunned");
             StartCoroutine(CorStunTime());
         }
         private IEnumerator CorStunTime()
@@ -160,10 +172,6 @@ namespace com.LazyGames.Dz.Ai
             _hearing = gameObject.AddComponent<EnemyHearing>();
             _vision = gameObject.AddComponent<EnemyVision>();
             _animator = GetComponentInChildren<Animator>();
-            
-            // var animHandler = GetComponent<EnemyAnimHandler>();
-            // animHandler.Initialize(_animator, this);
-            
             _hearing.Initialize(this);
             _vision.Initialize(this, _parameters, LayerMask.GetMask("Player"));
         }

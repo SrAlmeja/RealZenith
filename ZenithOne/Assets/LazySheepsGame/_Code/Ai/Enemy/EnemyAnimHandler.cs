@@ -6,7 +6,7 @@ namespace com.LazyGames.Dz.Ai
 {
     public class EnemyAnimHandler : MonoBehaviour
     {
-        
+        //unused
         private Animator _animator;
         private EnemyBt _parentBt;
         private int _animIndex;

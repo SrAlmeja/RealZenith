@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8971220942358350471}
   - component: {fileID: 7060812662177752021}
   - component: {fileID: -6350324759758040174}
+  - component: {fileID: 8743483558302408220}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
@@ -52,7 +53,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   enemyWayPoints: {fileID: 0}
-  stunTime: 10
   stunElement: 0
   defaultParameters: {fileID: 11400000, guid: c2eb447488102d6408a73d4fcfdbdf6c, type: 2}
   alertParameters: {fileID: 11400000, guid: a1f934b109ac6ae4ab2a15df2a9d803a, type: 2}
@@ -101,6 +101,38 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8743483558302408220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828267338819695287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _binding: 1
+  _disableAfterSubscribing: 0
+  _eventResponses:
+  - Delay: 0
+    ScriptableEvent: {fileID: 11400000, guid: aaee93b4909445f4bbc98fa6ec13dc7c, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8971220942358350471}
+          m_TargetAssemblyTypeName: com.LazyGames.Dz.Ai.EnemyBt, Assembly-CSharp
+          m_MethodName: ResetPosition
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6679543965759289231
 GameObject:
   m_ObjectHideFlags: 0

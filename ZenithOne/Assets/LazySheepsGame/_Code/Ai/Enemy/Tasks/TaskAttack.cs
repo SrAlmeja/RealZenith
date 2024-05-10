@@ -8,9 +8,9 @@ namespace com.LazyGames.Dz.Ai
 {
     public class TaskAttack : Node, IGeneralAggressor
     {
-        private Transform _transform;
-        private Animator _animator;
-        private EnemyParameters _parameters;
+        private readonly Transform _transform;
+        private readonly Animator _animator;
+        private readonly EnemyParameters _parameters;
         private Transform _target;
         
         private float _attackCounter;
@@ -37,6 +37,7 @@ namespace com.LazyGames.Dz.Ai
                 _animator.SetBool(Attacking, true);
             }
             
+            _animator.SetBool(Attacking, false);
             state = NodeState.Running;
             return state;
         }
