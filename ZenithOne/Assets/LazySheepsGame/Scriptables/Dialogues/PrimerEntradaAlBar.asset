@@ -12,7 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37492e7d7385239459552cfda644eb67, type: 3}
   m_Name: PrimerEntradaAlBar
   m_EditorClassIdentifier: 
-  InksContainers:
-  - Section: Marth
-    InkJSON: {fileID: 4900000, guid: 8f459fe21ce76524ca724497ff541933, type: 3}
-  AudiosDialogueData: []
+  DialogueSections:
+  - Section: PrimeraEntradaAlBar
+    InksContainers:
+    - id_Ink: Jhon
+      InkJSON: {fileID: 4900000, guid: b6fdd3c2bcba7e64186defb5e24106b0, type: 3}
+      IsDialogueEnd: 0
+      DialogueType: 0
+    - id_Ink: Marth
+      InkJSON: {fileID: 4900000, guid: 8f459fe21ce76524ca724497ff541933, type: 3}
+      IsDialogueEnd: 0
+      DialogueType: 1
+    - id_Ink: Sail
+      InkJSON: {fileID: 0}
+      IsDialogueEnd: 0
+      DialogueType: 1
+    IsSectionEnd: 0

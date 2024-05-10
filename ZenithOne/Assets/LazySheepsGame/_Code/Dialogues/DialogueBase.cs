@@ -14,11 +14,13 @@ public class DialogueBase : MonoBehaviour
     
     [Header("Container")]
     [SerializeField] private DialogueContainer _dialogueContainer;
+    
+    [Header("Text Asset")]
+    [SerializeField] private TextAsset _inkJSON;
 
     public TextAsset InkJSON => GetInkJSON();
-    public DialogueContainer DialogueContainer => _dialogueContainer;
+    // public DialogueContainer DialogueContainer => _dialogueContainer;
     
-    public bool IsDialogueEnd => _dialogueContainer.IsDialogueEnd;
     
     
     protected virtual void Start()
@@ -43,7 +45,7 @@ public class DialogueBase : MonoBehaviour
     
     private TextAsset GetInkJSON()
     {
-        return _dialogueContainer.InksContainers[0].InkJSON;
+        return _inkJSON;
     }
     
 }

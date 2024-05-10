@@ -52,6 +52,7 @@ namespace DINO.Utility
                 {
                     OnTimerUpdate?.Invoke(_currentTimer);
                     _elapsedTime = 0.0f;
+                    // Debug.Log("Timer Update = " + _currentTimer);
                 }
                 
             }
@@ -60,7 +61,7 @@ namespace DINO.Utility
 
         #region public methods
 
-        public void StartTimer(float timer, bool isCountDown = false, float intervalUpdate = 1f,string message = "")
+        public void StartTimer(float timer, bool isCountDown = true, float intervalUpdate = 1f,string message = "")
         {
             _currentTimer = timer;
             _updateInterval = intervalUpdate;

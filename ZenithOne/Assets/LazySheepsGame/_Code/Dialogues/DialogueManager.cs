@@ -46,7 +46,7 @@ namespace com.LazyGames
                 // Debug.LogError("Current story is null");
                 return;
             }
-            
+            Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.canContinue.ToString().SetColor("#FFD700"));
             if (_currentStory.canContinue)
             {
                 _currentStory.Continue();
@@ -120,7 +120,7 @@ namespace com.LazyGames
             }
             else if (_currentDialogue is TriggerDialog triggerDialog)
             {
-                if(triggerDialog.DialogueContainer.DialogueType == DialogueType.Subtitles)
+                // if(triggerDialog.DialogueContainer.DialogueType == DialogueType.Subtitles)
                 {
                     PlayerSubtitles.Instance.SetUISubtitles(dialogueInfoUI);
                 }

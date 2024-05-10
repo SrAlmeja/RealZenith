@@ -1,5 +1,7 @@
 using System.Collections;
+using com.LazyGames;
 using DINO.Utility;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TriggerDialog : DialogueBase
@@ -24,11 +26,14 @@ public class TriggerDialog : DialogueBase
     protected override void OnDialogueEnd()
     {
         base.OnDialogueEnd();
+        Debug.Log("Dialogue Ended".SetColor("#41E8B8"));
         CleanTimer();
     }
 
     private void CleanTimer()
     {
+        if(_timerBase == null) return;
+
         _timerBase.OnTimerEnd -= OnFinishedDialogueTimer;
         _timerBase.StopTimer();
     }
@@ -37,7 +42,7 @@ public class TriggerDialog : DialogueBase
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Interact with trigguer Dialogue");
+            // Debug.Log("Interact with trigguer Dialogue");
             SendDialogue();
         }
     }
