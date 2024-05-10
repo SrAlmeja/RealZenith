@@ -61,6 +61,7 @@ namespace com.LazyGames
                 dialogueInfoUI.Voice = _currentVoice;
                 
                 SendInfoToUI(dialogueInfoUI);
+                Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.currentText);
             }
             else
             {

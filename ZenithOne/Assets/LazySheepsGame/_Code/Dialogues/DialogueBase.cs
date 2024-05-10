@@ -48,7 +48,7 @@ public class DialogueBase : MonoBehaviour
 
      protected virtual void OnDialogueEnd()
     {
-        Debug.Log("Dialogue Ended".SetColor("#41E8B8"));
+        Debug.Log("Dialogue Ended from ".SetColor("#41E8B8") + gameObject.name);
         if(_currentInkContainer != null)
             _currentInkContainer.IsDialogueEnd = true;
     }
