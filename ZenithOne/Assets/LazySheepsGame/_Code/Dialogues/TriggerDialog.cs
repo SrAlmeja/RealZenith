@@ -1,6 +1,7 @@
 using System.Collections;
 using com.LazyGames;
 using DINO.Utility;
+using Ink.Parsed;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,7 +27,6 @@ public class TriggerDialog : DialogueBase
     protected override void OnDialogueEnd()
     {
         base.OnDialogueEnd();
-        Debug.Log("Dialogue Ended".SetColor("#41E8B8"));
         CleanTimer();
     }
 
@@ -61,8 +61,9 @@ public class TriggerDialog : DialogueBase
 
     private void OnFinishedDialogueTimer()
     {
-        ContinueDialogue();
         CleanTimer();
+        ContinueDialogue();
+        
         
     }
     

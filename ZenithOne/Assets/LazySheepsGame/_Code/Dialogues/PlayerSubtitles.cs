@@ -23,7 +23,7 @@ public class PlayerSubtitles : MonoBehaviour
     }
     void Start()
     {
-        _onDialogueSend.OnRaised += OnStartDialogue;
+        // _onDialogueSend.OnRaised += OnStartDialogue;
         _onDialogueEnd.OnRaised += OnEndDialogue;
         
     }
@@ -32,17 +32,17 @@ public class PlayerSubtitles : MonoBehaviour
     {
         if (_subtitlesUI.activeSelf && !String.IsNullOrEmpty(_currentText))
         {
-            _subtitlesUI.SetActive(false);
+            // _subtitlesUI.SetActive(false);
             _currentText = "";
         }
     }
 
     private void OnStartDialogue(DialogueBase dialogue)
     {
-        // if (dialogue.DialogueContainer.DialogueType == DialogueType.Subtitles)
-        // {
-        //     _subtitlesUI.SetActive(true);
-        // }
+        if (dialogue.CurrentInkContainer.DialogueType == DialogueType.Subtitles)
+        {
+            _subtitlesUI.SetActive(true);
+        }
     }
 
     public void SetUISubtitles(DialogueInfoUI dialogueInfoUI)
