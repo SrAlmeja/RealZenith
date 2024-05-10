@@ -10,18 +10,18 @@ public class DialogueContainer : ScriptableObject
     public List<DialogueSection> DialogueSections;
 }
 
-[Serializable]
-public class AudiosDialogueData
-{
-    public string Section;
-    public AudioDialogue[] AudioDialogues;
-}
-[Serializable]
-public class AudioDialogue
-{
-    public string ID;
-    public AudioClip DialogueAudioClip;
-}
+// [Serializable]
+// public class AudiosDialogueData
+// {
+//     public string Section;
+//     public AudioDialogue[] AudioDialogues;
+// }
+// [Serializable]
+// public class AudioDialogue
+// {
+//     public string ID;
+//     public AudioClip DialogueAudioClip;
+// }
 
 [Serializable]
 public class InksContainers
@@ -30,6 +30,8 @@ public class InksContainers
     public TextAsset InkJSON;
     public bool IsDialogueEnd;
     public DialogueType DialogueType;
+    string _nextDialogue;
+    public Action<string> OnDialogueEnd;
     
     
 }

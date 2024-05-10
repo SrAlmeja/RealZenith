@@ -13,7 +13,7 @@ public class DialogueBase : MonoBehaviour
 
     
     [Header("Container")]
-    // [SerializeField] private DialogueContainer _dialogueContainer;
+    [SerializeField] private DialogueContainer _dialogueContainer;
     
     [Header("Text Asset")]
     [SerializeField] private TextAsset _inkJSON;

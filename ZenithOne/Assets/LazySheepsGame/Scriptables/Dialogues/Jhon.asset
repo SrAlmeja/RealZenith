@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37492e7d7385239459552cfda644eb67, type: 3}
   m_Name: Jhon
   m_EditorClassIdentifier: 
-  InksContainers:
-  - Section: Jhon_PrimeraEntradaAlBar
-    InkJSON:
-    - {fileID: 0}
-    IsDialogueEnd: 0
-    DialogueType: 0
-  - Section: Marth
-    InkJSON: []
-    IsDialogueEnd: 0
-    DialogueType: 0
+  DialogueSections:
+  - Section: 
+    InksContainers:
+    - id_Ink: 
+      InkJSON: {fileID: 4900000, guid: b6fdd3c2bcba7e64186defb5e24106b0, type: 3}
+      IsDialogueEnd: 0
+      DialogueType: 1
+    - id_Ink: 
+      InkJSON: {fileID: 4900000, guid: b6fdd3c2bcba7e64186defb5e24106b0, type: 3}
+      IsDialogueEnd: 0
+      DialogueType: 1
+    IsSectionEnd: 0
