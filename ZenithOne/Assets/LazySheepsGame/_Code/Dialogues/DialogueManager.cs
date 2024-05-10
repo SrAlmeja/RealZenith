@@ -11,11 +11,13 @@ namespace com.LazyGames
         [SerializeField] ScriptableEventNoParam _onContinueDialogue;
         [SerializeField] ScriptableEventNoParam _onDialogueEnd;
 
+        [SerializeField] private List<DialogueBase> _dialoguesInScene;
+        
+        
         private Story _currentStory;
         private DialogueBase _currentDialogue;
         private string _currentSpeaker;
         private string _currentVoice;
-        private int _currentDialogueIndex;
         
 
         private const string SPEAKER_TAG = "speaker";
@@ -32,7 +34,7 @@ namespace com.LazyGames
         {
             _onDialogueSend.OnRaised -= EnterDialogueMode;
             _currentDialogue = dialogue;
-            TextAsset inkJSON = dialogue.InkJSON;
+            TextAsset inkJSON = dialogue.GetInkJSON();
             _currentStory = new Story(inkJSON.text);
 
             ContinueStory();
@@ -43,7 +45,8 @@ namespace com.LazyGames
         {
             if(_currentStory == null)
             {
-                // Debug.LogError("Current story is null");
+                Debug.LogError("Current story is null");
+                ExitDialogueMode();
                 return;
             }
             Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.canContinue.ToString().SetColor("#FFD700"));
@@ -51,13 +54,11 @@ namespace com.LazyGames
             {
                 _currentStory.Continue();
                 SetTags(_currentStory.currentTags);
-                _currentDialogueIndex++;
                 
                 DialogueInfoUI dialogueInfoUI = new DialogueInfoUI();
                 dialogueInfoUI.Text = _currentStory.currentText;
                 dialogueInfoUI.Speaker = _currentSpeaker;
                 dialogueInfoUI.Voice = _currentVoice;
-                dialogueInfoUI.CurrentDialogueIndex = _currentDialogueIndex;
                 
                 SendInfoToUI(dialogueInfoUI);
             }
@@ -76,9 +77,8 @@ namespace com.LazyGames
             _currentStory = null;
             _currentSpeaker = null;
             _currentVoice = null;
-            _currentDialogueIndex = 0; 
             
-            Debug.Log("Dialogue ended");   
+            // Debug.Log("Dialogue ended");   
             
         }
 
@@ -120,7 +120,7 @@ namespace com.LazyGames
             }
             else if (_currentDialogue is TriggerDialog triggerDialog)
             {
-                // if(triggerDialog.DialogueContainer.DialogueType == DialogueType.Subtitles)
+                if(triggerDialog.CurrentInkContainer.DialogueType == DialogueType.Subtitles)
                 {
                     PlayerSubtitles.Instance.SetUISubtitles(dialogueInfoUI);
                 }
