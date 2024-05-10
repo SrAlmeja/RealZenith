@@ -28,7 +28,6 @@ namespace com.LazyGames.Dz.Ai
             if (wayPoints == null) return;
             for (int i = 0; i < wayPoints.Count; i++)
             {
-                Transform t = wayPoints[i].transform;
                 Gizmos.color = Color.white;
                 Gizmos.DrawLine(wayPoints[i].gameObject.transform.position, i < wayPoints.Count
                     - 1 ? wayPoints[i + 1].gameObject.transform.position : wayPoints[0].gameObject.transform.position);
@@ -63,64 +62,62 @@ namespace com.LazyGames.Dz.Ai
             
             using (new GUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                // if (GUILayout.Button("Visualize Waypoints", GUILayout.Height(35)))
-                // {
-                //     _enemyWayPoints.BuildArray();
-                //     Debug.Log($"EnemyWaypoints: Displaying {_enemyWayPoints.WayPoints.Length} waypoints");
-                // }
-
-                
-                if (_wayPointsProp.arraySize <= 0) return;
-                
-                for (int i = 0; i < _wayPointsProp.arraySize; i++)
-                {
-                    using(new GUILayout.VerticalScope(EditorStyles.helpBox))
-                    {
-                        using (new GUILayout.HorizontalScope())
-                        {
-                            if(GUILayout.Button("select",GUILayout.Width(50)))
-                            {
-                                Selection.activeObject = _wayPointsProp.GetArrayElementAtIndex(i).objectReferenceValue;
-                            }
-                            
-                            var waypointProperty = _wayPointsProp.GetArrayElementAtIndex(i);
-                            var so = new SerializedObject(waypointProperty.objectReferenceValue);
-                            var waitTimeProperty = so.FindProperty("waitTime");
-                            EditorGUILayout.PropertyField(waypointProperty,GUIContent.none);
-                            GUILayout.Label("WaitTime: ");
-                            waitTimeProperty.floatValue = EditorGUILayout.FloatField(so.FindProperty("waitTime").floatValue);
-                            
-                            if (GUILayout.Button("Delete", GUILayout.Width(50)))
-                            {
-                                if (_wayPointsProp.arraySize > 0)
-                                {
-                                    _enemyWayPoints.Remove(i);  
-                                    
-                                    DestroyImmediate(_wayPointsProp.GetArrayElementAtIndex(_wayPointsProp.arraySize - 1).objectReferenceValue.GameObject());
-                                    _enemyWayPoints.BuildArray();
-                                }
-                            }
-                            so.ApplyModifiedProperties();
-                        }
-                    }
-                }
-                
-                GUILayout.FlexibleSpace();
-                
                 using (new GUILayout.HorizontalScope())
                 {
                     if (GUILayout.Button("Add Waypoint", GUILayout.Height(35)))
                     {
                         int count = _wayPointsProp.arraySize;
                         GameObject go = new GameObject("Waypoint");
-                        go.transform.SetParent(_enemyWayPoints.transform);
-                        go.transform.position = _enemyWayPoints.transform.position;
                         Waypoint waypointComponent = go.AddComponent<Waypoint>();
+                        go.transform.SetParent(_enemyWayPoints.transform);
+                        if (_wayPointsProp.arraySize > 0)
+                        {
+                            go.transform.position = _wayPointsProp.GetArrayElementAtIndex(count - 1).objectReferenceValue.GameObject().transform.position;
+                        }
+                        else
+                        {
+                            go.transform.position = _enemyWayPoints.transform.position;
+                        }
                         waypointComponent.WaitTime = 0.3f; // Set default wait time
                         go.name = $"Waypoint {count}";
                         _enemyWayPoints.BuildArray();
+                        
+                        Selection.activeObject = go;
                     }
                 }
+                
+                if (_wayPointsProp.arraySize <= 0) return;
+                GUILayout.FlexibleSpace();
+                
+                for (int i = 0; i < _wayPointsProp.arraySize; i++)
+                {
+                    using (new GUILayout.HorizontalScope())
+                    {
+                        if(GUILayout.Button("select",GUILayout.Width(50)))
+                        {
+                            Selection.activeObject = _wayPointsProp.GetArrayElementAtIndex(i).objectReferenceValue;
+                        }
+                        
+                        var waypointProperty = _wayPointsProp.GetArrayElementAtIndex(i);
+                        var so = new SerializedObject(waypointProperty.objectReferenceValue);
+                        var waitTimeProperty = so.FindProperty("waitTime");
+                        EditorGUILayout.PropertyField(waypointProperty,GUIContent.none);
+                        GUILayout.Label("WaitTime: ");
+                        waitTimeProperty.floatValue = EditorGUILayout.FloatField(so.FindProperty("waitTime").floatValue);
+                        
+                        if (GUILayout.Button("Delete", GUILayout.Width(50)))
+                        {
+                            if (_wayPointsProp.arraySize > 0)
+                            {
+                                _enemyWayPoints.Remove(i);  
+                                DestroyImmediate(_wayPointsProp.GetArrayElementAtIndex(_wayPointsProp.arraySize - 1).objectReferenceValue.GameObject());
+                                _enemyWayPoints.BuildArray();
+                            }
+                        }
+                        so.ApplyModifiedProperties();
+                    }
+                }
+                
                 serializedObject.ApplyModifiedProperties();
 
             }

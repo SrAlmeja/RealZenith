@@ -24,5 +24,6 @@ namespace com.LazyGames.Dz.Ai
         public float attackPower = 1f;
         public float attackRange = 2f;
         public float attackSpeed = 1.5f;
+        public float stunTime = 10f;
     }
 }
