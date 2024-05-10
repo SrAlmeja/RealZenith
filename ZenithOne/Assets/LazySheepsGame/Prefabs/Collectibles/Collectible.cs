@@ -38,7 +38,7 @@ public class Collectible : MonoBehaviour
             {
                 grabbable.OnSqueezeEvent += Collect;
             }
-        }
+        } 
     }
 
     private void OnDisable()
@@ -58,6 +58,18 @@ public class Collectible : MonoBehaviour
         if(_autoCollectOnCollision)
         {
             if(_playerLayer == (_playerLayer | (1 << other.gameObject.layer)))
+            {
+                Collect();
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_autoCollectOnCollision)
+        {
+            if (_playerLayer == (_playerLayer | (1 << collision.gameObject.layer)))
             {
                 Collect();
                 gameObject.SetActive(false);
