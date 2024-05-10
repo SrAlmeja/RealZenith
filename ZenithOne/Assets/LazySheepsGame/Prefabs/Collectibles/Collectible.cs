@@ -65,6 +65,18 @@ public class Collectible : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_autoCollectOnCollision)
+        {
+            if (_playerLayer == (_playerLayer | (1 << collision.gameObject.layer)))
+            {
+                Collect();
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
     private void Collect()
     {
         SaveInfo();
