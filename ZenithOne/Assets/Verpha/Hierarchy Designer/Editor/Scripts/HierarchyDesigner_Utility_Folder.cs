@@ -16,32 +16,50 @@ namespace Verpha.HierarchyDesigner
         private GUIStyle customSettingsStyleSecondary;
         private GUIStyle headerLabelStyle;
         private GUIStyle contentLabelStyle;
+        private GUIStyle utilityLabelStyle;
         #endregion
         #region Folder Properties
         private string newFolderName = "";
         private Color newFolderIconColor = Color.white;
-        private HierarchyDesigner_Info_Folder.FolderImageType newFolderImageType = HierarchyDesigner_Info_Folder.FolderImageType.Default;
-        private const string FolderPrefKey = "HierarchyFolders";
+        private HierarchyDesigner_Info_Folder.FolderImageType newFolderImageType = HierarchyDesigner_Info_Folder.FolderImageType.Classic;
         public static Dictionary<string, HierarchyDesigner_Info_Folder> folders = new Dictionary<string, HierarchyDesigner_Info_Folder>();
         #endregion
         #region Global Fields
         private Color tempGlobalFolderIconColor = Color.white;
-        private HierarchyDesigner_Info_Folder.FolderImageType tempGlobalFolderImageType = HierarchyDesigner_Info_Folder.FolderImageType.Default;
+        private HierarchyDesigner_Info_Folder.FolderImageType tempGlobalFolderImageType = HierarchyDesigner_Info_Folder.FolderImageType.Classic;
         #endregion
 
         [MenuItem("Hierarchy Designer/Hierarchy Folder/Hierarchy Folder Manager")]
-        private static void OpenWindow()
+        public static void OpenWindow()
         {
             LoadFolders();
             HierarchyFolderWindow window = GetWindow<HierarchyFolderWindow>("Hierarchy Folder Manager");
             window.minSize = new Vector2(300, 150);
         }
+
+        private void OnEnable()
+        {
+            EditorApplication.delayCall += CheckAndReloadData;
+        }
+
+        private static void LoadFolders()
+        {
+            HierarchyDesigner_Data_Folder.LoadFolders();
+            folders = new Dictionary<string, HierarchyDesigner_Info_Folder>(HierarchyDesigner_Data_Folder.folders);
+        }
+
+        private static void CheckAndReloadData()
+        {
+            if (folders == null || folders.Count == 0) { LoadFolders(); }
+        }
+
         private void InitializeStyles()
         {
             customSettingsStyle = HierarchyDesigner_Info_OnGUI.CreateCustomStyle();
             customSettingsStyleSecondary = HierarchyDesigner_Info_OnGUI.CreateCustomStyle(true);
             headerLabelStyle = HierarchyDesigner_Info_OnGUI.HeaderLabelStyle;
             contentLabelStyle = HierarchyDesigner_Info_OnGUI.ContentLabelStyle;
+            utilityLabelStyle = HierarchyDesigner_Info_OnGUI.UtilityLabelStyle;
         }
 
         private void OnGUI()
@@ -89,6 +107,42 @@ namespace Verpha.HierarchyDesigner
 
             if (folders.Count > 0)
             {
+                #region Global Fields
+                GUILayout.Space(2);
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("Folders' Global Fields", utilityLabelStyle, GUILayout.ExpandWidth(true));
+                GUILayout.Space(6);
+
+                EditorGUILayout.BeginHorizontal();
+                #region Changes Check
+                EditorGUI.BeginChangeCheck();
+                tempGlobalFolderIconColor = EditorGUILayout.ColorField(tempGlobalFolderIconColor, GUILayout.MinWidth(100), GUILayout.ExpandWidth(true));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    foreach (HierarchyDesigner_Info_Folder folder in folders.Values)
+                    {
+                        folder.FolderColor = tempGlobalFolderIconColor;
+                    }
+                    hasModifiedChanges = true;
+                }
+
+                EditorGUI.BeginChangeCheck();
+                tempGlobalFolderImageType = (HierarchyDesigner_Info_Folder.FolderImageType)EditorGUILayout.EnumPopup(tempGlobalFolderImageType, GUILayout.Width(258));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    foreach (HierarchyDesigner_Info_Folder folder in folders.Values)
+                    {
+                        folder.ImageType = tempGlobalFolderImageType;
+                    }
+                    hasModifiedChanges = true;
+                }
+                #endregion
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.EndVertical();
+                GUILayout.Space(10);
+                #endregion
+
                 EditorGUILayout.BeginVertical(customSettingsStyleSecondary);
 
                 GUILayout.Space(2);
@@ -103,10 +157,11 @@ namespace Verpha.HierarchyDesigner
                     HierarchyDesigner_Info_Folder folder = folderEntry.Value;
 
                     EditorGUILayout.BeginHorizontal();
-                    GUILayout.Space(10);
+                    GUILayout.Space(4);
 
                     EditorGUI.BeginChangeCheck();
                     EditorGUILayout.LabelField(folder.Name, GUILayout.Width(maxWidth));
+                    GUILayout.Space(2);
                     folder.FolderColor = EditorGUILayout.ColorField(folder.FolderColor, GUILayout.MinWidth(200), GUILayout.ExpandWidth(true));
                     folder.ImageType = (HierarchyDesigner_Info_Folder.FolderImageType)EditorGUILayout.EnumPopup(folder.ImageType, GUILayout.Width(125));
                     if (EditorGUI.EndChangeCheck())
@@ -130,40 +185,6 @@ namespace Verpha.HierarchyDesigner
                 GUILayout.Space(5);
                 EditorGUILayout.EndScrollView();
                 EditorGUILayout.EndVertical();
-
-                #region Global Fields
-                GUILayout.Space(10);
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Global Fields:", contentLabelStyle, GUILayout.Width(95));
-                GUILayout.Space(10);
-
-                #region Changes Check
-                EditorGUI.BeginChangeCheck();
-                tempGlobalFolderIconColor = EditorGUILayout.ColorField(tempGlobalFolderIconColor, GUILayout.MinWidth(100), GUILayout.ExpandWidth(true));
-                if (EditorGUI.EndChangeCheck())
-                {
-                    foreach (HierarchyDesigner_Info_Folder folder in folders.Values)
-                    {
-                        folder.FolderColor = tempGlobalFolderIconColor;
-                    }
-                    hasModifiedChanges = true;
-                }
-                
-                EditorGUI.BeginChangeCheck();
-                tempGlobalFolderImageType = (HierarchyDesigner_Info_Folder.FolderImageType)EditorGUILayout.EnumPopup(tempGlobalFolderImageType, GUILayout.Width(258));
-                if (EditorGUI.EndChangeCheck())
-                {
-                    foreach (HierarchyDesigner_Info_Folder folder in folders.Values)
-                    {
-                        folder.ImageType = tempGlobalFolderImageType;
-                    }
-                    hasModifiedChanges = true;
-                }
-                #endregion
-
-                EditorGUILayout.EndHorizontal();
-                GUILayout.Space(10);
-                #endregion
 
                 GUILayout.Space(2);
                 if (GUILayout.Button("Update Folders", GUILayout.Height(30)))
@@ -191,33 +212,8 @@ namespace Verpha.HierarchyDesigner
 
         public static void SaveFolders()
         {
-            List<string> serializedParts = new List<string>();
-            foreach (var folder in folders)
-            {
-                HierarchyDesigner_Info_Folder f = folder.Value;
-                serializedParts.Add($"{f.Name},{HierarchyDesigner_Shared_ColorUtility.ColorToString(f.FolderColor)},{f.ImageType}");
-            }
-            string serialized = string.Join(";", serializedParts);
-            EditorPrefs.SetString(FolderPrefKey, serialized);
-            hasModifiedChanges = false;
-        }
-
-        public static void LoadFolders()
-        {
-            string serialized = EditorPrefs.GetString(FolderPrefKey, "");
-            folders.Clear();
-
-            foreach (string serializedFolder in serialized.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                string[] parts = serializedFolder.Split(',');
-                if (parts.Length == 3)
-                {
-                    string name = parts[0];
-                    Color iconColor = HierarchyDesigner_Shared_ColorUtility.ParseColor(parts[1]);
-                    HierarchyDesigner_Info_Folder.FolderImageType folderImageType = HierarchyDesigner_Shared_EnumFilter.ParseEnum(parts[2], HierarchyDesigner_Info_Folder.FolderImageType.Default);
-                    folders[name] = new HierarchyDesigner_Info_Folder(name, iconColor, folderImageType);
-                }
-            }
+            HierarchyDesigner_Data_Folder.folders = new Dictionary<string, HierarchyDesigner_Info_Folder>(folders);
+            HierarchyDesigner_Data_Folder.SaveFolders();
             hasModifiedChanges = false;
         }
 
@@ -235,6 +231,7 @@ namespace Verpha.HierarchyDesigner
                 }
             }
             hasModifiedChanges = false;
+            EditorApplication.delayCall -= CheckAndReloadData;
         }
     }
 
@@ -242,9 +239,9 @@ namespace Verpha.HierarchyDesigner
     {
         #region Default Folder
         [MenuItem("Hierarchy Designer/Hierarchy Folder/Create Default Folder", false, 2)]
-        private static void CreateDefaultFolder()
+        public static void CreateDefaultFolder()
         {
-            CreateFolderObject("New Folder", HierarchyDesigner_Info_Folder.FolderImageType.Default);
+            CreateFolderObject("New Folder", HierarchyDesigner_Info_Folder.FolderImageType.Classic);
         }
 
         private static void CreateFolderObject(string folderName, HierarchyDesigner_Info_Folder.FolderImageType folderImageType)
@@ -259,23 +256,30 @@ namespace Verpha.HierarchyDesigner
             }
 
             Undo.RegisterCreatedObjectUndo(folder, $"Create {folderName}");
-            EditorGUIUtility.PingObject(folder);
+            if (EditorWindow.focusedWindow == null || EditorWindow.focusedWindow.titleContent.text != "Hierarchy") { EditorApplication.ExecuteMenuItem("Window/General/Hierarchy"); }
+            EditorApplication.delayCall += () => BeginRename(folder);
+        }
+
+        private static void BeginRename(GameObject obj)
+        {
+            Selection.activeObject = obj;
+            EditorWindow.focusedWindow.SendEvent(EditorGUIUtility.CommandEvent("Rename"));
         }
         #endregion
 
         [MenuItem("Hierarchy Designer/Hierarchy Folder/Create All Folders", false, 1)]
-        private static void CreateAllFoldersFromList()
+        public static void CreateAllFoldersFromList()
         {
-            foreach (HierarchyDesigner_Info_Folder folderInfo in HierarchyFolderWindow.folders.Values)
+            foreach (HierarchyDesigner_Info_Folder folderInfo in HierarchyDesigner_Data_Folder.folders.Values)
             {
                 CreateFolder(folderInfo);
             }
         }
 
         [MenuItem("Hierarchy Designer/Hierarchy Folder/Create Missing Folders", false, 2)]
-        private static void CreateMissingFolders()
+        public static void CreateMissingFolders()
         {
-            foreach (HierarchyDesigner_Info_Folder folderInfo in HierarchyFolderWindow.folders.Values)
+            foreach (HierarchyDesigner_Info_Folder folderInfo in HierarchyDesigner_Data_Folder.folders.Values)
             {
                 if (!FolderExists(folderInfo.Name))
                 {
@@ -297,13 +301,15 @@ namespace Verpha.HierarchyDesigner
             {
                 EditorGUIUtility.SetIconForObject(folder, inspectorIcon);
             }
-
-            EditorGUIUtility.PingObject(folder);
         }
 
         private static bool FolderExists(string folderName)
         {
+            #if UNITY_6000_0_OR_NEWER
+            HierarchyDesignerFolder[] allFolders = GameObject.FindObjectsByType<HierarchyDesignerFolder>(FindObjectsSortMode.None);
+            #else
             HierarchyDesignerFolder[] allFolders = UnityEngine.Object.FindObjectsOfType<HierarchyDesignerFolder>(includeInactive: true);
+            #endif
             foreach (HierarchyDesignerFolder folder in allFolders)
             {
                 if (folder.gameObject.name.Equals(folderName, StringComparison.Ordinal))

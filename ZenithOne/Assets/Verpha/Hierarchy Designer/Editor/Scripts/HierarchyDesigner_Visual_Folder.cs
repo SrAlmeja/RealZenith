@@ -9,43 +9,42 @@ namespace Verpha.HierarchyDesigner
     [InitializeOnLoad]
     public class HierarchyDesigner_Visual_Folder
     {
+        #region Cached Properties
         private static readonly Texture2D backgroundImage = HierarchyDesigner_Manager_Background.BackgroundImage;
-        private static Dictionary<int, WeakReference<GameObject>> gameObjectCache = new Dictionary<int, WeakReference<GameObject>>();
+        private static readonly (Color folderColor, HierarchyDesigner_Info_Folder.FolderImageType folderImageType) defaultFolderInfo = (Color.white, HierarchyDesigner_Info_Folder.FolderImageType.Classic);
+        private static Dictionary<int, WeakReference<GameObject>> folderCache = new Dictionary<int, WeakReference<GameObject>>();
         private static Dictionary<string, (Color folderColor, HierarchyDesigner_Info_Folder.FolderImageType folderImageType)> folderInfoCache = new Dictionary<string, (Color, HierarchyDesigner_Info_Folder.FolderImageType)>();
+        #endregion
 
         static HierarchyDesigner_Visual_Folder()
         {
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyItemCB;
-            HierarchyFolderWindow.LoadFolders();
+            UpdateFolderVisuals();
         }
 
         private static void HierarchyItemCB(int instanceID, Rect selectionRect)
         {
-            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && EditorApplication.isPlaying) return;
+            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && HierarchyDesigner_Shared_EditorState.IsPlaying) return;
+            if (Event.current.type != EventType.Repaint) return;
             if (!TryGetGameObject(instanceID, out GameObject gameObject)) return;
 
-            if (IsFolder(gameObject))
-            {
-                var (folderColor, folderImageType) = GetFolderInfo(gameObject.name);
-                DrawFolderIcon(selectionRect, folderColor, folderImageType, instanceID);
-            }
+            (Color folderColor, HierarchyDesigner_Info_Folder.FolderImageType folderImageType) = GetFolderInfo(gameObject.name);
+            DrawFolderIcon(selectionRect, folderColor, folderImageType, instanceID);
         }
 
         private static bool TryGetGameObject(int instanceID, out GameObject gameObject)
         {
-            if (!gameObjectCache.TryGetValue(instanceID, out WeakReference<GameObject> weakRef) || !weakRef.TryGetTarget(out gameObject))
+            if (folderCache.TryGetValue(instanceID, out WeakReference<GameObject> weakRef) && weakRef.TryGetTarget(out gameObject))
             {
-                gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
-                if (gameObject != null)
-                {
-                    gameObjectCache[instanceID] = new WeakReference<GameObject>(gameObject);
-                }
-                else
-                {
-                    gameObjectCache.Remove(instanceID);
-                }
+                return IsFolder(gameObject);
             }
-            return gameObject != null;
+            gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
+            if (gameObject != null && IsFolder(gameObject))
+            {
+                folderCache[instanceID] = new WeakReference<GameObject>(gameObject);
+                return true;
+            }
+            return false;
         }
 
         public static bool IsFolder(GameObject gameObject)
@@ -57,7 +56,7 @@ namespace Verpha.HierarchyDesigner
         private static void DrawFolderIcon(Rect selectionRect, Color folderColor, HierarchyDesigner_Info_Folder.FolderImageType folderImageType, int instanceID)
         {
             bool isHovering = Event.current.type == EventType.Repaint && selectionRect.Contains(Event.current.mousePosition);
-            
+
             GUI.color = HierarchyDesigner_Shared_ColorUtility.GetBackgroundColor(isHovering, instanceID);
             if (backgroundImage != null)
             {
@@ -82,14 +81,14 @@ namespace Verpha.HierarchyDesigner
         {
             if (!folderInfoCache.TryGetValue(folderName, out var info))
             {
-                if (HierarchyFolderWindow.folders.TryGetValue(folderName, out var folder))
+                if (HierarchyFolderWindow.folders.TryGetValue(folderName, out HierarchyDesigner_Info_Folder folder))
                 {
                     info = (folder.FolderColor, folder.ImageType);
                     folderInfoCache[folderName] = info;
                 }
                 else
                 {
-                    info = (Color.white, HierarchyDesigner_Info_Folder.FolderImageType.Default);
+                    info = defaultFolderInfo;
                 }
             }
             return info;
@@ -97,15 +96,15 @@ namespace Verpha.HierarchyDesigner
 
         public static void UpdateFolderVisuals()
         {
-            folderInfoCache.Clear();
-            foreach (var kvp in HierarchyFolderWindow.folders)
+            if (HierarchyDesigner_Data_Folder.folders.Count > 0)
             {
-                string folderName = kvp.Key;
-                HierarchyDesigner_Info_Folder folder = kvp.Value;
-                folderInfoCache[folderName] = (folder.FolderColor, folder.ImageType);
+                folderInfoCache.Clear();
+                foreach (var folder in HierarchyDesigner_Data_Folder.folders)
+                {
+                    folderInfoCache[folder.Key] = (folder.Value.FolderColor, folder.Value.ImageType);
+                }
+                EditorApplication.RepaintHierarchyWindow();
             }
-            gameObjectCache.Clear();
-            EditorApplication.RepaintHierarchyWindow();
         }
     }
 }

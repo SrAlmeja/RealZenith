@@ -1,181 +1,408 @@
 #if UNITY_EDITOR
-using System;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Verpha.HierarchyDesigner
 {
+    [InitializeOnLoad]
     public static class HierarchyDesigner_Manager_Settings
     {
-        #region Keys
-        private const string ShowMainIconOfGameObjectKey = "HierarchyDesigner_ShowMainIconOfGameObject";
-        private const string ShowComponentIconsKey = "HierarchyDesigner_ShowComponentIcons";
-        private const string ShowTransformComponentKey = "HierarchyDesigner_ShowTransformComponent";
-        private const string ShowComponentIconsForFoldersKey = "HierarchyDesigner_ShowComponentIconsForFolders";
-        private const string ShowHierarchyTreeKey = "HierarchyDesigner_ShowHierarchyTree";
-        private const string ShowTagAndLayerKey = "HierarchyDesigner_ShowTagAndLayer";
-        private const string DisableHierarchyDesignerDuringPlayModeKey = "HierarchyDesigner_DisableDuringPlayMode";
-        private const string TagLayerTextColorKey = "HierarchyDesigner_TagLayerTextColor";
-        private const string TagLayerFontStyleKey = "HierarchyDesigner_TagLayerFontStyle";
-        private const string TagLayerFontSizeKey = "HierarchyDesigner_TagLayerFontSize";
-        private const string TreeColorKey = "HierarchyDesigner_TreeColor";
-        private const string EnableDisableShortcutKey = "HierarchyDesigner_EnableDisableShortcut";
-        private const string LockUnlockShortcutKey = "HierarchyDesigner_LockUnlockShortcut";
-        private const string ChangeTagAndLayerShortcutKey = "HierarchyDesigner_ChangeTagAndLayerShortcut";
-        private const string RenameGameObjectsShortcutKey = "HierarchyDesigner_RenameGameObjectsShortcut";
+        #region Properties
+        private const string SettingsFileName = "HierarchyDesigner_SavedData_Settings.json";
         #endregion
 
-        private static bool showMainIconOfGameObject = EditorPrefs.GetBool(ShowMainIconOfGameObjectKey, true);
-        private static bool showComponentIcons = EditorPrefs.GetBool(ShowComponentIconsKey, true);
-        private static bool showTransformComponent = EditorPrefs.GetBool(ShowTransformComponentKey, true);
-        private static bool showComponentIconsForFolders = EditorPrefs.GetBool(ShowComponentIconsForFoldersKey, true);
-        private static bool showHierarchyTree = EditorPrefs.GetBool(ShowHierarchyTreeKey, true);
-        private static bool showTagAndLayer = EditorPrefs.GetBool(ShowTagAndLayerKey, true);
-        private static bool disableHierarchyDesignerDuringPlayMode = EditorPrefs.GetBool(DisableHierarchyDesignerDuringPlayModeKey, true);
-        private static Color tagLayerTextColor = HierarchyDesigner_Shared_ColorUtility.ParseColor(EditorPrefs.GetString(TagLayerTextColorKey, HierarchyDesigner_Shared_ColorUtility.ColorToString(Color.gray)));
-        private static FontStyle tagLayerFontStyle = (FontStyle)EditorPrefs.GetInt(TagLayerFontStyleKey, (int)FontStyle.Normal);
-        private static int tagLayerFontSize = EditorPrefs.GetInt(TagLayerFontSizeKey, 12);
-        private static Color treeColor = HierarchyDesigner_Shared_ColorUtility.ParseColor(EditorPrefs.GetString(TreeColorKey, HierarchyDesigner_Shared_ColorUtility.ColorToString(Color.white)));
-        private static KeyCode enableDisableShortcut = (KeyCode)EditorPrefs.GetInt(EnableDisableShortcutKey, (int)KeyCode.Mouse2);
-        private static KeyCode lockUnlockShortcutShortcut = (KeyCode)EditorPrefs.GetInt(LockUnlockShortcutKey, (int)KeyCode.F1);
-        private static KeyCode changeTagAndLayerShortcut = (KeyCode)EditorPrefs.GetInt(ChangeTagAndLayerShortcutKey, (int)KeyCode.F2);
-        private static KeyCode renameGameObjectsShortcut = (KeyCode)EditorPrefs.GetInt(RenameGameObjectsShortcutKey, (int)KeyCode.F3);
+        #region Data
+        [System.Serializable]
+        private class HierarchyDesigner_SettingsData
+        {
+            public bool showMainIconOfGameObject = true;
+            public bool showComponentIcons = true;
+            public bool showTransformComponent = true;
+            public bool showComponentIconsForFolders = true;
+            public bool showTag = true;
+            public bool showLayer = true;
+            public bool showHierarchyTree = true;
+            public bool showHierarchyButtons = true;
+            public bool disableHierarchyDesignerDuringPlayMode = true;
+            public List<string> excludedTags = new List<string>();
+            public List<string> excludedLayers = new List<string>();
+            public Color tagTextColor = Color.gray;
+            public FontStyle tagFontStyle = FontStyle.BoldAndItalic;
+            public int tagFontSize = 9;
+            public Color layerTextColor = Color.gray;
+            public FontStyle layerFontStyle = FontStyle.BoldAndItalic;
+            public int layerFontSize = 9;
+            public Color treeColor = Color.white;
+            public HierarchyDesigner_Info_Buttons.ButtonsPositionType buttonsPosition = HierarchyDesigner_Info_Buttons.ButtonsPositionType.Docked;
+            public KeyCode enableDisableShortcut = KeyCode.Mouse2;
+            public KeyCode lockUnlockShortcut = KeyCode.F1;
+            public KeyCode changeTagAndLayerShortcut = KeyCode.F2;
+            public KeyCode renameGameObjectsShortcut = KeyCode.F3;
+        }
 
+        private static HierarchyDesigner_SettingsData settings = new HierarchyDesigner_SettingsData();
+        #endregion
+
+        #region Accessors
         public static bool ShowMainIconOfGameObject
         {
-            get => showMainIconOfGameObject;
-            set => SetAndSave(ref showMainIconOfGameObject, value, ShowMainIconOfGameObjectKey);
+            get => settings.showMainIconOfGameObject;
+            set
+            {
+                if (settings.showMainIconOfGameObject != value)
+                {
+                    settings.showMainIconOfGameObject = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static bool ShowComponentIcons
         {
-            get => showComponentIcons;
-            set => SetAndSave(ref showComponentIcons, value, ShowComponentIconsKey);
+            get => settings.showComponentIcons;
+            set
+            {
+                if (settings.showComponentIcons != value)
+                {
+                    settings.showComponentIcons = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static bool ShowTransformComponent
         {
-            get => showTransformComponent;
-            set => SetAndSave(ref showTransformComponent, value, ShowTransformComponentKey);
+            get => settings.showTransformComponent;
+            set
+            {
+                if (settings.showTransformComponent != value)
+                {
+                    settings.showTransformComponent = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static bool ShowComponentIconsForFolders
         {
-            get => showComponentIconsForFolders;
-            set => SetAndSave(ref showComponentIconsForFolders, value, ShowComponentIconsForFoldersKey);
+            get => settings.showComponentIconsForFolders;
+            set
+            {
+                if (settings.showComponentIconsForFolders != value)
+                {
+                    settings.showComponentIconsForFolders = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static bool ShowTag
+        {
+            get => settings.showTag;
+            set
+            {
+                if (settings.showTag != value)
+                {
+                    settings.showTag = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static bool ShowLayer
+        {
+            get => settings.showLayer;
+            set
+            {
+                if (settings.showLayer != value)
+                {
+                    settings.showLayer = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static bool ShowHierarchyTree
         {
-            get => showHierarchyTree;
-            set => SetAndSave(ref showHierarchyTree, value, ShowHierarchyTreeKey);
+            get => settings.showHierarchyTree;
+            set
+            {
+                if (settings.showHierarchyTree != value)
+                {
+                    settings.showHierarchyTree = value;
+                    SaveSettings();
+                }
+            }
         }
 
-        public static bool ShowTagAndLayer
+        public static bool ShowHierarchyButtons
         {
-            get => showTagAndLayer;
-            set => SetAndSave(ref showTagAndLayer, value, ShowTagAndLayerKey);
+            get => settings.showHierarchyButtons;
+            set
+            {
+                if (settings.showHierarchyButtons != value)
+                {
+                    settings.showHierarchyButtons = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static bool DisableHierarchyDesignerDuringPlayMode
         {
-            get => disableHierarchyDesignerDuringPlayMode;
-            set => SetAndSave(ref disableHierarchyDesignerDuringPlayMode, value, DisableHierarchyDesignerDuringPlayModeKey);
-        }
-
-        public static Color TagLayerTextColor
-        {
-            get => tagLayerTextColor;
+            get => settings.disableHierarchyDesignerDuringPlayMode;
             set
             {
-                if (tagLayerTextColor != value)
+                if (settings.disableHierarchyDesignerDuringPlayMode != value)
                 {
-                    tagLayerTextColor = value;
-                    EditorPrefs.SetString(TagLayerTextColorKey, HierarchyDesigner_Shared_ColorUtility.ColorToString(value));
+                    settings.disableHierarchyDesignerDuringPlayMode = value;
+                    SaveSettings();
                 }
             }
         }
 
-        public static FontStyle TagLayerFontStyle
+        public static List<string> ExcludedTags
         {
-            get => tagLayerFontStyle;
+            get => settings.excludedTags;
             set
             {
-                if (tagLayerFontStyle != value)
+                if (settings.excludedTags != value)
                 {
-                    tagLayerFontStyle = value;
-                    EditorPrefs.SetInt(TagLayerFontStyleKey, (int)value);
+                    settings.excludedTags = value;
+                    SaveSettings();
                 }
             }
         }
 
-        public static int TagLayerFontSize
+        public static List<string> ExcludedLayers
         {
-            get => tagLayerFontSize;
+            get => settings.excludedLayers;
             set
             {
-                if (tagLayerFontSize != value)
+                if (settings.excludedLayers != value)
                 {
-                    tagLayerFontSize = value;
-                    EditorPrefs.SetInt(TagLayerFontSizeKey, value);
+                    settings.excludedLayers = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static Color TagTextColor
+        {
+            get => settings.tagTextColor;
+            set
+            {
+                if (settings.tagTextColor != value)
+                {
+                    settings.tagTextColor = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static FontStyle TagFontStyle
+        {
+            get => settings.tagFontStyle;
+            set
+            {
+                if (settings.tagFontStyle != value)
+                {
+                    settings.tagFontStyle = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static int TagFontSize
+        {
+            get => settings.tagFontSize;
+            set
+            {
+                if (settings.tagFontSize != value)
+                {
+                    settings.tagFontSize = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static Color LayerTextColor
+        {
+            get => settings.layerTextColor;
+            set
+            {
+                if (settings.layerTextColor != value)
+                {
+                    settings.layerTextColor = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static FontStyle LayerFontStyle
+        {
+            get => settings.layerFontStyle;
+            set
+            {
+                if (settings.layerFontStyle != value)
+                {
+                    settings.layerFontStyle = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static int LayerFontSize
+        {
+            get => settings.layerFontSize;
+            set
+            {
+                if (settings.layerFontSize != value)
+                {
+                    settings.layerFontSize = value;
+                    SaveSettings();
                 }
             }
         }
 
         public static Color TreeColor
         {
-            get => treeColor;
+            get => settings.treeColor;
             set
             {
-                if (treeColor != value)
+                if (settings.treeColor != value)
                 {
-                    treeColor = value;
-                    EditorPrefs.SetString(TreeColorKey, HierarchyDesigner_Shared_ColorUtility.ColorToString(value));
+                    settings.treeColor = value;
+                    SaveSettings();
+                }
+            }
+        }
+
+        public static HierarchyDesigner_Info_Buttons.ButtonsPositionType ButtonsPosition
+        {
+            get => settings.buttonsPosition;
+            set
+            {
+                if (settings.buttonsPosition != value)
+                {
+                    settings.buttonsPosition = value;
+                    SaveSettings();
                 }
             }
         }
 
         public static KeyCode EnableDisableShortcut
         {
-            get => enableDisableShortcut;
-            set => SetAndSave(ref enableDisableShortcut, value, EnableDisableShortcutKey);
+            get => settings.enableDisableShortcut;
+            set
+            {
+                if (settings.enableDisableShortcut != value)
+                {
+                    settings.enableDisableShortcut = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static KeyCode LockUnlockShortcut
         {
-            get => lockUnlockShortcutShortcut;
-            set => SetAndSave(ref lockUnlockShortcutShortcut, value, LockUnlockShortcutKey);
+            get => settings.lockUnlockShortcut;
+            set
+            {
+                if (settings.lockUnlockShortcut != value)
+                {
+                    settings.lockUnlockShortcut = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static KeyCode ChangeTagAndLayerShortcut
         {
-            get => changeTagAndLayerShortcut;
-            set => SetAndSave(ref changeTagAndLayerShortcut, value, ChangeTagAndLayerShortcutKey);
+            get => settings.changeTagAndLayerShortcut;
+            set
+            {
+                if (settings.changeTagAndLayerShortcut != value)
+                {
+                    settings.changeTagAndLayerShortcut = value;
+                    SaveSettings();
+                }
+            }
         }
 
         public static KeyCode RenameGameObjectsShortcut
         {
-            get => renameGameObjectsShortcut;
-            set => SetAndSave(ref renameGameObjectsShortcut, value, RenameGameObjectsShortcutKey);
+            get => settings.renameGameObjectsShortcut;
+            set
+            {
+                if (settings.renameGameObjectsShortcut != value)
+                {
+                    settings.renameGameObjectsShortcut = value;
+                    SaveSettings();
+                }
+            }
+        }
+        #endregion
+
+        static HierarchyDesigner_Manager_Settings()
+        {
+            LoadSettings();
         }
 
-        private static void SetAndSave(ref bool field, bool value, string key)
+        public static void SaveSettings()
         {
-            if (field != value)
+            string dataFilePath = HierarchyDesigner_Shared_Data.GetDataFilePath(SettingsFileName);
+            string json = JsonUtility.ToJson(settings, true);
+            File.WriteAllText(dataFilePath, json);
+            AssetDatabase.Refresh();
+        }
+
+        public static void LoadSettings()
+        {
+            string dataFilePath = HierarchyDesigner_Shared_Data.GetDataFilePath(SettingsFileName);
+            if (File.Exists(dataFilePath))
             {
-                field = value;
-                EditorPrefs.SetBool(key, value);
+                string json = File.ReadAllText(dataFilePath);
+                HierarchyDesigner_SettingsData loadedSettings = JsonUtility.FromJson<HierarchyDesigner_SettingsData>(json);
+                loadedSettings.buttonsPosition = HierarchyDesigner_Shared_EnumFilter.ParseEnum(loadedSettings.buttonsPosition.ToString(), HierarchyDesigner_Info_Buttons.ButtonsPositionType.Docked);
+                settings = loadedSettings;
+            }
+            else
+            {
+                SetDefaultSettings();
             }
         }
 
-        private static void SetAndSave<T>(ref T field, T value, string key)
+        private static void SetDefaultSettings()
         {
-            if (!EqualityComparer<T>.Default.Equals(field, value))
+            settings = new HierarchyDesigner_SettingsData()
             {
-                field = value;
-                EditorPrefs.SetInt(key, Convert.ToInt32(value));
-            }
+                showMainIconOfGameObject = true,
+                showComponentIcons = true,
+                showTransformComponent = true,
+                showComponentIconsForFolders = true,
+                showTag = true,
+                showLayer = true,
+                showHierarchyTree = true,
+                showHierarchyButtons = true,
+                disableHierarchyDesignerDuringPlayMode = true,
+                excludedTags = new List<string>(),
+                excludedLayers = new List<string>(),
+                tagTextColor = Color.gray,
+                tagFontStyle = FontStyle.Normal,
+                tagFontSize = 10,
+                layerTextColor = Color.gray,
+                layerFontStyle = FontStyle.Normal,
+                layerFontSize = 10,
+                treeColor = Color.white,
+                buttonsPosition = HierarchyDesigner_Info_Buttons.ButtonsPositionType.AfterProperties,
+                enableDisableShortcut = KeyCode.Mouse2,
+                lockUnlockShortcut = KeyCode.F1,
+                changeTagAndLayerShortcut = KeyCode.F2,
+                renameGameObjectsShortcut = KeyCode.F3
+            };
         }
     }
 }

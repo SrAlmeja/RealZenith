@@ -9,6 +9,9 @@ public class NewOmnitrixTestRotations : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private ScriptableEventBool _grabbingOmnitrixChannel;
 
+    [Header("Settings")]
+    [SerializeField] private float _rotationMultiplier = 1.0f;
+
     private InputDevice _rightController;
     private bool _grabbingOmnitrix = false;
 
@@ -58,6 +61,7 @@ public class NewOmnitrixTestRotations : MonoBehaviour
         if (value == _grabbingOmnitrix) return;
         _grabbingOmnitrix = value;
         if(_grabbingOmnitrix) UpdateRotations();
+        else ClampRotation();
     }
 
     private void UpdateRotations()
@@ -67,41 +71,33 @@ public class NewOmnitrixTestRotations : MonoBehaviour
         {
             _initialControllerRotation = rightRotation;
         }
-        //Debug.Log("Initial Controller Rotation: " + _initialControllerRotation);
-        Debug.Log("Initial Controller Rotation: " + _initialControllerRotation.eulerAngles);
-        //Debug.Log("Initial Object Rotation: " + _initialObjectRotation);
     }
 
     private void RotateObject()
     {
-        if(_grabbingOmnitrix == false) return;
+        if (!_grabbingOmnitrix) return;
 
         _rightController.TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion rightRotation);
         Quaternion deltaQuaternion = Quaternion.Inverse(_initialControllerRotation) * rightRotation;
 
-
-
         Vector3 eulerDelta = deltaQuaternion.eulerAngles;
-        float rotationZ = eulerDelta.x;
-
         //Debug.Log(eulerDelta);
-       // Debug.Log("Euler X "+ eulerDelta.x);
+        float rotationZ = eulerDelta.x * _rotationMultiplier;
 
-        // Apply the change in rotation to the object's local rotation
-        /*
-        if(transform.localRotation.z < 0)
+        Quaternion newRotation = Quaternion.Euler(_initialObjectRotation.eulerAngles.x, _initialObjectRotation.eulerAngles.y, _initialObjectRotation.eulerAngles.z + rotationZ);
+
+        transform.localRotation = newRotation;
+    }
+
+    private void ClampRotation()
+    {
+        if (transform.localEulerAngles.z > 135)
         {
-            //transform.localRotation.z = 0;
-            return;
-        }
-
-        if(transform.localRotation.z > 135)
+            transform.localRotation = Quaternion.Euler(0, 0, 135);
+        } else if (transform.localEulerAngles.z < 0)
         {
-            return;
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-        */
-
-        gameObject.transform.localRotation = Quaternion.Euler(_initialObjectRotation.x, _initialObjectRotation.y, _initialObjectRotation.z + rotationZ);
     }
 }
 

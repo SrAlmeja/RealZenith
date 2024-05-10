@@ -20,60 +20,99 @@ namespace Verpha.HierarchyDesigner
         #region TMP Availability Check
         private static bool? _isTMPAvailable;
         private static Type _tmpTextType;
-        private static bool IsTMPAvailable()
+        private static Type _tmpDropdownType;
+        private static Type _tmpInputFieldType;
+        private static bool CheckTMPAvailability()
         {
             if (!_isTMPAvailable.HasValue)
             {
                 _isTMPAvailable = AssetDatabase.FindAssets("t:TMP_Settings").Length > 0;
+                if (_isTMPAvailable.Value)
+                {
+                    _tmpTextType = Type.GetType("TMPro.TMP_Text, Unity.TextMeshPro");
+                    _tmpDropdownType = Type.GetType("TMPro.TMP_Dropdown, Unity.TextMeshPro");
+                    _tmpInputFieldType = Type.GetType("TMPro.TMP_InputField, Unity.TextMeshPro");
+                }
             }
             return _isTMPAvailable.Value;
         }
-        private static Type TMPTextType
-        {
-            get
-            {
-                if (_tmpTextType == null && IsTMPAvailable())
-                {
-                    _tmpTextType = Type.GetType("TMPro.TMP_Text, Unity.TextMeshPro");
-                }
-                return _tmpTextType;
-            }
-        }
+        private static Type TMPTextType => _tmpTextType;
+        private static Type TMPDropdownType => _tmpDropdownType;
+        private static Type TMPInputFieldType => _tmpInputFieldType;
         #endregion
-        #region UI Component Types Cached
+        #region Other Properties
+        private const float componentIconsOffset = 20f;
+        private const float tagLayerOffset = 3f;
+        private const float buttonsOffset = 15f;
+        private const float buttonsLockedOffset = 53f;
+        #endregion
+        #region Cached Component Types
         private static readonly Type ButtonType = typeof(Button);
         private static readonly Type ScrollbarType = typeof(Scrollbar);
         private static readonly Type TextType = typeof(Text);
         private static readonly Type RawImageType = typeof(RawImage);
         private static readonly Type ImageType = typeof(Image);
+        private static readonly Type ScrollRect = typeof(ScrollRect);
+        private static readonly Type Dropdown = typeof(Dropdown);
+        private static readonly Type InputField = typeof(InputField);
+        private static readonly Type MonoBehaviourType = typeof(MonoBehaviour);
         #endregion
-
+        #region Cached Properties
+        private static readonly string ScriptPropertyName = "m_Script";
+        private static readonly string WarningIconTexture = "console.warnicon";
         private static readonly Texture2D backgroundImage = HierarchyDesigner_Manager_Background.BackgroundImage;
+        #region Tag and Layer
         private static Rect tagLabelRect, layerLabelRect;
-        private static GUIStyle _tagLayerLabelStyle;
-        private static GUIStyle tagLayerLabelStyle
+        private static GUIStyle _tagStyle;
+        private static GUIStyle tagStyle
         {
             get
             {
-                if (_tagLayerLabelStyle == null)
+                if (_tagStyle == null)
                 {
-                    _tagLayerLabelStyle = new GUIStyle(GUI.skin.label)
+                    _tagStyle = new GUIStyle(GUI.skin.label)
                     {
                         alignment = TextAnchor.MiddleLeft,
-                        fontStyle = HierarchyDesigner_Manager_Settings.TagLayerFontStyle,
-                        fontSize = HierarchyDesigner_Manager_Settings.TagLayerFontSize,
-                        normal = { textColor = HierarchyDesigner_Manager_Settings.TagLayerTextColor }
+                        fontStyle = HierarchyDesigner_Manager_Settings.TagFontStyle,
+                        fontSize = HierarchyDesigner_Manager_Settings.TagFontSize,
+                        normal = { textColor = HierarchyDesigner_Manager_Settings.TagTextColor }
                     };
                 }
                 else
                 {
-                    _tagLayerLabelStyle.fontStyle = HierarchyDesigner_Manager_Settings.TagLayerFontStyle;
-                    _tagLayerLabelStyle.fontSize = HierarchyDesigner_Manager_Settings.TagLayerFontSize;
-                    _tagLayerLabelStyle.normal.textColor = HierarchyDesigner_Manager_Settings.TagLayerTextColor;
+                    _tagStyle.fontStyle = HierarchyDesigner_Manager_Settings.TagFontStyle;
+                    _tagStyle.fontSize = HierarchyDesigner_Manager_Settings.TagFontSize;
+                    _tagStyle.normal.textColor = HierarchyDesigner_Manager_Settings.TagTextColor;
                 }
-                return _tagLayerLabelStyle;
+                return _tagStyle;
             }
         }
+
+        private static GUIStyle _layerStyle;
+        private static GUIStyle layerStyle
+        {
+            get
+            {
+                if (_layerStyle == null)
+                {
+                    _layerStyle = new GUIStyle(GUI.skin.label)
+                    {
+                        alignment = TextAnchor.MiddleLeft,
+                        fontStyle = HierarchyDesigner_Manager_Settings.LayerFontStyle,
+                        fontSize = HierarchyDesigner_Manager_Settings.LayerFontSize,
+                        normal = { textColor = HierarchyDesigner_Manager_Settings.LayerTextColor }
+                    };
+                }
+                else
+                {
+                    _layerStyle.fontStyle = HierarchyDesigner_Manager_Settings.LayerFontStyle;
+                    _layerStyle.fontSize = HierarchyDesigner_Manager_Settings.LayerFontSize;
+                    _layerStyle.normal.textColor = HierarchyDesigner_Manager_Settings.LayerTextColor;
+                }
+                return _layerStyle;
+            }
+        }
+        #endregion
         private static Color treeColorCache;
         private static bool isTreeColorCacheInitialized = false;
         private static Color TreeColor
@@ -93,10 +132,14 @@ namespace Verpha.HierarchyDesigner
         private static List<Component[]> componentArrayPool = new List<Component[]>();
         private static readonly Dictionary<int, (Texture2D icon, Color color)> branchIconCache = new Dictionary<int, (Texture2D icon, Color color)>();
         private static readonly Dictionary<(string, GUIStyle, int), Vector2> guiContentSizeCache = new Dictionary<(string, GUIStyle, int), Vector2>();
+        private static Dictionary<string, bool> tagExclusionCache = new Dictionary<string, bool>();
+        private static Dictionary<string, bool> layerExclusionCache = new Dictionary<string, bool>();
         private static HashSet<int> visibleGameObjects = new HashSet<int>();
+        #endregion
 
         static HierarchyDesigner_Visual_GameObject()
         {
+            CheckTMPAvailability();
             EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemGUI;
             EditorApplication.hierarchyChanged += OnHierarchyChanged;
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -104,27 +147,169 @@ namespace Verpha.HierarchyDesigner
 
         private static void OnHierarchyWindowItemGUI(int instanceID, Rect selectionRect)
         {
-            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && EditorApplication.isPlaying) return;
+            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && HierarchyDesigner_Shared_EditorState.IsPlaying) return;
 
             GameObject gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
-            if (gameObject == null) return;
+            if (gameObject == null || HierarchyDesigner_Utility_Separator.IsSeparator(gameObject)) return;
             visibleGameObjects.Add(instanceID);
 
-            if (HierarchyDesigner_Utility_Separator.IsSeparator(gameObject)) return;
+            bool isGameObjectLocked = HierarchyDesigner_Utility_Tools.IsGameObjectLocked(gameObject);
+            if (!isGameObjectLocked) { DrawTagAndLayerInfo(gameObject, selectionRect); }
+            if (Event.current.type != EventType.Repaint)
+            {
+                HandleShortcuts(gameObject, selectionRect);
+                if (HierarchyDesigner_Manager_Settings.ShowHierarchyButtons) { ProcessButtonInteractions(gameObject, selectionRect); }
+                return;
+            }
+
             DrawMainGameObjectIcon(gameObject, selectionRect, instanceID);
-            DrawHierarchyTree(gameObject, selectionRect);
+            if (HierarchyDesigner_Manager_Settings.ShowHierarchyTree && gameObject.transform.parent != null) { DrawHierarchyTree(gameObject, selectionRect); }
+            if (!isGameObjectLocked) { DrawComponentIcons(gameObject, selectionRect); }
+            if (HierarchyDesigner_Manager_Settings.ShowHierarchyButtons) { DrawInteractableIcons(gameObject, selectionRect); }
+        }
 
-            if (HierarchyDesigner_Utility_Tools.IsGameObjectLocked(gameObject)) return;
-            DrawComponentIcons(gameObject, selectionRect);
-            DrawTagAndLayerInfo(gameObject, selectionRect);
+        #region Buttons
+        private static void ProcessButtonInteractions(GameObject gameObject, Rect selectionRect)
+        {
+            Rect lockIconRect, activeToggleRect;
+            GetButtonRects(gameObject, selectionRect, out lockIconRect, out activeToggleRect);
 
+            bool isMouseDown = Event.current.type == EventType.MouseDown;
+            if (isMouseDown && lockIconRect.Contains(Event.current.mousePosition))
+            {
+                ToggleLockState(gameObject, !HierarchyDesigner_Utility_Tools.IsGameObjectLocked(gameObject));
+                Event.current.Use();
+            }
+            else if (isMouseDown && activeToggleRect.Contains(Event.current.mousePosition))
+            {
+                ToggleActiveState(gameObject, !gameObject.activeSelf);
+                Event.current.Use();
+            }
+        }
+
+        private static void GetButtonRects(GameObject gameObject, Rect selectionRect, out Rect lockIconRect, out Rect activeToggleRect)
+        {
+            HierarchyDesigner_Info_Buttons.ButtonsPositionType buttonsPosition = HierarchyDesigner_Manager_Settings.ButtonsPosition;
+
+            float iconStartX = selectionRect.xMax;
+            if (buttonsPosition == HierarchyDesigner_Info_Buttons.ButtonsPositionType.Docked) { iconStartX -= 35f; }
+            else { iconStartX = CalculateEndOfPropertiesX(gameObject, selectionRect) + selectionRect.x + buttonsOffset; }
+
+            lockIconRect = new Rect(iconStartX, selectionRect.y, 20, selectionRect.height);
+            activeToggleRect = new Rect(iconStartX + 20, selectionRect.y, 30, selectionRect.height);
+        }
+
+        private static void DrawInteractableIcons(GameObject gameObject, Rect selectionRect)
+        {
+            HierarchyDesigner_Info_Buttons.ButtonsPositionType buttonsPosition = HierarchyDesigner_Manager_Settings.ButtonsPosition;
+
+            float iconStartX = selectionRect.xMax;
+            if (buttonsPosition == HierarchyDesigner_Info_Buttons.ButtonsPositionType.Docked) { iconStartX -= 35f; }
+            else { iconStartX = CalculateEndOfPropertiesX(gameObject, selectionRect) + selectionRect.x + buttonsOffset; }
+
+            Rect lockIconRect = new Rect(iconStartX, selectionRect.y, 20, selectionRect.height);
+            Rect activeToggleRect = new Rect(iconStartX + 20, selectionRect.y, 30, selectionRect.height);
+
+            DrawLockButton(gameObject, lockIconRect);
+            DrawActiveToggleButton(gameObject, activeToggleRect);
+        }
+
+        private static float CalculateEndOfPropertiesX(GameObject gameObject, Rect selectionRect)
+        {
+            if ((gameObject.hideFlags & HideFlags.NotEditable) == HideFlags.NotEditable) 
+            { 
+                return GetInitialIconOffset(gameObject) + buttonsLockedOffset; 
+            }
+            float offsetX = GetInitialIconOffset(gameObject);
+
+            if (HierarchyDesigner_Manager_Settings.ShowComponentIcons)
+            {
+                offsetX += CalculateComponentIconsWidth(gameObject);
+            }
+            if (HierarchyDesigner_Manager_Settings.ShowTag && !IsTagExcluded(gameObject.tag))
+            {
+                offsetX += GetCachedGUIContentSize(new GUIContent(gameObject.tag), tagStyle).x + 5;
+            }
+            if (HierarchyDesigner_Manager_Settings.ShowLayer && !IsLayerExcluded(LayerMask.LayerToName(gameObject.layer)))
+            {
+                offsetX += GetCachedGUIContentSize(new GUIContent(LayerMask.LayerToName(gameObject.layer)), layerStyle).x + 5;
+            }
+            return offsetX;
+        }
+
+        private static float GetInitialIconOffset(GameObject gameObject)
+        {
+            GUIStyle style = GUI.skin.label;
+            Vector2 contentSize = style.CalcSize(new GUIContent(gameObject.name));
+            return contentSize.x + 5;
+        }
+
+        private static float CalculateComponentIconsWidth(GameObject gameObject)
+        {
+            Component[] components = GetComponentsFromCacheOrObject(gameObject);
+            float totalWidth = 0f;
+            float componentOffset = 16f;
+
+            foreach (Component component in components)
+            {
+                if (ShouldComponentBeVisible(component, gameObject))
+                {
+                    totalWidth += componentOffset;
+                }
+            }
+            return totalWidth;
+        }
+
+        private static bool ShouldComponentBeVisible(Component component, GameObject gameObject)
+        {
+            Type componentType = component.GetType();
+            if ((componentType == typeof(Transform) || componentType == typeof(RectTransform)) && !HierarchyDesigner_Manager_Settings.ShowTransformComponent) return false;
+            if (HierarchyDesigner_Visual_Folder.IsFolder(gameObject) && !HierarchyDesigner_Manager_Settings.ShowComponentIconsForFolders) return false;
+            return true;
+        }
+
+        private static void DrawLockButton(GameObject gameObject, Rect rect)
+        {
+            bool isLocked = HierarchyDesigner_Utility_Tools.IsGameObjectLocked(gameObject);
+            Texture2D lockIcon = HierarchyDesigner_Manager_Buttons.LockIcon;
+            if (GUI.Button(rect, lockIcon))
+            {
+                ToggleLockState(gameObject, !isLocked);
+            }
+        }
+
+        private static void DrawActiveToggleButton(GameObject gameObject, Rect rect)
+        {
+            bool isActive = gameObject.activeSelf;
+            if (GUI.Button(rect, new GUIContent(isActive ? "On" : "Off")))
+            {
+                ToggleActiveState(gameObject, !isActive);
+            }
+        }
+
+        private static void ToggleLockState(GameObject gameObject, bool newState)
+        {
+            HierarchyDesigner_Utility_Tools.SetGameObjectLockState(gameObject, newState);
+        }
+
+        private static void ToggleActiveState(GameObject gameObject, bool newState)
+        {
+            Undo.RecordObject(gameObject, "Toggle Active State");
+            gameObject.SetActive(newState);
+            EditorUtility.SetDirty(gameObject);
+        }
+        #endregion
+
+        private static void HandleShortcuts(GameObject gameObject, Rect selectionRect)
+        {
+            if (gameObject == null) return;
             HandleTagAndLayerShortcut(gameObject, selectionRect);
             HandleRenameShortcut();
         }
 
         private static void OnHierarchyChanged()
         {
-            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && EditorApplication.isPlaying) return;
+            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && HierarchyDesigner_Shared_EditorState.IsPlaying) return;
 
             ValidateComponentCache();
             List<WeakReference> deadComponentReferences = new List<WeakReference>();
@@ -265,25 +450,33 @@ namespace Verpha.HierarchyDesigner
         {
             if (components == null || components.Length == 0) return null;
 
-            Component imageComponent = null;
-            foreach (Component component in components)
+            if (TMPTextType != null)
             {
-                if (component == null) continue;
-
-                Type componentType = component.GetType();
-                if (TMPTextType != null && componentType == TMPTextType)
+                for (int i = 0; i < components.Length; i++)
                 {
-                    return component;
+                    Type componentType = components[i]?.GetType();
+                    if (componentType != null &&
+                        (TMPTextType.IsAssignableFrom(componentType) ||
+                         TMPDropdownType != null && TMPDropdownType.IsAssignableFrom(componentType) ||
+                         TMPInputFieldType != null && TMPInputFieldType.IsAssignableFrom(componentType)))
+                    {
+                        return components[i];
+                    }
                 }
+            }
 
-                if (componentType == ButtonType || componentType == ScrollbarType || componentType == TextType || componentType == RawImageType)
+            Component imageComponent = null;
+            for (int i = 0; i < components.Length; i++)
+            {
+                if (components[i] == null) continue;
+                Type componentType = components[i].GetType();
+                if (componentType == ButtonType || componentType == ScrollbarType || componentType == TextType || componentType == RawImageType || componentType == ScrollRect || componentType == Dropdown || componentType == InputField)
                 {
-                    return component;
+                    return components[i];
                 }
-
-                if (componentType == ImageType && imageComponent == null)
+                else if (componentType == ImageType)
                 {
-                    imageComponent = component;
+                    imageComponent = imageComponent ?? components[i];
                 }
             }
             return imageComponent;
@@ -305,7 +498,7 @@ namespace Verpha.HierarchyDesigner
             {
                 if (component == null)
                 {
-                    Texture2D warningIcon = EditorGUIUtility.FindTexture("console.warnicon");
+                    Texture2D warningIcon = EditorGUIUtility.FindTexture(WarningIconTexture);
                     DrawIcon(selectionRect, iconSize, ref iconOffset, warningIcon);
                     continue;
                 }
@@ -313,34 +506,36 @@ namespace Verpha.HierarchyDesigner
                 Texture2D componentIcon = GetComponentIcon(component);
                 if (componentIcon != null)
                 {
-                    DrawIcon(selectionRect, iconSize, ref iconOffset, componentIcon);
+                    string componentName = component.GetType().Name;
+                    GUIContent iconContent = new GUIContent(componentIcon, componentName);
+                    DrawIconWithTooltip(selectionRect, iconSize, ref iconOffset, iconContent);
                 }
             }
+        }
+
+        private static void DrawIconWithTooltip(Rect selectionRect, float iconSize, ref float iconOffset, GUIContent content)
+        {
+            float iconYPosition = selectionRect.y + (selectionRect.height - iconSize) / 2;
+            Rect iconRect = new Rect(selectionRect.x + iconOffset, iconYPosition, iconSize, iconSize);
+            GUI.Box(iconRect, content, GUIStyle.none);
+            iconOffset += iconSize + 2;
         }
 
         private static List<Component> FilterComponents(Component[] components, bool showTransformComponent)
         {
             List<Component> filteredComponents = new List<Component>();
-            foreach (Component component in components)
+            for (int i = 0; i < components.Length; i++)
             {
-                if (component is Transform && !showTransformComponent) continue;
-                filteredComponents.Add(component);
+                if (components[i] is Transform && !showTransformComponent) continue;
+                filteredComponents.Add(components[i]);
             }
             return filteredComponents;
         }
 
         private static Texture2D GetComponentIcon(Component component)
         {
-            if (component == null)
-            {
-                return null;
-            }
-
-            if (IsScriptMissing(component))
-            {
-                return EditorGUIUtility.FindTexture("console.warnicon");
-            }
-
+            if (component == null) { return null; }
+            if (IsScriptMissing(component)) { return EditorGUIUtility.FindTexture(WarningIconTexture); }
             return EditorGUIUtility.ObjectContent(component, component.GetType()).image as Texture2D;
         }
 
@@ -354,10 +549,10 @@ namespace Verpha.HierarchyDesigner
 
         private static bool IsScriptMissing(Component component)
         {
-            if (component is MonoBehaviour monoBehaviour)
+            if (component.GetType() == MonoBehaviourType)
             {
                 SerializedObject serializedObject = new SerializedObject(component);
-                SerializedProperty scriptProperty = serializedObject.FindProperty("m_Script");
+                SerializedProperty scriptProperty = serializedObject.FindProperty(ScriptPropertyName);
                 return scriptProperty == null || scriptProperty.objectReferenceValue == null;
             }
             return false;
@@ -414,139 +609,116 @@ namespace Verpha.HierarchyDesigner
 
         private static bool ValidateComponentsArray(Component[] components, int expectedComponentCount)
         {
-            if (components.Length < expectedComponentCount)
-            {
-                return false;
-            }
-
-            bool hasNonNullComponent = false;
-            for (int i = 0; i < components.Length; i++)
-            {
-                if (components[i] != null)
-                {
-                    hasNonNullComponent = true;
-                    break;
-                }
-            }
-
-            if (!hasNonNullComponent)
-            {
-                return false;
-            }
-
-            if (Array.TrueForAll(components, component => component == null))
-            {
-                return false;
-            }
-
-            return true;
+            if (components.Length < expectedComponentCount) { return false; }
+            return Array.Exists(components, component => component != null);
         }
 
         private static void ReturnComponentsToPool(Component[] components)
         {
-            bool isValidForPool = false;
-            for (int i = 0; i < components.Length; i++)
-            {
-                if (components[i] != null)
-                {
-                    isValidForPool = true;
-                    break;
-                }
-            }
-
-            if (isValidForPool)
-            {
-                componentArrayPool.Add(components);
-            }
+            if (Array.Exists(components, component => component != null)) { componentArrayPool.Add(components); }
         }
 
         private static void CleanupComponentArrayPool()
         {
-            List<Component[]> validatedPool = new List<Component[]>();
-            foreach (Component[] componentsArray in componentArrayPool)
-            {
-                bool hasNonNullComponent = false;
-                for (int i = 0; i < componentsArray.Length; i++)
-                {
-                    if (componentsArray[i] != null)
-                    {
-                        hasNonNullComponent = true;
-                        break;
-                    }
-                }
-
-                if (hasNonNullComponent)
-                {
-                    validatedPool.Add(componentsArray);
-                }
-            }
-            componentArrayPool = validatedPool;
+            componentArrayPool.RemoveAll(componentsArray => !Array.Exists(componentsArray, component => component != null));
         }
 
         private static float GetInitialIconOffset(Component[] components, Rect selectionRect)
         {
-            if (components == null || components.Length == 0 || components[0] == null || components[0].gameObject == null)
-            {
-                return 0f;
-            }
-
+            if (components == null || components.Length == 0 || components[0] == null || components[0].gameObject == null) { return 0f; }
             GUIStyle style = GUI.skin.label;
             GUIContent content = new GUIContent(components[0].gameObject.name);
             float textWidth = style.CalcSize(content).x;
-            return textWidth + 20f;
+            return textWidth + componentIconsOffset;
         }
 
         private static void UpdateMainIconCacheIfNeeded(GameObject gameObject, int instanceID, Component[] components)
         {
             Texture2D newMainIcon = GetIconForMainComponent(gameObject, components);
-
-            if (!mainIconCache.TryGetValue(instanceID, out Texture2D currentMainIcon) || currentMainIcon != newMainIcon)
-            {
-                mainIconCache[instanceID] = newMainIcon;
-            }
+            if (!mainIconCache.TryGetValue(instanceID, out Texture2D currentMainIcon) || currentMainIcon != newMainIcon) { mainIconCache[instanceID] = newMainIcon; }
         }
 
         private static Texture2D GetIconForMainComponent(GameObject gameObject, Component[] components)
         {
             Component mainComponent = FindMainUIComponent(components);
-
-            if (mainComponent == null)
-            {
-                mainComponent = (components != null && components.Length > 1) ? components[1] : gameObject.transform;
-            }
-
-            if (mainComponent != null)
-            {
-                return EditorGUIUtility.ObjectContent(mainComponent, mainComponent.GetType()).image as Texture2D;
-            }
-
+            if (mainComponent == null) { mainComponent = (components != null && components.Length > 1) ? components[1] : gameObject.transform; }
+            if (mainComponent != null) { return EditorGUIUtility.ObjectContent(mainComponent, mainComponent.GetType()).image as Texture2D; }
             return null;
         }
 
+        #region Tag and Layer
         private static void DrawTagAndLayerInfo(GameObject gameObject, Rect selectionRect)
         {
-            if (!HierarchyDesigner_Manager_Settings.ShowTagAndLayer || ShouldSkipDrawing(gameObject)) return;
+            if (ShouldSkipDrawing(gameObject) || (!HierarchyDesigner_Manager_Settings.ShowTag && !HierarchyDesigner_Manager_Settings.ShowLayer)) return;
 
-            GUIStyle currentStyle = tagLayerLabelStyle;
-
-            GUIContent tagContent = new GUIContent(gameObject.tag);
-            Vector2 tagSize = GetCachedGUIContentSize(tagContent, currentStyle);
-            float tagLabelWidth = tagSize.x;
-
-            string layerName = LayerMask.LayerToName(gameObject.layer);
-            GUIContent layerContent = new GUIContent(layerName);
-            Vector2 layerSize = GetCachedGUIContentSize(layerContent, currentStyle);
-            float layerLabelWidth = layerSize.x;
-
-            float iconOffset = GetAdjustedIconOffset(gameObject, selectionRect.height * 0.65f, selectionRect) + 3f;
+            float iconOffset = GetAdjustedIconOffset(gameObject, selectionRect.height * 0.65f, selectionRect) + tagLayerOffset;
             const float spaceBetween = 3f;
 
-            tagLabelRect = new Rect(selectionRect.x + iconOffset, selectionRect.y, tagLabelWidth, selectionRect.height);
-            layerLabelRect = new Rect(tagLabelRect.xMax + spaceBetween, selectionRect.y, layerLabelWidth, selectionRect.height);
+            if (HierarchyDesigner_Manager_Settings.ShowTag)
+            {
+                tagLabelRect = new Rect();
+                if (!IsTagExcluded(gameObject.tag))
+                {
+                    GUIStyle tagCurrentStyle = tagStyle;
+                    GUIContent tagContent = new GUIContent(gameObject.tag);
+                    Vector2 tagSize = GetCachedGUIContentSize(tagContent, tagCurrentStyle);
+                    float tagLabelWidth = tagSize.x;
 
-            GUI.Label(tagLabelRect, gameObject.tag, currentStyle);
-            GUI.Label(layerLabelRect, layerName, currentStyle);
+                    tagLabelRect = new Rect(selectionRect.x + iconOffset, selectionRect.y, tagLabelWidth, selectionRect.height);
+                    GUI.Label(tagLabelRect, gameObject.tag, tagCurrentStyle);
+                    iconOffset += tagLabelWidth + spaceBetween;
+                }
+            }
+            if (HierarchyDesigner_Manager_Settings.ShowLayer)
+            {
+                string layerName = LayerMask.LayerToName(gameObject.layer);
+                layerLabelRect = new Rect();
+                if (!IsLayerExcluded(layerName))
+                {
+                    GUIStyle layerCurrentStyle = layerStyle;
+                    GUIContent layerContent = new GUIContent(layerName);
+                    Vector2 layerSize = GetCachedGUIContentSize(layerContent, layerCurrentStyle);
+                    float layerLabelWidth = layerSize.x;
+
+                    layerLabelRect = new Rect(selectionRect.x + iconOffset, selectionRect.y, layerLabelWidth, selectionRect.height);
+                    GUI.Label(layerLabelRect, layerName, layerCurrentStyle);
+                }
+            }
         }
+
+        private static bool IsTagExcluded(string tag)
+        {
+            if (!tagExclusionCache.TryGetValue(tag, out bool isExcluded))
+            {
+                isExcluded = HierarchyDesigner_Manager_Settings.ExcludedTags.Contains(tag);
+                tagExclusionCache[tag] = isExcluded;
+            }
+            return isExcluded;
+        }
+
+        private static bool IsLayerExcluded(string layerName)
+        {
+            if (!layerExclusionCache.TryGetValue(layerName, out bool isExcluded))
+            {
+                isExcluded = HierarchyDesigner_Manager_Settings.ExcludedLayers.Contains(layerName);
+                layerExclusionCache[layerName] = isExcluded;
+            }
+            return isExcluded;
+        }
+
+        public static void ClearExcludeTagLayerCache()
+        {
+            tagExclusionCache.Clear();
+            layerExclusionCache.Clear();
+        }
+
+        public static void RecalculateTagAndLayerSizes()
+        {
+            guiContentSizeCache.Clear();
+            _tagStyle = null;
+            _layerStyle = null;
+        }
+        #endregion
 
         private static Vector2 GetCachedGUIContentSize(GUIContent content, GUIStyle style)
         {
@@ -559,25 +731,20 @@ namespace Verpha.HierarchyDesigner
             return size;
         }
 
-        public static void RecalculateTagAndLayerSizes()
-        {
-            guiContentSizeCache.Clear();
-            _tagLayerLabelStyle = null;
-        }
-
         private static void HandleTagAndLayerShortcut(GameObject gameObject, Rect selectionRect)
         {
-            if (HierarchyDesigner_Manager_Settings.ShowTagAndLayer)
+            if (HierarchyDesigner_Manager_Settings.ShowTag || HierarchyDesigner_Manager_Settings.ShowLayer)
             {
                 if (HierarchyDesigner_Utility_Shortcut.IsShortcutPressed(HierarchyDesigner_Manager_Settings.ChangeTagAndLayerShortcut))
                 {
                     Vector2 mousePosition = Event.current.mousePosition;
-                    if (tagLabelRect.Contains(mousePosition))
+                    if (HierarchyDesigner_Manager_Settings.ShowTag && tagLabelRect.Contains(mousePosition))
                     {
                         HierarchyDesigner_Window_TagLayer.OpenWindow(gameObject, true, Event.current.mousePosition);
                         Event.current.Use();
+                        return;
                     }
-                    else if (layerLabelRect.Contains(mousePosition))
+                    if (HierarchyDesigner_Manager_Settings.ShowLayer && layerLabelRect.Contains(mousePosition))
                     {
                         HierarchyDesigner_Window_TagLayer.OpenWindow(gameObject, false, Event.current.mousePosition);
                         Event.current.Use();
@@ -616,7 +783,7 @@ namespace Verpha.HierarchyDesigner
                 Component[] components = GetComponentsFromCacheOrObject(gameObject);
 
                 int visibleComponentsCount = 0;
-                foreach (var component in components)
+                foreach (Component component in components)
                 {
                     if (HierarchyDesigner_Manager_Settings.ShowTransformComponent || !(component is Transform))
                     {
@@ -626,14 +793,11 @@ namespace Verpha.HierarchyDesigner
 
                 offset += visibleComponentsCount * (iconSize + spaceBetweenElements);
             }
-
             return offset;
         }
 
         private static void DrawHierarchyTree(GameObject gameObject, Rect selectionRect)
         {
-            if (!HierarchyDesigner_Manager_Settings.ShowHierarchyTree || Event.current.type != EventType.Repaint || gameObject.transform.parent == null) return;
-
             const float iconOffset = 14f;
             const float initialOffset = 22f;
             Transform transform = gameObject.transform;
@@ -661,7 +825,6 @@ namespace Verpha.HierarchyDesigner
         private static void DrawParentTreeLines(Transform parentTransform, float startX, float iconOffset, float rectHeight, float yPos)
         {
             Color currentTreeColor = GetCachedTreeColor();
-
             while (parentTransform != null)
             {
                 if (parentTransform.parent == null) break;

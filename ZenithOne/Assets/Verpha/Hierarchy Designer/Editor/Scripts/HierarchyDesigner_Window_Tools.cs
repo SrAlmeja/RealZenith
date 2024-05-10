@@ -23,7 +23,7 @@ namespace Verpha.HierarchyDesigner
         #endregion
 
         [MenuItem("Hierarchy Designer/Hierarchy Helpers/Tools Master", false, 50)]
-        public static void ShowWindow()
+        public static void OpenWindow()
         {
             HierarchyDesigner_Window_Tools window = GetWindow<HierarchyDesigner_Window_Tools>("Tools Master", true);
             window.minSize = new Vector2(200, 100);

@@ -7,35 +7,38 @@ namespace Verpha.HierarchyDesigner
     public class HierarchyDesigner_Info_Folder
     {
         #region Properties
-        private string name = "Folder";
-        private Color folderColor = Color.white;
-        private FolderImageType folderImageType = FolderImageType.Default;
+        [SerializeField] private string name = "Folder";
+        [SerializeField] private Color folderColor = Color.white;
+        [SerializeField] private FolderImageType folderImageType = FolderImageType.Classic;
         #endregion
 
+        #region Accessors
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => name;
+            set => name = value;
         }
 
         public Color FolderColor
         {
-            get { return folderColor; }
-            set { folderColor = value; }
+            get => folderColor;
+            set => folderColor = value;
         }
 
         public FolderImageType ImageType
         {
-            get { return folderImageType; }
-            set { folderImageType = value; }
+            get => folderImageType;
+            set => folderImageType = value;
         }
 
         public enum FolderImageType
         {
-            Default,
-            DefaultOutline,
-            DefaultOutline2X
+            Classic,
+            ClassicOutline,
+            ClassicOutline2X,
+            ModernI
         }
+        #endregion
 
         public HierarchyDesigner_Info_Folder(string name, Color folderColor, FolderImageType folderImageType)
         {
