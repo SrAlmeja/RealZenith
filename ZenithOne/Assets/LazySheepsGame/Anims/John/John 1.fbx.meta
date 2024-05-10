@@ -1,9 +1,59 @@
 fileFormatVersion: 2
-guid: 7115721dc78a41040a00ccb3492f9aac
+guid: 359bc355627074342aaf884ccdf2b6e8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bandana
+    second: {fileID: 2100000, guid: 67ee905fb54723a4ebec25e819664fa5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Belt
+    second: {fileID: 2100000, guid: 976e71b8231a17c4dab6c18a42ddc292, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: d00fdbfe4c64a8f4bbb4360f9bef4f26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Front_Cape
+    second: {fileID: 2100000, guid: 0d5fe589b44800c4eb402d16e3cb2d68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: General_Cape
+    second: {fileID: 2100000, guid: dbbd38fdf2a1aac449c617fa8d91d687, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glasses_Lens
+    second: {fileID: 2100000, guid: deabe4358ebd2724c94f7f9af47e6369, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hat
+    second: {fileID: 2100000, guid: b74fbb8f8b63f4a469598623afa2a084, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mini_Glasses
+    second: {fileID: 2100000, guid: 1b4e258714c76cd44b98df9e00104093, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Neck
+    second: {fileID: 2100000, guid: 7c61054a27d203f46ab655f72dd87b5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shirt
+    second: {fileID: 2100000, guid: 6ed61e85dd5c1644eaef7f614189c87c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +85,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.08
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -90,7 +140,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.0008
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
