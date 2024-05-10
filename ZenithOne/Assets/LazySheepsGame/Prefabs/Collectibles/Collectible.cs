@@ -38,7 +38,7 @@ public class Collectible : MonoBehaviour
             {
                 grabbable.OnSqueezeEvent += Collect;
             }
-        }
+        } 
     }
 
     private void OnDisable()
