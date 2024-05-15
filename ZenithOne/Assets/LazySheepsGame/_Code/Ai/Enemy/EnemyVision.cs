@@ -7,11 +7,13 @@ public class EnemyVision : MonoBehaviour
 {
     public EnemyParameters Parameters { get; private set; }
 
+    [SerializeField] private Transform headTransform;
     private LayerMask _playerLayer;
     
     private bool _playerDetected;
     private Transform _target;
     private EnemyBt _parentBt;
+    
 
     public void Initialize(EnemyBt parentBt, EnemyParameters parameters, LayerMask playerLayer)
     {
@@ -40,7 +42,7 @@ public class EnemyVision : MonoBehaviour
         
         _target = colliders[0].transform;
         var targetDir = (_target.transform.position - transform.position).normalized;
-        if (!(Vector3.Angle(transform.forward, targetDir) < Parameters.coneAngle / 2)) return;
+        if (!(Vector3.Angle(headTransform.forward, targetDir) < Parameters.coneAngle / 2)) return;
         
         var dist = Vector3.Distance(transform.position, _target.position);
         if (!Physics.Raycast(transform.position, targetDir, out var hit, dist)) return;
@@ -74,7 +76,7 @@ public class EnemyVision : MonoBehaviour
         Handles.color = Color.white;
         Handles.DrawWireDisc(position, Vector3.up, Parameters.detectionRange);
         
-        var eulerAngles = transform.eulerAngles;
+        var eulerAngles = headTransform.eulerAngles;
         Vector3 viewAngle01 = CryoMath.DirFromAngle(eulerAngles.y, -Parameters.coneAngle / 2);
         Vector3 viewAngle02 = CryoMath.DirFromAngle(eulerAngles.y, Parameters.coneAngle / 2);
         

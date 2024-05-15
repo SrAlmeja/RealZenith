@@ -169,30 +169,30 @@ namespace com.LazyGames.Dz.Ai
             _parameters = defaultParameters;
             _agent = GetComponent<NavMeshAgent>();
             _agent.speed = _parameters.movementSpeed;
-            _hearing = gameObject.AddComponent<EnemyHearing>();
-            _vision = gameObject.AddComponent<EnemyVision>();
+            _hearing = gameObject.GetComponent<EnemyHearing>();
+            _vision = gameObject.GetComponent<EnemyVision>();
             _animator = GetComponentInChildren<Animator>();
             _hearing.Initialize(this);
             _vision.Initialize(this, _parameters, LayerMask.GetMask("Player"));
         }
 
-        #if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            if(_parameters == null) return;
-            var position = transform.position + _parameters.heightOffset;
-            Handles.color = Color.white;
-            Handles.DrawWireDisc(position, Vector3.up, _parameters.detectionRange);
-        
-            var eulerAngles = transform.eulerAngles;
-            Vector3 viewAngle01 = CryoMath.DirFromAngle(eulerAngles.y, -_parameters.coneAngle / 2);
-            Vector3 viewAngle02 = CryoMath.DirFromAngle(eulerAngles.y, _parameters.coneAngle / 2);
-        
-            Handles.color = Color.yellow;
-            Handles.DrawLine(position, position + viewAngle01 * _parameters.detectionRange);
-            Handles.DrawLine(position, position + viewAngle02 * _parameters.detectionRange);
-        }
-        #endif
+        // #if UNITY_EDITOR
+        // private void OnDrawGizmos()
+        // {
+        //     if(_parameters == null) return;
+        //     var position = transform.position + _parameters.heightOffset;
+        //     Handles.color = Color.white;
+        //     Handles.DrawWireDisc(position, Vector3.up, _parameters.detectionRange);
+        //
+        //     var eulerAngles = transform.eulerAngles;
+        //     Vector3 viewAngle01 = CryoMath.DirFromAngle(eulerAngles.y, -_parameters.coneAngle / 2);
+        //     Vector3 viewAngle02 = CryoMath.DirFromAngle(eulerAngles.y, _parameters.coneAngle / 2);
+        //
+        //     Handles.color = Color.yellow;
+        //     Handles.DrawLine(position, position + viewAngle01 * _parameters.detectionRange);
+        //     Handles.DrawLine(position, position + viewAngle02 * _parameters.detectionRange);
+        // }
+        // #endif
 
     }
 }
