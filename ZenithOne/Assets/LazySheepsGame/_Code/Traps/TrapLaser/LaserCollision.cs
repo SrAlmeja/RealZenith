@@ -12,10 +12,13 @@ public class LaserCollision : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private float laserDistance = 10f;
     [SerializeField] private LayerMask layerMask;
+
+    [SerializeField] private GameObject colisionParticlePrefab;
     
     private Ray _ray;
     private bool _cast;
     private bool _damageApplied = false;
+    
 
     public void ActivateLaser()
     {
@@ -47,6 +50,15 @@ public class LaserCollision : MonoBehaviour
         Vector3 hitPosition = _cast ? hit.point : laserStart.position + laserStart.forward * laserDistance;
         lineRenderer.SetPosition(0, laserStart.position);
         lineRenderer.SetPosition(1, hitPosition);
+
+        if (_cast && hit.collider.CompareTag("Wall"))
+        {
+            ParticleSystem collisonLaserParticle = colisionParticlePrefab.GetComponent<ParticleSystem>();
+            if (collisonLaserParticle != null)
+            {
+                collisonLaserParticle.Play();
+            }
+        }
         
         if(_cast && hit.collider.CompareTag("Player"))
         {
@@ -55,6 +67,7 @@ public class LaserCollision : MonoBehaviour
                 float dmg = hit.collider.GetComponent<PlayerHealth>().MaxHealth;
                 hit.collider.GetComponent<IGeneralTarget>().ReceiveAggression(Vector3.zero, dmg);
                 _damageApplied = true;
+                
             }
         }else
         {
