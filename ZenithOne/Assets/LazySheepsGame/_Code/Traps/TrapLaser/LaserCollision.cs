@@ -14,11 +14,19 @@ public class LaserCollision : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
 
     [SerializeField] private GameObject colisionParticlePrefab;
+    private GameObject _particle;
+    private ParticleSystem _particleSystem;
     
     private Ray _ray;
     private bool _cast;
     private bool _damageApplied = false;
-    
+
+    private void Awake()
+    {
+        _particle = Instantiate(colisionParticlePrefab);
+        _particleSystem = _particle.GetComponentInChildren<ParticleSystem>();
+        _particle.SetActive(false);
+    }
 
     public void ActivateLaser()
     {
@@ -53,11 +61,15 @@ public class LaserCollision : MonoBehaviour
 
         if (_cast && hit.collider.CompareTag("Wall"))
         {
-            ParticleSystem collisonLaserParticle = colisionParticlePrefab.GetComponent<ParticleSystem>();
-            if (collisonLaserParticle != null)
-            {
-                collisonLaserParticle.Play();
-            }
+            //Debug.Log("Chocando con muro");
+            _particle.SetActive(true);
+            _particleSystem.Play();
+            _particle.transform.position = hitPosition;
+        }
+        else
+        {
+            _particleSystem.Stop();
+            _particle.SetActive(false);
         }
         
         if(_cast && hit.collider.CompareTag("Player"))
