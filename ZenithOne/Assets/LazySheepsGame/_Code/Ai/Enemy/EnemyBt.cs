@@ -33,7 +33,8 @@ namespace com.LazyGames.Dz.Ai
         private static readonly int Moving = Animator.StringToHash("moving");
         private static readonly int Chasing = Animator.StringToHash("chasing");
         private static readonly int Attacking = Animator.StringToHash("attacking");
-        
+        private static readonly int Alert = Animator.StringToHash("alert");
+
 
         protected override Node SetupTree()
         {
@@ -91,7 +92,7 @@ namespace com.LazyGames.Dz.Ai
             _agent.Warp(enemyWayPoints.WayPoints[rand].transform.position);
             
             _root.WipeData();   
-            Invoke(nameof(DelayedWipe), 0.1f);
+            Invoke(nameof(DelayedWipe), 1f);
         }   
 
         public void PlayerDetected(Transform target)
@@ -131,7 +132,8 @@ namespace com.LazyGames.Dz.Ai
             _parameters = defaultParameters;
             _vision.Parameters.coneAngle = _parameters.coneAngle;
             _vision.Parameters.coneAngle = _parameters.coneAngle;
-            _animator.SetBool(Chasing, true);
+            _animator.SetBool(Chasing, false);
+            _animator.SetBool(Alert, false);
             _startled = false;
         }
         
@@ -175,24 +177,5 @@ namespace com.LazyGames.Dz.Ai
             _hearing.Initialize(this);
             _vision.Initialize(this, _parameters, LayerMask.GetMask("Player"));
         }
-
-        // #if UNITY_EDITOR
-        // private void OnDrawGizmos()
-        // {
-        //     if(_parameters == null) return;
-        //     var position = transform.position + _parameters.heightOffset;
-        //     Handles.color = Color.white;
-        //     Handles.DrawWireDisc(position, Vector3.up, _parameters.detectionRange);
-        //
-        //     var eulerAngles = transform.eulerAngles;
-        //     Vector3 viewAngle01 = CryoMath.DirFromAngle(eulerAngles.y, -_parameters.coneAngle / 2);
-        //     Vector3 viewAngle02 = CryoMath.DirFromAngle(eulerAngles.y, _parameters.coneAngle / 2);
-        //
-        //     Handles.color = Color.yellow;
-        //     Handles.DrawLine(position, position + viewAngle01 * _parameters.detectionRange);
-        //     Handles.DrawLine(position, position + viewAngle02 * _parameters.detectionRange);
-        // }
-        // #endif
-
     }
 }
