@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ink.Runtime;
 using Obvious.Soap;
@@ -7,6 +8,28 @@ namespace com.LazyGames
 {
     public class DialogueManager : MonoBehaviour
     {
+        private static DialogueManager _instance;
+        public static DialogueManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<DialogueManager>();
+                    if (_instance == null)
+                    {
+                        GameObject go = new GameObject();
+                        go.name = "DialogueManager";
+                        _instance = go.AddComponent<DialogueManager>();
+                        DontDestroyOnLoad(_instance);
+                    }
+                }
+                
+
+                return _instance;
+            }
+        }
+        
         [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
         [SerializeField] ScriptableEventNoParam _onContinueDialogue;
         [SerializeField] ScriptableEventNoParam _onDialogueEnd;
@@ -15,14 +38,27 @@ namespace com.LazyGames
         
         
         private Story _currentStory;
-        private DialogueBase _currentDialogue;
+        private DialogueBase _currentDialogueBase;
         private string _currentSpeaker;
         private string _currentVoice;
+        
+        public Story CurrentStory => _currentStory;
         
 
         private const string SPEAKER_TAG = "speaker";
         private const string VOICE_TAG = "voice";
 
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -33,10 +69,15 @@ namespace com.LazyGames
         private void EnterDialogueMode(DialogueBase dialogue)
         {
             _onDialogueSend.OnRaised -= EnterDialogueMode;
-            _currentDialogue = dialogue;
+            _currentDialogueBase = dialogue;
             TextAsset inkJSON = dialogue.GetInkJSON();
             _currentStory = new Story(inkJSON.text);
-
+            
+            if (_currentDialogueBase.HasDialogueToTrigger)
+            {
+                _currentDialogueBase.CurrentInkContainer.OnDialogueEnd += TriggerDialogueSubtitle;
+            }
+            
             ContinueStory();
 
         }
@@ -49,7 +90,7 @@ namespace com.LazyGames
                 ExitDialogueMode();
                 return;
             }
-            Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.canContinue.ToString().SetColor("#FFD700"));
+            // Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.canContinue.ToString().SetColor("#FFD700"));
             if (_currentStory.canContinue)
             {
                 _currentStory.Continue();
@@ -61,7 +102,8 @@ namespace com.LazyGames
                 dialogueInfoUI.Voice = _currentVoice;
                 
                 SendInfoToUI(dialogueInfoUI);
-                Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.currentText);
+                
+                // Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.currentText);
             }
             else
             {
@@ -74,10 +116,17 @@ namespace com.LazyGames
             _onDialogueSend.OnRaised += EnterDialogueMode;
             _onDialogueEnd.Raise();
             
-            _currentDialogue = null;
+            if (_currentDialogueBase.HasDialogueToTrigger)
+            {
+                _currentDialogueBase.CurrentInkContainer.OnDialogueEnd -= TriggerDialogueSubtitle;
+            }
+            
+            _currentDialogueBase = null;
             _currentStory = null;
             _currentSpeaker = null;
             _currentVoice = null;
+            
+            
             
             // Debug.Log("Dialogue ended");   
             
@@ -115,11 +164,11 @@ namespace com.LazyGames
         
         private void SendInfoToUI(DialogueInfoUI dialogueInfoUI)
         {
-            if(_currentDialogue is DialogueNPC npc)
+            if(_currentDialogueBase is DialogueNPC npc)
             {
                 npc.SetDialogueToNpc(dialogueInfoUI);
             }
-            else if (_currentDialogue is MarthDialog triggerDialog)
+            else if (_currentDialogueBase is MarthDialog triggerDialog)
             {
                 if(triggerDialog.CurrentInkContainer.DialogueType == DialogueType.Subtitles)
                 {
@@ -128,8 +177,13 @@ namespace com.LazyGames
             }
         }
 
-        private void TriggerDialogueSubtitle()
+        private void TriggerDialogueSubtitle(string dialogueToTrigger, CHARACTER character)
         {
+            Debug.Log("Trigger Dialogue: ".SetColor("#C5F335") + dialogueToTrigger);
+            DialogueBase dialogueBase = _dialoguesInScene.Find(x => x.Character == character);
+            
+            
+            
             
         }
         
@@ -143,8 +197,6 @@ namespace com.LazyGames
         public string Speaker;
         public string Voice;
         public string Text;
-        public int CurrentDialogueIndex;
-        public int TotalDialogueLines;
         
         
     }

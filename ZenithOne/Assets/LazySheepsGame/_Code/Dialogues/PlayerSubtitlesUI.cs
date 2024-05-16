@@ -30,7 +30,7 @@ public class PlayerSubtitlesUI : MonoBehaviour
 
     private void OnEndDialogue()
     {
-        Debug.Log("End Dialogue from PlayerSubtitles");
+        // Debug.Log("End Dialogue from PlayerSubtitles");
         if (!String.IsNullOrEmpty(_currentText))
         {
             // _subtitlesUI.SetActive(false);

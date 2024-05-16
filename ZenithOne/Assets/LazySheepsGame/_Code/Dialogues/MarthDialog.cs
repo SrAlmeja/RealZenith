@@ -35,32 +35,21 @@ public class MarthDialog : DialogueBase
     {
         if (_timerBase == null)
         {
-            Debug.LogError("Timer is null FROM" + gameObject.name);
+            // Debug.LogError("Timer is null FROM" + gameObject.name);
             return;
         }
 
-        Debug.Log("Clean Timer");
+        // Debug.Log("Clean Timer");
         _timerBase.OnTimerEnd -= OnFinishedDialogueTimer;
         _timerBase.StopTimer();
         Destroy(_timerBase);
         _timerBase = null;
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         // Debug.Log("Interact with trigguer Dialogue");
-    //         SendDialogue();
-    //     }
-    // }
-
+    
     private void SetTimer()
     {
         if(_timerBase == null)
             _timerBase = gameObject.AddComponent<TimerBase>();
-            
-        // if(_timerBase.IsTimerActive) return;
             
         _timerBase.OnTimerEnd += OnFinishedDialogueTimer;
         _timerBase.StartTimer(_timeToContinue);
