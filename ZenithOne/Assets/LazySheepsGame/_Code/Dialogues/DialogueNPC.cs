@@ -15,8 +15,10 @@ public class DialogueNPC : DialogueBase
     [SerializeField] private TextMeshProUGUI _dialogueText;
     [SerializeField] private TextMeshProUGUI _speakerText;
     [SerializeField] private TextMeshProUGUI _numberText;
-
     [SerializeField] private GameObject _interactButtonUI;
+    [SerializeField] private GameObject nextDialogImage;
+    [SerializeField] private Transform arrowNextDialog;
+    
     
     [Header("Input Events")]
     [SerializeField] private InputActionReference _interactAction;
@@ -24,6 +26,7 @@ public class DialogueNPC : DialogueBase
     private string _currentText;
     private bool _isDialogueActive;
     private bool _canInteract;
+    private bool _canContinue;
 
     #region unity methods
     

@@ -90,13 +90,14 @@ namespace com.LazyGames
                 ExitDialogueMode();
                 return;
             }
-            // Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.canContinue.ToString().SetColor("#FFD700"));
+            
+            DialogueInfoUI dialogueInfoUI = new DialogueInfoUI();
+            dialogueInfoUI.CanContinue = _currentStory.canContinue;
+            
             if (_currentStory.canContinue)
             {
                 _currentStory.Continue();
                 SetTags(_currentStory.currentTags);
-                
-                DialogueInfoUI dialogueInfoUI = new DialogueInfoUI();
                 dialogueInfoUI.Text = _currentStory.currentText;
                 dialogueInfoUI.Speaker = _currentSpeaker;
                 dialogueInfoUI.Voice = _currentVoice;
@@ -197,6 +198,7 @@ namespace com.LazyGames
         public string Speaker;
         public string Voice;
         public string Text;
+        public bool CanContinue;
         
         
     }
