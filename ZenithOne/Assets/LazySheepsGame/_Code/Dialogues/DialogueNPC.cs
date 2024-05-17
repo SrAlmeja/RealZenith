@@ -85,6 +85,8 @@ public class DialogueNPC : DialogueBase
     public void SetDialogueToNpc(DialogueInfoUI dialogueInfoUI)
     {
         _dialogueMeshUI.SetActive(true);
+        _canContinue = dialogueInfoUI.CanContinue;  
+        EnableCanContinue(_canContinue);
         DisplayTextEffect(dialogueInfoUI.Text);
         SetSpeaker(dialogueInfoUI.Speaker);
     }
@@ -107,7 +109,13 @@ public class DialogueNPC : DialogueBase
            _isDialogueActive = false;
         });
     }
-    
+    private void EnableCanContinue(bool enable)
+    {
+        if (nextDialogImage == null || nextDialogImage.activeSelf == enable)
+            return;
+        
+        nextDialogImage.SetActive(enable);
+    }
     private void SkipTextEffect(string text)
     {
         Debug.Log("Skip Text Effect");
