@@ -11,7 +11,6 @@ public class FloorMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float aceleration;
     [SerializeField] private Vector3 direction;
-    [SerializeField] private Transform spawnZone;
 
     private void Awake()
     {
