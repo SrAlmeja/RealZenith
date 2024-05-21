@@ -38,6 +38,7 @@ public class FloorSpawn : MonoBehaviour
 
     public void SpawnObject()
     {
+        RandomSelectionObject();
         Debug.Log("Spawneando " + _selectedObject.transform.name);
         LeanPool.Spawn(_selectedObject, _spawnPosition, Quaternion.identity, parentPrefab.transform);
     }
