@@ -10,7 +10,13 @@ public class MarthDialog : DialogueBase
     [SerializeField] private float _timeToContinue = 4f;
     private TimerBase _timerBase;
     
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            SendDialogue();
+        }
+    }
     
     public override void SendDialogue()
     {
@@ -53,7 +59,7 @@ public class MarthDialog : DialogueBase
             
         _timerBase.OnTimerEnd += OnFinishedDialogueTimer;
         _timerBase.StartTimer(_timeToContinue);
-        Debug.Log("Set Timer");
+        // Debug.Log("Set Timer");
     }
 
 

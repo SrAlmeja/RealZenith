@@ -36,7 +36,7 @@ namespace com.LazyGames
 
         [SerializeField] private List<DialogueBase> _dialoguesInScene;
         
-        
+        public List<DialogueBase> DialoguesInScene => _dialoguesInScene;
         private Story _currentStory;
         private DialogueBase _currentDialogueBase;
         private string _currentSpeaker;
@@ -104,7 +104,6 @@ namespace com.LazyGames
                 
                 SendInfoToUI(dialogueInfoUI);
                 
-                // Debug.Log("Continue Story".SetColor("#89C9FF") + _currentStory.currentText);
             }
             else
             {
@@ -121,6 +120,8 @@ namespace com.LazyGames
             {
                 _currentDialogueBase.CurrentInkContainer.OnDialogueEnd -= TriggerDialogueSubtitle;
             }
+            
+            _currentDialogueBase.CurrentInkContainer.IsDialogueEnd = true;
             
             _currentDialogueBase = null;
             _currentStory = null;
@@ -148,16 +149,16 @@ namespace com.LazyGames
                 switch (tagKey)
                 {
                     case SPEAKER_TAG:
-                        Debug.Log("speaker: " + tagValue);
+                        // Debug.Log("speaker: " + tagValue);
                         _currentSpeaker = tagValue;
                         
                         break;
                     case VOICE_TAG:
-                        Debug.Log("voice: " + tagValue);
+                        // Debug.Log("voice: " + tagValue);
                         _currentVoice = tagValue;
                         break;
                     default:
-                        Debug.LogWarning("Unknown tag:" + tagKey);  
+                        // Debug.LogWarning("Unknown tag:" + tagKey);  
                         break;
                 }
             }
@@ -183,12 +184,23 @@ namespace com.LazyGames
             Debug.Log("Trigger Dialogue: ".SetColor("#C5F335") + dialogueToTrigger);
             DialogueBase dialogueBase = _dialoguesInScene.Find(x => x.Character == character);
             
-            
-            
-            
+            if(dialogueBase == null)
+            {
+                Debug.LogError("Dialogue Base is null");
+                return;
+            }
+            dialogueBase.SendDialogue();
         }
         
-        
+        public void FindDialogueInScene()
+        {
+            _dialoguesInScene = new List<DialogueBase>();
+            DialogueBase[] dialogues = FindObjectsOfType<DialogueBase>();
+            foreach (var dialogue in dialogues)
+            {
+                _dialoguesInScene.Add(dialogue);
+            }
+        }
         
         
     }

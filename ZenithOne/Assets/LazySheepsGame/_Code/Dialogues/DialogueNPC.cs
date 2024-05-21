@@ -14,7 +14,6 @@ public class DialogueNPC : DialogueBase
     [SerializeField] private GameObject _dialogueMeshUI;
     [SerializeField] private TextMeshProUGUI _dialogueText;
     [SerializeField] private TextMeshProUGUI _speakerText;
-    [SerializeField] private TextMeshProUGUI _numberText;
     [SerializeField] private GameObject _interactButtonUI;
     [SerializeField] private GameObject nextDialogImage;
     [SerializeField] private Transform arrowNextDialog;
@@ -35,6 +34,8 @@ public class DialogueNPC : DialogueBase
         base.Start();
         _dialogueMeshUI.SetActive(false);
         _interactAction.action.performed += Interact;
+        
+        arrowNextDialog.transform.DOLocalJump( new Vector3(0, 0.005f, 0), 0.03f, 1, 0.5f).SetLoops(-1);
 
     }
     private void OnEnable()
@@ -118,7 +119,7 @@ public class DialogueNPC : DialogueBase
     }
     private void SkipTextEffect(string text)
     {
-        Debug.Log("Skip Text Effect");
+        // Debug.Log("Skip Text Effect");
         _dialogueText.DOKill();
         _dialogueText.text = text;
         _isDialogueActive = false;
