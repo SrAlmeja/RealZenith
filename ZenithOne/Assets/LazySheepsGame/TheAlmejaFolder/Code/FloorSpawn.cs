@@ -44,6 +44,7 @@ public class FloorSpawn : MonoBehaviour
 
     public void BackToThePool(GameObject floor)
     {
+        Debug.Log("El objeto " + floor.transform.name + " fue regresado al pool");
         LeanPool.Despawn(floor);
     }
 }

@@ -9,14 +9,17 @@ public class FloorColission : MonoBehaviour
 
     private void Awake()
     {
-        GetComponentInParent<FloorColission>();
+        _floorSpawn = GetComponentInParent<FloorSpawn>();
+        if (_floorSpawn == null)
+        {
+            Debug.LogError("No se encontró el componente FloorSpawn en el padre de " + gameObject.name);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
-            //_floorSpawn.BackToThePool(gameObject);
-            Debug.Log("Destruyendo piso");
+            _floorSpawn.BackToThePool(this.gameObject);
         }
     }
     
