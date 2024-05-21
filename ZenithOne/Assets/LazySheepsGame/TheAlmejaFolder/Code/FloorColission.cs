@@ -6,6 +6,7 @@ using UnityEngine;
 public class FloorColission : MonoBehaviour
 {
     private FloorSpawn _floorSpawn;
+    private bool isInRespawnZone;
 
     private void Awake()
     {
@@ -15,21 +16,21 @@ public class FloorColission : MonoBehaviour
             Debug.LogError("No se encontró el componente FloorSpawn en el padre de " + gameObject.name);
         }
     }
+
+    private void Start()
+    {
+        isInRespawnZone = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
             _floorSpawn.BackToThePool(this.gameObject);
         }
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Respawn"))
+        if (other.CompareTag("Player"))
         {
-            //_floorSpawn.RandomSelectionObject();
-            //_floorSpawn.SpawnObject();
-            Debug.Log("Spawneando piso");
+            _floorSpawn.SpawnObject();
         }
     }
 }

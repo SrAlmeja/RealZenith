@@ -37,7 +37,7 @@ public class FloorMovement : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(direction * speed *Time.fixedDeltaTime);   
+        transform.Translate(direction * 10 *Time.fixedDeltaTime);   
     }
     
 }

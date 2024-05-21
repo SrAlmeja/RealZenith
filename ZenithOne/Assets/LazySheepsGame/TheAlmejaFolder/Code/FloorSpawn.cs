@@ -9,6 +9,7 @@ public class FloorSpawn : MonoBehaviour
     [Header("prefabs")]
     [SerializeField] private GameObject[] floorAssets;
     [SerializeField] private GameObject spawner;
+    [SerializeField] private GameObject parentPrefab;
 
     private GameObject _selectedObject;
     private Vector3 _spawnPosition;
@@ -37,14 +38,15 @@ public class FloorSpawn : MonoBehaviour
 
     public void SpawnObject()
     {
-        LeanPool.Spawn(_selectedObject, _spawnPosition, Quaternion.identity);
+        Debug.Log("Spawneando " + _selectedObject.transform.name);
+        LeanPool.Spawn(_selectedObject, _spawnPosition, Quaternion.identity, parentPrefab.transform);
     }
     
     
 
     public void BackToThePool(GameObject floor)
     {
-        Debug.Log("El objeto " + floor.transform.name + " fue regresado al pool");
+        //Debug.Log("El objeto " + floor.transform.name + " fue regresado al pool");
         LeanPool.Despawn(floor);
     }
 }
