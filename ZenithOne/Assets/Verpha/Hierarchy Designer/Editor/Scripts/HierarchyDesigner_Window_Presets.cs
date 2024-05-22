@@ -18,12 +18,13 @@ namespace Verpha.HierarchyDesigner
         private string[] presetNames;
         private bool applyToFolders = true;
         private bool applyToSeparators = true;
-        private bool applyToTagAndLayer = true;
+        private bool applyToTag = true;
+        private bool applyToLayer = true;
         private bool applyToTree = true;
         #endregion
 
         [MenuItem("Hierarchy Designer/Hierarchy Helpers/Presets", false, 50)]
-        private static void OpenWindow()
+        public static void OpenWindow()
         {
             HierarchyDesigner_Window_Presets window = GetWindow<HierarchyDesigner_Window_Presets>("Hierarchy Presets");
             window.minSize = new Vector2(250, 125);
@@ -64,12 +65,27 @@ namespace Verpha.HierarchyDesigner
 
             applyToFolders = EditorGUILayout.Toggle("Folders", applyToFolders);
             applyToSeparators = EditorGUILayout.Toggle("Separators", applyToSeparators);
-            applyToTagAndLayer = EditorGUILayout.Toggle("Tag and Layer", applyToTagAndLayer);
+            applyToTag = EditorGUILayout.Toggle("Hierarchy Tag", applyToTag);
+            applyToLayer = EditorGUILayout.Toggle("Hierarchy Layer", applyToLayer);
             applyToTree = EditorGUILayout.Toggle("Hierarchy Tree", applyToTree);
             EditorGUILayout.EndVertical();
             #endregion
 
-            GUILayout.Space(2);
+            #region Toggle All Buttons
+            GUILayout.Space(5);
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Enable All", GUILayout.Height(25)))
+            {
+                SetAllFeatures(true);
+            }
+            if (GUILayout.Button("Disable All", GUILayout.Height(25)))
+            {
+                SetAllFeatures(false);
+            }
+            EditorGUILayout.EndHorizontal();
+            GUILayout.Space(5);
+            #endregion
+
             if (GUILayout.Button("Apply Preset", GUILayout.Height(30)))
             {
                 ApplySelectedPreset();
@@ -78,6 +94,15 @@ namespace Verpha.HierarchyDesigner
 
             EditorGUILayout.EndScrollView();
             EditorGUILayout.EndVertical();
+        }
+
+        private void SetAllFeatures(bool enable)
+        {
+            applyToFolders = enable;
+            applyToSeparators = enable;
+            applyToTag = enable;
+            applyToLayer = enable;
+            applyToTree = enable;
         }
 
         private void ApplySelectedPreset()
@@ -90,7 +115,8 @@ namespace Verpha.HierarchyDesigner
             List<string> changesList = new List<string>();
             if (applyToFolders) changesList.Add("Folders");
             if (applyToSeparators) changesList.Add("Separators");
-            if (applyToTagAndLayer) changesList.Add("Tag and Layer");
+            if (applyToTag) changesList.Add("Hierarchy Tag");
+            if (applyToLayer) changesList.Add("Hierarchy Layer");
             if (applyToTree) changesList.Add("Hierarchy Tree");
             message += string.Join(", ", changesList) + "?\n\n*If you select 'confirm' all values will be overridden and saved.*";
 
@@ -104,15 +130,18 @@ namespace Verpha.HierarchyDesigner
                 {
                     HierarchyDesigner_Utility_Presets.ApplyPresetToSeparators(selectedPreset);
                 }
-                if (applyToTagAndLayer)
+                if (applyToTag)
                 {
-                    HierarchyDesigner_Utility_Presets.ApplyPresetToTagLayer(selectedPreset);
+                    HierarchyDesigner_Utility_Presets.ApplyPresetToTag(selectedPreset);
+                }
+                if (applyToLayer)
+                {
+                    HierarchyDesigner_Utility_Presets.ApplyPresetToLayer(selectedPreset);
                 }
                 if (applyToTree)
                 {
                     HierarchyDesigner_Utility_Presets.ApplyPresetToTree(selectedPreset);
                 }
-
                 EditorApplication.RepaintHierarchyWindow();
             }
             else

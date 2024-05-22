@@ -8,7 +8,11 @@ namespace Verpha.HierarchyDesigner
     [InitializeOnLoad]
     public class HierarchyDesigner_Override_Inspector : Editor
     {
+        #region Cached Properties
         private static Dictionary<GameObject, bool> separatorCache = new Dictionary<GameObject, bool>();
+        private static readonly string separatorMessage = "Separators are EditorOnly, meaning they will not be present in your game's build. If you want a GameObject parent to organize your GameObjects, use a folder instead.";
+        private static readonly string lockedGameObjectMessage = "This gameObject is locked, components are not available for editing.";
+        #endregion
 
         static HierarchyDesigner_Override_Inspector()
         {
@@ -46,13 +50,13 @@ namespace Verpha.HierarchyDesigner
 
         private static void HandleSeparator(GameObject gameObject)
         {
-            EditorGUILayout.HelpBox("Separators are EditorOnly, meaning they will not be present in your game's build. If you want a GameObject parent to organize your GameObjects, use a folder instead.", MessageType.Info, true);
+            EditorGUILayout.HelpBox(separatorMessage, MessageType.Info, true);
             gameObject.transform.hideFlags = HideFlags.HideInInspector;
         }
 
         private static void HandleLockedGameObject(GameObject gameObject)
         {
-            EditorGUILayout.HelpBox("This gameObject is locked, components are not available for editing.", MessageType.Info, true);
+            EditorGUILayout.HelpBox(lockedGameObjectMessage, MessageType.Info, true);
         }
     }
 }   

@@ -8,26 +8,23 @@ namespace com.LazyGames.Dz.Ai
 {
     public class TaskPatrol : Node
     {
-        private Transform _transform;
-        private Waypoint[] _wayPoints;
+        private readonly Transform _transform;
+        private readonly Waypoint[] _wayPoints;
         private int _currentWayPoint;
 
         private float _waitCounter;
         private bool _waiting;
         
-        private NavMeshAgent _agent;
+        private readonly NavMeshAgent _agent;
         private Animator _animator;
-        private EnemyParameters _parameters;
         private float _waitTime;
         private Vector3 _lookPos;
 
-        public TaskPatrol(Transform transform, Waypoint[] wayPoints, EnemyParameters parameters)
+        public TaskPatrol(Transform transform, Waypoint[] wayPoints)
         {
-            _parameters = parameters;
             _transform = transform;
             _wayPoints = wayPoints;
             _agent = transform.GetComponent<NavMeshAgent>();
-            _agent.speed = _parameters.patrolSpeed;
             _waitTime = _wayPoints[_currentWayPoint].WaitTime;
         }
         
@@ -35,10 +32,11 @@ namespace com.LazyGames.Dz.Ai
         {
             if (_waiting)
             {
-                _waitCounter += Time.deltaTime;
-                var pos = _transform.position;
+                // var pos = _transform.position;
+                // _lookPos = _transform.position + _lookPos;
                 // _transform.LookAt(_lookPos);
-                // Debug.DrawLine( pos, _lookPos, Color.red);
+                // Debug.DrawLine( pos,_lookPos, Color.red);
+                _waitCounter += Time.deltaTime;
                 if (_waitCounter >= _waitTime)
                 {
                     _waiting = false;

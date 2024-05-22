@@ -1,10 +1,9 @@
+//Last Update
+//Dino 2024/05/09
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using com.LazyGames;
 using UnityEngine;
 
-namespace com.LazyGames
+namespace DINO.Utility
 {
     public class TimerBase : MonoBehaviour
     {
@@ -53,6 +52,7 @@ namespace com.LazyGames
                 {
                     OnTimerUpdate?.Invoke(_currentTimer);
                     _elapsedTime = 0.0f;
+                    // Debug.Log("Timer Update = " + _currentTimer);
                 }
                 
             }
@@ -61,7 +61,7 @@ namespace com.LazyGames
 
         #region public methods
 
-        public void StartTimer(float timer, bool isCountDown = false, float intervalUpdate = 1f,string message = "")
+        public void StartTimer(float timer, bool isCountDown = true, float intervalUpdate = 1f,string message = "")
         {
             _currentTimer = timer;
             _updateInterval = intervalUpdate;
@@ -74,7 +74,7 @@ namespace com.LazyGames
              Debug.Log("Timer Started = " + message + " Timer = " + _currentTimer);
         }
 
-        public void SetLoopableTimer(float timer, bool isCountDown = false, float intervalUpdate = 1f,string message = "")
+        public void StartLoopableTimer(float timer, bool isCountDown = true, float intervalUpdate = 1f,string message = "")
         {
             _currentTimer = timer;
             _updateInterval = intervalUpdate;
@@ -95,6 +95,12 @@ namespace com.LazyGames
         public void ResetTimer()
         {
             _currentTimer = 0;
+        }
+        
+        public void StopTimer()
+        {
+            _isTimerActive = false;
+            ResetTimer();
         }
         
         #endregion

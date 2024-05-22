@@ -13,6 +13,7 @@ namespace Verpha.HierarchyDesigner
         private static Dictionary<Color, Texture2D> textureCache = new Dictionary<Color, Texture2D>();
         private static GUIStyle headerLabelStyle = null;
         private static GUIStyle contentLabelStyle = null;
+        private static GUIStyle utilityLabelStyle = null;
         #endregion
 
         #region Styling Methods
@@ -105,6 +106,26 @@ namespace Verpha.HierarchyDesigner
                     }
                 }
                 return contentLabelStyle;
+            }
+        }
+
+        public static GUIStyle UtilityLabelStyle
+        {
+            get
+            {
+                if (utilityLabelStyle == null)
+                {
+                    if (EditorStyles.boldLabel != null)
+                    {
+                        utilityLabelStyle = new GUIStyle(EditorStyles.boldLabel)
+                        {
+                            fontSize = 12,
+                            fontStyle = FontStyle.Bold,
+                            alignment = TextAnchor.MiddleLeft,
+                        };
+                    }
+                }
+                return utilityLabelStyle;
             }
         }
         #endregion

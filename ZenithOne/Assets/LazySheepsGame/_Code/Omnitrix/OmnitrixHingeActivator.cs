@@ -20,21 +20,21 @@ public class OmnitrixHingeActivator : MonoBehaviour
     private void UpdateOmnitrix()
     {
         float value = _omnitrixTopFace.transform.localEulerAngles.z;
-        if (value <= 272 && value >= 268)
+        if (value <= 47 && value >= 42)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(0);
         }
-        else if (value <= 227 && value >= 223)
+        else if (value <= 92 && value >= 88)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(1);
         }
-        else if (value <= 182 && value >= 178)
+        else if (value <= 136 && value >= 133)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(2);
-        }else if (value >= 312)
+        }else if (value <= 2)
         {
             DisableOmnitrix();
             _omnitrixGadgetChannel.Raise(3);

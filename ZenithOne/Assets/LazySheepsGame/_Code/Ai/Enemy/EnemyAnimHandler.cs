@@ -1,51 +1,62 @@
-using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 
 namespace com.LazyGames.Dz.Ai
 {
     public class EnemyAnimHandler : MonoBehaviour
     {
-        [SerializeField]private AnimatorOverrideController aOController;
-        
+        //unused
         private Animator _animator;
         private EnemyBt _parentBt;
-        public List<KeyValuePair<AnimationClip, AnimationClip>> anims = new();
-
-        public void Initiate(Animator animator, EnemyBt parentBt)
+        private int _animIndex;
+        
+        [SerializeField] private AnimationsList anims;
+        public void Initialize(Animator animator, EnemyBt parentBt)
         {
             _parentBt = parentBt;
-            
-            aOController = new AnimatorOverrideController(animator.runtimeAnimatorController);
-            anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-            foreach (var a in aOController.animationClips)
-            { 
-                aOController.ApplyOverrides(anims);
-            } 
-            animator.runtimeAnimatorController = aOController;
-            
-            // animator.Play(anims[0].Value.name);
+            _animator = animator;
+            Debug.Log($"initialized");
         }
-        
-        void Update()
+
+        public void NextAnim()
         {
-            // switch (_parentBt.State)
-            // {
-            //     case EnemyState.Idle:
-            //         // _controller.
-            //         break;
-            //     case EnemyState.Patrolling:
-            //         break;
-            //     case EnemyState.Investigating:
-            //         break;
-            //     case EnemyState.Chasing:
-            //         break;
-            //     case EnemyState.Attacking:
-            //         break;
-            //     case EnemyState.Stunned:
-            //         break;
-            // }
+            var len = anims.animations.Count;
+            _animIndex = (_animIndex + 1) % len;
+            PlayNextAnim();
+        }
+
+        private void PlayNextAnim()
+        {
+            var controller = _animator.runtimeAnimatorController as AnimatorController;
+            var rootStateMachine = controller.layers[0].stateMachine;
+            foreach (var state in rootStateMachine.states)
+            {
+                // _animator.CrossFade(anims.animations[_animIndex].name, .02f);
+                _animIndex = (_animIndex + 1) % anims.animations.Count;
+                state.state.motion = anims.animations[_animIndex];
+                break;
+            }
         }
     }
+    #if UNITY_EDITOR
+    [CustomEditor(typeof(EnemyAnimHandler))]
+    public class EnemyAnimHandlerEditor : Editor
+    {
+        private EnemyAnimHandler _target;
+
+        private void OnEnable()
+        {
+            _target = (EnemyAnimHandler)target;
+        }
+        public override void OnInspectorGUI()
+        {
+            if (GUILayout.Button("Change Anim"))
+            {
+                _target.NextAnim();
+            }
+            base.OnInspectorGUI();
+        }
+    }
+    #endif
 }

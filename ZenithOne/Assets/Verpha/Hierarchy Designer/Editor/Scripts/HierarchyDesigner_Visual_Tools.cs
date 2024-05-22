@@ -8,9 +8,10 @@ namespace Verpha.HierarchyDesigner
     [InitializeOnLoad]
     public class HierarchyDesigner_Visual_Tools
     {
-        #region Lock Properties
+        #region Properties
         private static readonly float lockIconOffset = 20f;
         private static readonly float lockIconSize = 17f;
+        private static readonly string lockedLabel = "(Locked)";
         private static readonly GUIStyle lockLabelStyle = new GUIStyle
         {
             alignment = TextAnchor.MiddleLeft,
@@ -28,7 +29,8 @@ namespace Verpha.HierarchyDesigner
 
         private static void HierarchyItemCB(int instanceID, Rect selectionRect)
         {
-            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && EditorApplication.isPlaying) return;
+            if (HierarchyDesigner_Manager_Settings.DisableHierarchyDesignerDuringPlayMode && HierarchyDesigner_Shared_EditorState.IsPlaying) return;
+            if (Event.current.type != EventType.Repaint) return;
 
             if (!gameObjectCache.TryGetValue(instanceID, out GameObject gameObject))
             {
@@ -70,7 +72,7 @@ namespace Verpha.HierarchyDesigner
 
         private static void DrawLockLabel(Rect rect)
         {
-            GUI.Label(rect, "(Locked)", lockLabelStyle);
+            GUI.Label(rect, lockedLabel, lockLabelStyle);
         }
 
         public static void Cleanup()
