@@ -5,11 +5,18 @@ using Ink.Parsed;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TriggerDialog : DialogueBase
+public class MarthDialog : DialogueBase
 {
     [SerializeField] private float _timeToContinue = 4f;
     private TimerBase _timerBase;
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            SendDialogue();
+        }
+    }
     
     public override void SendDialogue()
     {
@@ -34,36 +41,25 @@ public class TriggerDialog : DialogueBase
     {
         if (_timerBase == null)
         {
-            Debug.LogError("Timer is null FROM" + gameObject.name);
+            // Debug.LogError("Timer is null FROM" + gameObject.name);
             return;
         }
 
-        Debug.Log("Clean Timer");
+        // Debug.Log("Clean Timer");
         _timerBase.OnTimerEnd -= OnFinishedDialogueTimer;
         _timerBase.StopTimer();
         Destroy(_timerBase);
         _timerBase = null;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // Debug.Log("Interact with trigguer Dialogue");
-            SendDialogue();
-        }
-    }
-
+    
     private void SetTimer()
     {
         if(_timerBase == null)
             _timerBase = gameObject.AddComponent<TimerBase>();
             
-        // if(_timerBase.IsTimerActive) return;
-            
         _timerBase.OnTimerEnd += OnFinishedDialogueTimer;
         _timerBase.StartTimer(_timeToContinue);
-        Debug.Log("Set Timer");
+        // Debug.Log("Set Timer");
     }
 
 

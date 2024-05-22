@@ -14,27 +14,30 @@ public class DialogueNPC : DialogueBase
     [SerializeField] private GameObject _dialogueMeshUI;
     [SerializeField] private TextMeshProUGUI _dialogueText;
     [SerializeField] private TextMeshProUGUI _speakerText;
-    [SerializeField] private TextMeshProUGUI _numberText;
-
     [SerializeField] private GameObject _interactButtonUI;
+    [SerializeField] private GameObject nextDialogImage;
+    [SerializeField] private Transform arrowNextDialog;
+    
     
     [Header("Input Events")]
     [SerializeField] private InputActionReference _interactAction;
     
-   
-
     private string _currentText;
     private bool _isDialogueActive;
     private bool _canInteract;
+    private bool _canContinue;
 
+    #region unity methods
+    
     protected override void Start()
     {
         base.Start();
         _dialogueMeshUI.SetActive(false);
         _interactAction.action.performed += Interact;
+        
+        arrowNextDialog.transform.DOLocalJump( new Vector3(0, 0.005f, 0), 0.03f, 1, 0.5f).SetLoops(-1);
 
     }
-
     private void OnEnable()
     {
         _interactAction.action.Enable();
@@ -43,12 +46,28 @@ public class DialogueNPC : DialogueBase
     {
         _interactAction.action.Disable();
     }
+    #endregion
+
+    #region Dialogue Base
     
-    public void SetDialogueToNpc(DialogueInfoUI dialogueInfoUI)
+    public override void SendDialogue()
     {
-        _dialogueMeshUI.SetActive(true);
-        DisplayTextEffect(dialogueInfoUI.Text);
-        SetSpeaker(dialogueInfoUI.Speaker);
+        EnableInteractButton(false);
+        base.SendDialogue();
+    }
+
+    public override void ContinueDialogue()
+    {
+        if (_isDialogueActive)
+        {
+            SkipTextEffect(_currentText);
+            
+        }
+        else
+        {
+            base.ContinueDialogue();
+        }
+        
     }
 
     protected override void OnDialogueEnd()
@@ -57,7 +76,23 @@ public class DialogueNPC : DialogueBase
         _currentText = "";
         _dialogueText.text = "";
         _dialogueMeshUI.SetActive(false);
+        
     }
+    
+    #endregion
+
+    
+    
+    public void SetDialogueToNpc(DialogueInfoUI dialogueInfoUI)
+    {
+        _dialogueMeshUI.SetActive(true);
+        _canContinue = dialogueInfoUI.CanContinue;  
+        EnableCanContinue(_canContinue);
+        DisplayTextEffect(dialogueInfoUI.Text);
+        SetSpeaker(dialogueInfoUI.Speaker);
+    }
+
+   
 
     private void SetSpeaker(string speaker)
     {
@@ -66,22 +101,25 @@ public class DialogueNPC : DialogueBase
     }
     private void DisplayTextEffect(string text)
     {
-        if (_isDialogueActive)
-        {
-            // SkipTextEffect(_currentText);
-            return;
-        }
-        
+        _dialogueText.text = "";
         _currentText = text;
-        _dialogueText.text = _currentText;
-        // _dialogueText.DOText(_currentText, _currentText.Length * 0.03f).SetEase(Ease.Linear).OnComplete(() =>
-        // {
-        //     _isDialogueActive = false;
-        // });
+        // _dialogueText.text = _currentText;
+        _isDialogueActive = true;
+        _dialogueText.DOText(_currentText, _currentText.Length * 0.03f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+           _isDialogueActive = false;
+        });
     }
-    
+    private void EnableCanContinue(bool enable)
+    {
+        if (nextDialogImage == null || nextDialogImage.activeSelf == enable)
+            return;
+        
+        nextDialogImage.SetActive(enable);
+    }
     private void SkipTextEffect(string text)
     {
+        // Debug.Log("Skip Text Effect");
         _dialogueText.DOKill();
         _dialogueText.text = text;
         _isDialogueActive = false;
@@ -118,7 +156,7 @@ public class DialogueNPC : DialogueBase
         if (!_canInteract)
             return;
         
-        Debug.Log("Interact with NPC");
+        // Debug.Log("Interact with NPC");
         if (String.IsNullOrEmpty(_currentText))
         {
             SendDialogue();
@@ -129,9 +167,5 @@ public class DialogueNPC : DialogueBase
         }
     }
 
-    public override void SendDialogue()
-    {
-        EnableInteractButton(false);
-        base.SendDialogue();
-    }
+   
 }

@@ -6,9 +6,9 @@ using Obvious.Soap;
 using TMPro;
 using UnityEngine;
 
-public class PlayerSubtitles : MonoBehaviour
+public class PlayerSubtitlesUI : MonoBehaviour
 {
-    public static PlayerSubtitles Instance;
+    public static PlayerSubtitlesUI Instance;
     
     [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
     [SerializeField] ScriptableEventNoParam _onDialogueEnd;
@@ -30,7 +30,7 @@ public class PlayerSubtitles : MonoBehaviour
 
     private void OnEndDialogue()
     {
-        Debug.Log("End Dialogue from PlayerSubtitles");
+        // Debug.Log("End Dialogue from PlayerSubtitles");
         if (!String.IsNullOrEmpty(_currentText))
         {
             // _subtitlesUI.SetActive(false);
