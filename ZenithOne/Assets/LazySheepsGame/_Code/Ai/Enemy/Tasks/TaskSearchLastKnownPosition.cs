@@ -5,11 +5,13 @@ namespace com.LazyGames.Dz.Ai
 {
     public class TaskSearchLastKnownPosition : Node
     {
-        private Transform _transform;
-        private EnemyParameters _parameters;
-        private NavMeshAgent _agent;
+        private readonly Transform _transform;
+        private readonly EnemyParameters _parameters;
+        private readonly NavMeshAgent _agent;
+        private readonly Animator _animator;
         private float _waitCounter;
-        private Animator _animator;
+        private static readonly int Chasing = Animator.StringToHash("chasing");
+        private static readonly int Alert = Animator.StringToHash("alert");
 
         public TaskSearchLastKnownPosition(Transform transform, EnemyParameters parameters)
         {
@@ -42,6 +44,9 @@ namespace com.LazyGames.Dz.Ai
                 }
                 
                 ClearData("lastKnownPosition");
+                _animator.SetBool(Chasing, false);
+                _animator.SetBool(Alert, true );
+                
                 parent.SetData("wary", true);
                 state = NodeState.Failure;
                 return state;
