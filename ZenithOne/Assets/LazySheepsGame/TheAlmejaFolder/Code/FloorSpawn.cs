@@ -19,7 +19,6 @@ public class FloorSpawn : MonoBehaviour
     {
         _spawnPosition = spawner.transform.position;
         RandomSelectionObject();
-        SpawnObject();
     }
     
     
@@ -34,12 +33,12 @@ public class FloorSpawn : MonoBehaviour
 
         _selectedObject = floorAssets[newIndex];
         _lastIndex = newIndex;
+        SpawnObject();
     }
 
     public void SpawnObject()
     {
-        RandomSelectionObject();
-        Debug.Log("Spawneando " + _selectedObject.transform.name);
+        //Debug.Log("Spawneando " + _selectedObject.transform.name);
         LeanPool.Spawn(_selectedObject, _spawnPosition, Quaternion.identity, parentPrefab.transform);
     }
     

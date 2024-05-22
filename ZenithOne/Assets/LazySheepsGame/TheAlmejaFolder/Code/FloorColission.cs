@@ -6,7 +6,7 @@ using UnityEngine;
 public class FloorColission : MonoBehaviour
 {
     private FloorSpawn _floorSpawn;
-    private bool isInRespawnZone;
+    [SerializeField] private bool _isTheStart = false;
 
     private void Awake()
     {
@@ -17,20 +17,19 @@ public class FloorColission : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        isInRespawnZone = true;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
             _floorSpawn.BackToThePool(this.gameObject);
         }
-        if (other.CompareTag("Player"))
+
+        if (!_isTheStart)
         {
-            _floorSpawn.SpawnObject();
+            if (other.CompareTag("Player"))
+            {
+                _floorSpawn.RandomSelectionObject();
+            }    
         }
     }
 }
