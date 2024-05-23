@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using com.LazyGames.DZ;
 using com.LazyGames.Dz.Ai;
 using UnityEngine;
