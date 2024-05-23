@@ -5,6 +5,7 @@ namespace com.LazyGames
         WaterGranade,
         EMPGranade,
         FireFist,
+        RadarGranade,
         Any
     }
 }
