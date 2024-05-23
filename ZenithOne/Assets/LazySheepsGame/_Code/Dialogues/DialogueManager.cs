@@ -35,7 +35,8 @@ namespace com.LazyGames
         [SerializeField] ScriptableEventNoParam _onDialogueEnd;
 
         [SerializeField] private List<DialogueBase> _dialoguesInScene;
-        
+
+        public event Action<string> OnFinishedDialogue;
         public List<DialogueBase> DialoguesInScene => _dialoguesInScene;
         private Story _currentStory;
         private DialogueBase _currentDialogueBase;
@@ -71,7 +72,17 @@ namespace com.LazyGames
             _onDialogueSend.OnRaised -= EnterDialogueMode;
             _currentDialogueBase = dialogue;
             TextAsset inkJSON = dialogue.GetInkJSON();
+            
+            
+            if(inkJSON == null)
+            {
+                Debug.LogError("No Dialogue to trigger");
+                return;
+            }
+            
             _currentStory = new Story(inkJSON.text);
+            // Debug.Log("cURRENT STORY: ".SetColor("") + _currentStory.);
+
             
             if (_currentDialogueBase.HasDialogueToTrigger)
             {
@@ -108,21 +119,24 @@ namespace com.LazyGames
             else
             {
                 ExitDialogueMode();
+                
             }
         }
         
         private void ExitDialogueMode()
         {
             _onDialogueSend.OnRaised += EnterDialogueMode;
+            
             _onDialogueEnd.Raise();
             
             if (_currentDialogueBase.HasDialogueToTrigger)
             {
+                Debug.Log("Remove Trigger");
                 _currentDialogueBase.CurrentInkContainer.OnDialogueEnd -= TriggerDialogueSubtitle;
             }
             
-            _currentDialogueBase.CurrentInkContainer.IsDialogueEnd = true;
-            
+            OnFinishedDialogue?.Invoke(_currentDialogueBase.CurrentInkContainer.id_Ink);
+
             _currentDialogueBase = null;
             _currentStory = null;
             _currentSpeaker = null;
@@ -189,6 +203,8 @@ namespace com.LazyGames
                 Debug.LogError("Dialogue Base is null");
                 return;
             }
+            
+            Debug.Log("Dialogue Base: ".SetColor("#C5F335") + dialogueBase.name);
             dialogueBase.SendDialogue();
         }
         
