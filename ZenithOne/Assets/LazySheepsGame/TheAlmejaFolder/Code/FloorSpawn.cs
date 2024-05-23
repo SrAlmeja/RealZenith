@@ -18,7 +18,6 @@ public class FloorSpawn : MonoBehaviour
     private void Awake()
     {
         _spawnPosition = spawner.transform.position;
-        RandomSelectionObject();
     }
     
     
