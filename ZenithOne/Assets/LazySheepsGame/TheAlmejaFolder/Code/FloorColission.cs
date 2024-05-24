@@ -8,10 +8,10 @@ public class FloorColission : MonoBehaviour
     private FloorSpawn _floorSpawn;
     [SerializeField] private bool isTheStart = false;
     [SerializeField] private GameObject spawnPoint;
-    private GameObject _player;
-    private Vector3 _playerPosition;
-    private float _playerDistance;
-    [SerializeField] private float rangeDistance;
+    private GameObject _worldCenter;
+    private float _distanceToCenter;
+    private float distanceTolerance = 0.001f;
+    private int roundedDistance;
     
     private void Awake()
     {
@@ -21,10 +21,10 @@ public class FloorColission : MonoBehaviour
             Debug.LogError("No se encontró el componente FloorSpawn en el padre de " + gameObject.name);
         }
 
-        _player = GameObject.FindWithTag("Player");
-        if (_player != null)
+        _worldCenter = GameObject.FindWithTag("Respawn");
+        if (_worldCenter != null)
         {
-            Debug.Log("Se encontró al player");
+            Debug.Log("Se encontró el centro");
         }
         else
         {
@@ -35,24 +35,23 @@ public class FloorColission : MonoBehaviour
     private void FixedUpdate()
     {
         DistanceDetection();
+        Debug.DrawLine(spawnPoint.transform.position, _worldCenter.transform.position);
     }
 
     private void DistanceDetection()
     {
-            _playerDistance = Vector3.Distance(_player.transform.position, spawnPoint.transform.position);
-            Debug.Log("Distancia entre spawn point y jugador: " + _playerDistance);
-            Spawn();
+        _distanceToCenter = Vector3.Distance(spawnPoint.transform.position, _worldCenter.transform.position);
+        int roundedDistance = Mathf.RoundToInt(_distanceToCenter);
+        Debug.Log("Distance " + roundedDistance);
+        Spawn();
     }
 
     private void Spawn()
     {
-        if (!isTheStart)
+        if (roundedDistance <= 1)
         {
-            if (_playerDistance == rangeDistance)
-            {
-                Debug.Log("Llego al punto");
-                //_floorSpawn.RandomSelectionObject();
-            }    
+            Debug.Log("Spanw");
+            //_floorSpawn.RandomSelectionObject();
         }
     }
     

@@ -10,6 +10,7 @@ public class FloorSpawn : MonoBehaviour
     [SerializeField] private GameObject[] floorAssets;
     [SerializeField] private GameObject spawner;
     [SerializeField] private GameObject parentPrefab;
+    
 
     private GameObject _selectedObject;
     private Vector3 _spawnPosition;
