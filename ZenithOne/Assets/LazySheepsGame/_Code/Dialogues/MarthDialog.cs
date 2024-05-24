@@ -9,11 +9,17 @@ public class MarthDialog : DialogueBase
 {
     [SerializeField] private float _timeToContinue = 4f;
     private TimerBase _timerBase;
+    private bool _hasTriggerCollider;
+
     
     private void OnTriggerEnter(Collider other)
     {
+        if (_hasTriggerCollider)
+            return;
+        
         if (other.CompareTag("Player"))
         {
+            _hasTriggerCollider = true;
             SendDialogue();
         }
     }
