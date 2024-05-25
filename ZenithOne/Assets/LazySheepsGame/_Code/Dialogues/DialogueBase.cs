@@ -65,9 +65,14 @@ public class DialogueBase : MonoBehaviour
 
      protected virtual void OnDialogueEnd()
     {
-        Debug.Log("Dialogue Ended from ".SetColor("#41E8B8") + gameObject.name);
+        // Debug.Log("Dialogue Ended from ".SetColor("#41E8B8") + gameObject.name);
         if (_currentInkContainer != null)
         {
+            if (_currentInkContainer.IsDialogueEnd == true)
+            {
+                _currentInkContainer = null;
+                return;
+            }
             _currentInkContainer.IsDialogueEnd = true;
             
             if (HasDialogueToTrigger)
@@ -78,8 +83,10 @@ public class DialogueBase : MonoBehaviour
                 _currentInkContainer.OnDialogueEnd?.Invoke(nextDialogue, character);
             }
             
+            
         }
-
+        
+        
        
     }
     
@@ -89,11 +96,12 @@ public class DialogueBase : MonoBehaviour
         
         if(dialogueSection == null)
         {
-            Debug.LogError("Dialogue Section is null");
+            Debug.LogWarning("Dialogue Section is null all Dialogs are done");
             return null;
         }
+        
         _currentInkContainer = dialogueSection.InksContainers.FirstOrDefault(x => x.IsDialogueEnd == false);
-
+        
         //if all the inks are done, then get the last ink
         if (_currentInkContainer == null)
         {
@@ -104,6 +112,8 @@ public class DialogueBase : MonoBehaviour
             _inkJSON = _currentInkContainer.InkJSON;
         }
         
+        Debug.Log("Current Ink Container: ".SetColor("#41E8B8") + _currentInkContainer.id_Ink + " from " + gameObject.name);
+
         return _inkJSON;
     }
     private void ResetDialogue()
