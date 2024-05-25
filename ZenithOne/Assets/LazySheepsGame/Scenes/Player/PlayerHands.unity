@@ -719,6 +719,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1358225830
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.659
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6155565996462348814, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 62ef3a960d410b04e9024666e597d6ee, type: 2}
+    - target: {fileID: -2121162605496750765, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 37101f1cd8e77f54fa749839c0a1cd1b, type: 2}
+    - target: {fileID: 873072052988042121, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a901e11e7cc7c844b3fa1fc937acf5c, type: 2}
+    - target: {fileID: 919132149155446097, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_Name
+      value: HANDS_FIXED_LazySheepSkinWeights
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370612249160448909, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f6d00b402902a044afe4639f76b9735, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 462f045e0539d0c4f8a271544677711c, type: 3}
 --- !u!1 &1681465947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,3 +1458,4 @@ SceneRoots:
   - {fileID: 1358753825563297059}
   - {fileID: 8474413251460636856}
   - {fileID: 5031521019371273094}
+  - {fileID: 1358225830}
