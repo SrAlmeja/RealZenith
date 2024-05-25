@@ -20,18 +20,8 @@ public class PlayerSubtitlesUI : MonoBehaviour
     {
         Instance = this;
     }
-    void Start()
-    {
-        
-    }
-
-
-
-    public void SetUISubtitles(DialogueInfoUI dialogueInfoUI)
-    {
-        // DisplayText(dialogueInfoUI.Text);
-    }
-
+    
+    
     public void DisplayText(string text)
     {
         _currentText = text;

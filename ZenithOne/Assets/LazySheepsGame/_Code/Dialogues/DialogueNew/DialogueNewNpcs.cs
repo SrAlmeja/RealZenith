@@ -180,7 +180,6 @@ public class DialogueNewNpcs : MonoBehaviour
 public struct DialogueStruct
 {
     public string npcName;
-    // public string animationName;
     public string[] dialogues;
 }
 
