@@ -10,8 +10,7 @@ public class PlayerSubtitlesUI : MonoBehaviour
 {
     public static PlayerSubtitlesUI Instance;
     
-    [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
-    [SerializeField] ScriptableEventNoParam _onDialogueEnd;
+    
     [SerializeField] private GameObject _subtitlesUI;
     [SerializeField] private TextMeshProUGUI _subtitlesText;
     
@@ -23,39 +22,28 @@ public class PlayerSubtitlesUI : MonoBehaviour
     }
     void Start()
     {
-        // _onDialogueSend.OnRaised += OnStartDialogue;
-        _onDialogueEnd.OnRaised += OnEndDialogue;
         
     }
 
-    private void OnEndDialogue()
-    {
-        // Debug.Log("End Dialogue from PlayerSubtitles");
-        if (!String.IsNullOrEmpty(_currentText))
-        {
-            // _subtitlesUI.SetActive(false);
-            _currentText = "";
-            _subtitlesText.text = "";
-        }
-    }
 
-    private void OnStartDialogue(DialogueBase dialogue)
-    {
-        if (dialogue.CurrentInkContainer.DialogueType == DialogueType.Subtitles)
-        {
-            _subtitlesUI.SetActive(true);
-        }
-    }
 
     public void SetUISubtitles(DialogueInfoUI dialogueInfoUI)
     {
-        DisplayText(dialogueInfoUI.Text);
+        // DisplayText(dialogueInfoUI.Text);
     }
 
-    private void DisplayText(string text)
+    public void DisplayText(string text)
     {
         _currentText = text;
         _subtitlesText.text = _currentText;
+
+        StartCoroutine(HideSubtitles());
+    }
+    
+    private IEnumerator HideSubtitles()
+    {
+        yield return new WaitForSeconds(5);
+        _subtitlesText.text = "";
     }
     
     
