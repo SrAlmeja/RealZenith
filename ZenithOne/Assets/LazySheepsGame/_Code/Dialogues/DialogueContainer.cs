@@ -56,7 +56,6 @@ public enum DialogueType
 public enum CHARACTER
 {
     NONE,
-    PLAYER,
     JHON,
     MARTH,
     SAIL

@@ -48,11 +48,11 @@ namespace FMODUnity
             {
                 return base.SupportsAdditionalCPP(target);
             }
-            else
-            {
-                return base.SupportsAdditionalCPP(target); //IMPORT CHANGE
-            }
-            /*if (target == BuildTarget.iOS)
+
+            return base.SupportsAdditionalCPP(target);
+
+            /*
+            if (target == BuildTarget.iOS)
             {
                 return PlatformIOS.StaticSupportsAdditionalCpp();
             }
