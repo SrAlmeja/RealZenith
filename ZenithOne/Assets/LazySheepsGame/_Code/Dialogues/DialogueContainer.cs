@@ -30,8 +30,11 @@ public class InksContainers
     public TextAsset InkJSON;
     public bool IsDialogueEnd;
     public DialogueType DialogueType;
-    string _nextDialogue;
-    public Action<string> OnDialogueEnd;
+    
+    [Header("Trigger Other Characters Dialogues")]
+    public string _nextDialogueTriggered;
+    public CHARACTER CharacterToTrigger;
+    public Action<string, CHARACTER> OnDialogueEnd;
     
     
 }
@@ -40,12 +43,20 @@ public class InksContainers
 public class DialogueSection
 {
     public string Section;
-    public List<InksContainers> InksContainers;
     public bool IsSectionEnd;
+    public List<InksContainers> InksContainers;
 }
 
 public enum DialogueType
 {
     Subtitles,
     NPC,
+}
+
+public enum CHARACTER
+{
+    NONE,
+    JHON,
+    MARTH,
+    SAIL
 }

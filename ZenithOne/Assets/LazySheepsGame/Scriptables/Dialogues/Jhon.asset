@@ -13,14 +13,24 @@ MonoBehaviour:
   m_Name: Jhon
   m_EditorClassIdentifier: 
   DialogueSections:
-  - Section: 
-    InksContainers:
-    - id_Ink: 
-      InkJSON: {fileID: 4900000, guid: b6fdd3c2bcba7e64186defb5e24106b0, type: 3}
-      IsDialogueEnd: 0
-      DialogueType: 1
-    - id_Ink: 
-      InkJSON: {fileID: 4900000, guid: b6fdd3c2bcba7e64186defb5e24106b0, type: 3}
-      IsDialogueEnd: 0
-      DialogueType: 1
+  - Section: PrimeraEntradaAlBar
     IsSectionEnd: 0
+    InksContainers:
+    - id_Ink: Jhon_1
+      InkJSON: {fileID: 4900000, guid: d6f5833ad673fb34fa39887873c83c58, type: 3}
+      IsDialogueEnd: 1
+      DialogueType: 1
+      _nextDialogueTriggered: Marth_2
+      CharacterToTrigger: 2
+    - id_Ink: Jhon_2
+      InkJSON: {fileID: 4900000, guid: 7cf94ddae65f6bf48a7d063cef267c2c, type: 3}
+      IsDialogueEnd: 0
+      DialogueType: 1
+      _nextDialogueTriggered: Marth_3
+      CharacterToTrigger: 2
+    - id_Ink: Jhon_3
+      InkJSON: {fileID: 4900000, guid: 3021c31065eaeff4f802015612775230, type: 3}
+      IsDialogueEnd: 0
+      DialogueType: 1
+      _nextDialogueTriggered: 
+      CharacterToTrigger: 0
