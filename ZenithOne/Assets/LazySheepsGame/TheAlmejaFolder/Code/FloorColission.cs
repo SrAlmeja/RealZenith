@@ -8,9 +8,9 @@ public class FloorColission : MonoBehaviour
     private FloorSpawn _floorSpawn;
     [SerializeField] private bool isTheStart = false;
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private int zValueToRespawn;
     private GameObject _worldCenter;
     private float _distanceToCenter;
-    private float distanceTolerance = 0.001f;
     private int roundedDistance;
     
     private void Awake()
@@ -32,7 +32,7 @@ public class FloorColission : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         DistanceDetection();
         Debug.DrawLine(spawnPoint.transform.position, _worldCenter.transform.position);
@@ -53,13 +53,15 @@ public class FloorColission : MonoBehaviour
             Debug.Log("Spanw");
             //_floorSpawn.RandomSelectionObject();
         }
-    }
-    
+    }*/
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
             _floorSpawn.BackToThePool(this.gameObject);
+            _floorSpawn.RandomSelectionObject();
         }
-    }
+    }*/
+    
 }
