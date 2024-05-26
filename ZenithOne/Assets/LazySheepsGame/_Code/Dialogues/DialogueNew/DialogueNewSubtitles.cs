@@ -46,8 +46,8 @@ public class DialogueNewSubtitles : MonoBehaviour
     
     public void LaunchSubtitles()
     {
-        Debug.Log(thisDialogue.dialogues[0]);
-        PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogues[0]);
+        Debug.Log(thisDialogue.dialogueText);
+        PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText);
         eventAtFinish.Invoke();
         isActive = false;
         isDone = true;
