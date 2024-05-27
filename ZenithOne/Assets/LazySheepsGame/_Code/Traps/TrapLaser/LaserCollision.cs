@@ -59,7 +59,7 @@ public class LaserCollision : MonoBehaviour
         lineRenderer.SetPosition(0, laserStart.position);
         lineRenderer.SetPosition(1, hitPosition);
 
-        if (_cast && hit.collider.CompareTag("Wall"))
+        if (_cast)
         {
             //Debug.Log("Chocando con muro");
             _particle.SetActive(true);
