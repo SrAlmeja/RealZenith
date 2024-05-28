@@ -154,7 +154,7 @@ namespace com.LazyGames.Dz.Ai
         {
             _isStunned = true;
             _agent.isStopped = true;
-            _animator.Play("enemy_stunned");
+            _animator.Play("enemy_enter_stun");
             _animator.SetBool(Stunned, true);
             StartCoroutine(CorStunTime());
         }

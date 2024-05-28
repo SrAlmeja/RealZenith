@@ -48,6 +48,7 @@ public class EnemyVision : MonoBehaviour
         _target = colliders[0].transform;
         var targetDir = (_target.transform.position - transform.position).normalized;
         if (!(Vector3.Angle(headTransform.forward, targetDir) < Parameters.coneAngle / 2)) return;
+        Debug.Log("angle is valid");
         
         var dist = Vector3.Distance(transform.position, _target.position);
         if (!Physics.Raycast(transform.position, targetDir, out var hit, dist)) return;
