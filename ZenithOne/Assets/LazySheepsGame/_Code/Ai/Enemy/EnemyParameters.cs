@@ -18,7 +18,6 @@ namespace com.LazyGames.Dz.Ai
         [Header("Detection Variables")]
         public float detectionRange = 8f;
         public float coneAngle = 100f; 
-        public Vector3 heightOffset = new Vector3(0, .5f, 0);
         
         [Header("Combat Variables")]
         public float attackPower = 1f;

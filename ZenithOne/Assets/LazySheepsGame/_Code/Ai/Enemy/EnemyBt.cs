@@ -26,7 +26,7 @@ namespace com.LazyGames.Dz.Ai
         private EnemyVision _vision;
         private EnemyHearing _hearing;
         private EnemyParameters _parameters;
-        private bool _stunned;
+        private bool _isStunned;
         private bool _startled;
         
         private static readonly int Stunned = Animator.StringToHash("stunned");
@@ -45,7 +45,7 @@ namespace com.LazyGames.Dz.Ai
 
         private void Update()
         {
-            _root?.Evaluate(_stunned);
+            _root?.Evaluate(_isStunned);
             _vision.Step();
             _agent.speed = _parameters.movementSpeed;
             _animator.SetBool(Moving, _agent.velocity.magnitude > 0.3f);
@@ -58,7 +58,7 @@ namespace com.LazyGames.Dz.Ai
             {
                 new Sequence(new List<Node>
                 {
-                    new CheckHasTarget(t, _parameters),
+                    new CheckHasTarget(_parameters),
                     new CheckPlayerInAttackRange(t, _parameters),
                     new TaskGoToTarget(t, _parameters),
                     new Sequence(new List<Node>
@@ -69,7 +69,7 @@ namespace com.LazyGames.Dz.Ai
                 }),
                 new Sequence(new List<Node>
                 {
-                    new CheckHasTarget(t, _parameters),
+                    new CheckHasTarget(_parameters),
                     new TaskGoToTarget(t, _parameters),
                 }),
                 new TaskSearchLastKnownPosition(t, _parameters),
@@ -88,11 +88,12 @@ namespace com.LazyGames.Dz.Ai
         
         public void ResetPosition()
         {
+            _root.WipeData();
+            _vision.ResetVision();
             var rand = Random.Range(0, enemyWayPoints.WayPoints.Count);
             _agent.Warp(enemyWayPoints.WayPoints[rand].transform.position);
             
-            _root.WipeData();   
-            Invoke(nameof(DelayedWipe), 1f);
+            Invoke(nameof(DelayedWipe), .1f);
         }   
 
         public void PlayerDetected(Transform target)
@@ -151,7 +152,7 @@ namespace com.LazyGames.Dz.Ai
         
         private void Stun()
         {
-            _stunned = true;
+            _isStunned = true;
             _agent.isStopped = true;
             _animator.Play("enemy_stunned");
             _animator.SetBool(Stunned, true);
@@ -160,7 +161,7 @@ namespace com.LazyGames.Dz.Ai
         private IEnumerator CorStunTime()
         {
             yield return new WaitForSeconds(_parameters.stunTime);
-            _stunned = false;
+            _isStunned = false;
             _agent.isStopped = false;
             _animator.SetBool(Stunned, false);
         }
