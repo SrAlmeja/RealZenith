@@ -19,6 +19,7 @@ public class LaserCollision : MonoBehaviour
     
     private Ray _ray;
     private bool _cast;
+    private bool _castWithoutLayer;
     private bool _damageApplied = false;
 
     private void Awake()
@@ -55,16 +56,18 @@ public class LaserCollision : MonoBehaviour
     {
         _ray = new Ray(laserStart.position, laserStart.forward);
         _cast = Physics.Raycast(_ray, out var hit, laserDistance, layerMask);
+        _castWithoutLayer = Physics.Raycast(_ray, laserDistance);
         Vector3 hitPosition = _cast ? hit.point : laserStart.position + laserStart.forward * laserDistance;
         lineRenderer.SetPosition(0, laserStart.position);
         lineRenderer.SetPosition(1, hitPosition);
 
-        if (_cast && hit.collider.CompareTag("Wall"))
+        if (_castWithoutLayer)
         {
-            //Debug.Log("Chocando con muro");
             _particle.SetActive(true);
             _particleSystem.Play();
             _particle.transform.position = hitPosition;
+            Vector3 direction = hitPosition - laserStart.position;
+            _particle.transform.rotation = Quaternion.LookRotation(direction);
         }
         else
         {
