@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4225439481835867872, guid: 7cd23dffdfdf1534aa338e7a45767d83, type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6394335687928650370, guid: 7cd23dffdfdf1534aa338e7a45767d83, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -56,8 +60,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestTomatoe Variant 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3956689402778168319, guid: 7cd23dffdfdf1534aa338e7a45767d83, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7635398838079069341, guid: 7cd23dffdfdf1534aa338e7a45767d83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7161402497736572232}
   m_SourcePrefab: {fileID: 100100000, guid: 7cd23dffdfdf1534aa338e7a45767d83, type: 3}
+--- !u!1 &8062982551785449698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7635398838079069341, guid: 7cd23dffdfdf1534aa338e7a45767d83, type: 3}
+  m_PrefabInstance: {fileID: 437716830119408767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7161402497736572232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8062982551785449698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
