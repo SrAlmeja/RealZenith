@@ -19,6 +19,7 @@ public class DialoguesNpcs : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _dialogueText;
     [SerializeField] private TextMeshProUGUI _speakerText;
     [SerializeField] private GameObject _interactButtonUI;
+    [SerializeField] private GameObject arrowDownText;
     
     [Header("Visuals")]
     [SerializeField] private GameObject npcTriangle;
@@ -46,6 +47,7 @@ public class DialoguesNpcs : MonoBehaviour
         // _collider.radius = 1.5f;
 
         npcTriangle.transform.DOJump(npcTriangle.transform.position, 0.3f, 1, 0.5f).SetLoops(-1);
+        arrowDownText.transform.DOJump(arrowDownText.transform.position, 0.01f, 1, 0.5f).SetLoops(-1);
         HandleDialogueState();
         
     }
@@ -74,12 +76,13 @@ public class DialoguesNpcs : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
+            _canInteract = true;
+
             if (_dialogueState == DialogueState.Triggered)
             {
+                EnableInteractUI(false);
                 return;
             }
-                
-            _canInteract = true;
             EnableInteractUI(true);
         }
     }
@@ -111,6 +114,8 @@ public class DialoguesNpcs : MonoBehaviour
     {
         // _isActive = true;
         _dialogueState = DialogueState.Active;
+        _currentText = "";
+        _dialogueText.text = "";
         HandleDialogueState();
     }
 
@@ -140,9 +145,9 @@ public class DialoguesNpcs : MonoBehaviour
     
     private void DeactivateDialogue()
     {
-        eventAtFinish.Invoke();
         HandleDialogueState();
         interactAction.action.performed -= Interact;
+        eventAtFinish.Invoke();
         this.enabled = false;
     }
     private void Interact(InputAction.CallbackContext context)
