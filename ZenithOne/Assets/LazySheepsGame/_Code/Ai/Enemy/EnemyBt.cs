@@ -1,8 +1,10 @@
 // Modificado Raymundo Mosqueda 09/05/24
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CryoStorage;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,7 +17,7 @@ namespace com.LazyGames.Dz.Ai
     {
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
-        [SerializeField] private TypeOfGadget stunElement;
+        [SerializeField] private GameObject vfxObject;
         [Header("Parameters")]
         [SerializeField] private EnemyParameters defaultParameters;
         [SerializeField] private EnemyParameters alertParameters;
@@ -25,6 +27,7 @@ namespace com.LazyGames.Dz.Ai
         private Animator _animator;
         private EnemyVision _vision;
         private EnemyHearing _hearing;
+        private LayerSwitcher _layerSwitcher;
         private EnemyParameters _parameters;
         private bool _isStunned;
         private bool _startled;
@@ -82,10 +85,37 @@ namespace com.LazyGames.Dz.Ai
         
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
-            if (interactedGadget != stunElement) return;
-            Stun();
+            switch (interactedGadget)
+            {
+                case TypeOfGadget.WaterGranade:
+                    Debug.Log("water grenade interaction"); 
+                    Stun();
+                    break;
+                case TypeOfGadget.RadarGranade:
+                    Debug.Log("radar grenade interaction"); 
+                    StopCoroutine(nameof(CorDisableHighlight));
+                    Debug.Log("enabling highlight");
+                    foreach (var child in vfxObject.transform)
+                    {
+                        var goChild = (Transform) child;
+                        _layerSwitcher.OnSelected(goChild.gameObject);
+                    }
+                    StartCoroutine(CorDisableHighlight());
+                    break;
+            }
         }
-        
+
+        private IEnumerator CorDisableHighlight()
+        {
+            yield return new WaitForSeconds(_parameters.revealTime);
+            Debug.Log("disabling highlight");
+            foreach (var child in vfxObject.transform)
+            {
+                var goChild = (Transform) child;
+                _layerSwitcher.OnDeselected(goChild.gameObject);
+            }
+        }
+
         public void ResetPosition()
         {
             _root.WipeData();
@@ -104,7 +134,7 @@ namespace com.LazyGames.Dz.Ai
             _vision.Parameters.coneAngle = _parameters.coneAngle;
             _animator.SetBool(Chasing, true);
 
-            StopAllCoroutines();
+            StopCoroutine(nameof(CorAlertCooldown));
             
             if(_startled) return;
             _animator.Play("enemy_startled");
@@ -174,6 +204,7 @@ namespace com.LazyGames.Dz.Ai
             _agent.speed = _parameters.movementSpeed;
             _hearing = gameObject.GetComponent<EnemyHearing>();
             _vision = gameObject.GetComponent<EnemyVision>();
+            _layerSwitcher = gameObject.GetComponent<LayerSwitcher>();
             _animator = GetComponentInChildren<Animator>();
             _hearing.Initialize(this);
             _vision.Initialize(this, _parameters, LayerMask.GetMask("Player"));

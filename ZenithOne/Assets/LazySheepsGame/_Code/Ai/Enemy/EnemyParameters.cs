@@ -23,6 +23,11 @@ namespace com.LazyGames.Dz.Ai
         public float attackPower = 1f;
         public float attackRange = 2f;
         public float attackSpeed = 1.5f;
+        
+        [Header("Gadget Interaction Settings")]
+        [Tooltip("time the enemy will remain stunned when hit with stun grenade")]
         public float stunTime = 10f;
+        [Tooltip("time the enemy will remain revealed when hit with radar grenade")]
+        public float revealTime = 25f;        
     }
 }
