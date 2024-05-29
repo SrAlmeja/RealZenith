@@ -142,8 +142,8 @@ public class DialoguesNpcs : MonoBehaviour
     {
         eventAtFinish.Invoke();
         HandleDialogueState();
-        // _dialogueMeshUI.SetActive(false);
-        // gameObject.SetActive(false);
+        interactAction.action.performed -= Interact;
+        this.enabled = false;
     }
     private void Interact(InputAction.CallbackContext context)
     {
@@ -174,7 +174,7 @@ public class DialoguesNpcs : MonoBehaviour
         _interactButtonUI.SetActive(enable);
     }
     
-    private void HandleDialogueState()
+    public void HandleDialogueState()
     {
         switch (_dialogueState)
         {
@@ -190,6 +190,7 @@ public class DialoguesNpcs : MonoBehaviour
             case DialogueState.Triggered:
                 EnableInteractUI(false);
                 _dialogueMeshUI.SetActive(true);
+                Debug.Log("Dialogue Triggered");
                 npcTriangle.SetActive(false);
                 break;
             case DialogueState.Finished:
