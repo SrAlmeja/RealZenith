@@ -11,9 +11,15 @@ public class LayerSwitcherEditor : Editor
         LayerSwitcher layerSwitcher = (LayerSwitcher)target;
 
         // Dibuja un botón en el inspector
-        if (GUILayout.Button("Switch Layer"))
+        if (GUILayout.Button("Select"))
         {
-            //layerSwitcher.TheSwitcher();
+            layerSwitcher.OnSelected(null, layerSwitcher.Objects);
         }
+
+        if (GUILayout.Button("Deselect"))
+        {
+            layerSwitcher.OnDeselected(null, layerSwitcher.Objects);
+        }
+       
     }
 }

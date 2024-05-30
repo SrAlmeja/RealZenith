@@ -16,9 +16,8 @@ namespace com.LazyGames.Dz.Ai
         // private float _alertnessMultiplier = 1f;
         private Animator _animator;
         
-        public CheckHasTarget(Transform transform, EnemyParameters parameters)
+        public CheckHasTarget(EnemyParameters parameters)
         {
-            _transform = transform;
             _visionAngle = parameters.coneAngle;
             _visionRange = parameters.detectionRange;
         }
