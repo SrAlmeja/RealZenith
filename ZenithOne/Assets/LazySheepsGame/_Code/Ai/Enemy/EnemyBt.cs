@@ -1,11 +1,7 @@
 // Modificado Raymundo Mosqueda 09/05/24
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using CryoStorage;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -137,7 +133,7 @@ namespace com.LazyGames.Dz.Ai
             StopCoroutine(nameof(CorAlertCooldown));
             
             if(_startled) return;
-            _animator.Play("enemy_startled");
+            _animator.CrossFade("enemy_startled",0.2f);
             _startled = true;
         }
 
@@ -176,7 +172,7 @@ namespace com.LazyGames.Dz.Ai
             _root.WipeData();
             _root.SetData("NoisePosition", noisePosition);
             if(_startled) return;
-            _animator.Play("enemy_startled");
+            _animator.CrossFade("enemy_startled",0.2f);
             _startled = true;
         }
         

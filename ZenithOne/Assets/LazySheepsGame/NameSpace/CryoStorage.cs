@@ -61,5 +61,40 @@ namespace CryoStorage
             }
             return angle;
         }
+        
+        public static class CryoSteering
+        {
+            public static Vector3 Seek(Vector3 targetPosition, Vector3 currentPosition, Vector3 currentVelocity, float maxSpeed)
+            {
+                var desiredVelocity = (targetPosition - currentPosition).normalized * maxSpeed;
+                var steering = desiredVelocity - currentVelocity;
+                return steering;
+            }
+        
+            public static Vector3 Flee(Vector3 targetPosition, Vector3 currentPosition, Vector3 currentVelocity, float maxSpeed)
+            {
+                var desiredVelocity = Seek(targetPosition, currentPosition, currentVelocity,maxSpeed) * -1;
+                var steering = desiredVelocity - currentVelocity;
+                return steering;
+            }
+        
+            public static Vector3 Pursuit(Vector3 targetPosition, Vector3 targetVelocity, Vector3 currentPosition, Vector3 currentVelocity, float maxSpeed)
+            {
+                var distance = Vector3.Distance(currentPosition, targetPosition);
+                var timeToReach = distance / maxSpeed;
+                var futurePosition = targetPosition + targetVelocity * timeToReach;
+                return Seek(futurePosition, currentPosition, currentVelocity, maxSpeed);
+            }
+            
+            public static Vector3 Wander(Vector3 currentPosition, Vector3 currentVelocity, float wanderRadius, float wanderDistance, float wanderJitter,float wanderAngle, float maxSpeed)
+            {
+                wanderAngle += Random.Range(-1f, 1f) * wanderJitter;
+                var circleCenter = currentVelocity.normalized * wanderDistance;
+                var displacement = new Vector3(0, 0, 1) * wanderRadius;
+                displacement = Quaternion.Euler(0, wanderAngle, 0) * displacement;
+                var wanderTarget = circleCenter + displacement;
+                return Seek(wanderTarget, currentPosition, currentVelocity, maxSpeed);
+            }
+        }
     }
 }
