@@ -26,11 +26,11 @@ namespace com.LazyGames.Dz.Ai
             }
             
             Transform target = (Transform) t;
-            Vector3 viewPos = _transform.position + _parameters.heightOffset;
+            Vector3 viewPos = _transform.position;
             Vector3 targetDir = (target.position - viewPos).normalized;
             float dist = Vector3.Distance(viewPos, target.position);
             Debug.DrawRay(viewPos, targetDir * dist, Color.red);
-            if(Physics.Raycast(_transform.position + _parameters.heightOffset, targetDir, out var hit, dist))
+            if(Physics.Raycast(_transform.position, targetDir, out var hit, dist))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
