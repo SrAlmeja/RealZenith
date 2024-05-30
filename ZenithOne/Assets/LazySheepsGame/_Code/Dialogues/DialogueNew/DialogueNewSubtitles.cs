@@ -77,7 +77,7 @@ public class DialogueNewSubtitles : MonoBehaviour
         if(isDone) return;
         if(!isActive) return;
         
-        EnableArrow(false);
+        EnableArrow(true);
         // Debug.Log(thisDialogue.dialogueText);
         PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText);
         isActive = false;
