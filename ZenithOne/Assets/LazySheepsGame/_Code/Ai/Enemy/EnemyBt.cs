@@ -1,8 +1,10 @@
 // Modificado Raymundo Mosqueda 09/05/24
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CryoStorage;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,7 +17,7 @@ namespace com.LazyGames.Dz.Ai
     {
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
-        [SerializeField] private TypeOfGadget stunElement;
+        [SerializeField] private GameObject vfxObject;
         [Header("Parameters")]
         [SerializeField] private EnemyParameters defaultParameters;
         [SerializeField] private EnemyParameters alertParameters;
@@ -25,8 +27,9 @@ namespace com.LazyGames.Dz.Ai
         private Animator _animator;
         private EnemyVision _vision;
         private EnemyHearing _hearing;
+        private LayerSwitcher _layerSwitcher;
         private EnemyParameters _parameters;
-        private bool _stunned;
+        private bool _isStunned;
         private bool _startled;
         
         private static readonly int Stunned = Animator.StringToHash("stunned");
@@ -45,7 +48,7 @@ namespace com.LazyGames.Dz.Ai
 
         private void Update()
         {
-            _root?.Evaluate(_stunned);
+            _root?.Evaluate(_isStunned);
             _vision.Step();
             _agent.speed = _parameters.movementSpeed;
             _animator.SetBool(Moving, _agent.velocity.magnitude > 0.3f);
@@ -58,7 +61,7 @@ namespace com.LazyGames.Dz.Ai
             {
                 new Sequence(new List<Node>
                 {
-                    new CheckHasTarget(t, _parameters),
+                    new CheckHasTarget(_parameters),
                     new CheckPlayerInAttackRange(t, _parameters),
                     new TaskGoToTarget(t, _parameters),
                     new Sequence(new List<Node>
@@ -69,7 +72,7 @@ namespace com.LazyGames.Dz.Ai
                 }),
                 new Sequence(new List<Node>
                 {
-                    new CheckHasTarget(t, _parameters),
+                    new CheckHasTarget(_parameters),
                     new TaskGoToTarget(t, _parameters),
                 }),
                 new TaskSearchLastKnownPosition(t, _parameters),
@@ -82,17 +85,45 @@ namespace com.LazyGames.Dz.Ai
         
         public void GadgetInteraction(TypeOfGadget interactedGadget)
         {
-            if (interactedGadget != stunElement) return;
-            Stun();
+            switch (interactedGadget)
+            {
+                case TypeOfGadget.WaterGranade:
+                    Debug.Log("water grenade interaction"); 
+                    Stun();
+                    break;
+                case TypeOfGadget.RadarGranade:
+                    Debug.Log("radar grenade interaction"); 
+                    StopCoroutine(nameof(CorDisableHighlight));
+                    Debug.Log("enabling highlight");
+                    foreach (var child in vfxObject.transform)
+                    {
+                        var goChild = (Transform) child;
+                        _layerSwitcher.OnSelected(goChild.gameObject);
+                    }
+                    StartCoroutine(CorDisableHighlight());
+                    break;
+            }
         }
-        
+
+        private IEnumerator CorDisableHighlight()
+        {
+            yield return new WaitForSeconds(_parameters.revealTime);
+            Debug.Log("disabling highlight");
+            foreach (var child in vfxObject.transform)
+            {
+                var goChild = (Transform) child;
+                _layerSwitcher.OnDeselected(goChild.gameObject);
+            }
+        }
+
         public void ResetPosition()
         {
+            _root.WipeData();
+            _vision.ResetVision();
             var rand = Random.Range(0, enemyWayPoints.WayPoints.Count);
             _agent.Warp(enemyWayPoints.WayPoints[rand].transform.position);
             
-            _root.WipeData();   
-            Invoke(nameof(DelayedWipe), 1f);
+            Invoke(nameof(DelayedWipe), .1f);
         }   
 
         public void PlayerDetected(Transform target)
@@ -103,7 +134,7 @@ namespace com.LazyGames.Dz.Ai
             _vision.Parameters.coneAngle = _parameters.coneAngle;
             _animator.SetBool(Chasing, true);
 
-            StopAllCoroutines();
+            StopCoroutine(nameof(CorAlertCooldown));
             
             if(_startled) return;
             _animator.Play("enemy_startled");
@@ -151,16 +182,16 @@ namespace com.LazyGames.Dz.Ai
         
         private void Stun()
         {
-            _stunned = true;
+            _isStunned = true;
             _agent.isStopped = true;
-            _animator.Play("enemy_stunned");
+            _animator.Play("enemy_enter_stun");
             _animator.SetBool(Stunned, true);
             StartCoroutine(CorStunTime());
         }
         private IEnumerator CorStunTime()
         {
             yield return new WaitForSeconds(_parameters.stunTime);
-            _stunned = false;
+            _isStunned = false;
             _agent.isStopped = false;
             _animator.SetBool(Stunned, false);
         }
@@ -173,6 +204,7 @@ namespace com.LazyGames.Dz.Ai
             _agent.speed = _parameters.movementSpeed;
             _hearing = gameObject.GetComponent<EnemyHearing>();
             _vision = gameObject.GetComponent<EnemyVision>();
+            _layerSwitcher = gameObject.GetComponent<LayerSwitcher>();
             _animator = GetComponentInChildren<Animator>();
             _hearing.Initialize(this);
             _vision.Initialize(this, _parameters, LayerMask.GetMask("Player"));
