@@ -23,6 +23,9 @@ public class DialoguesNpcs : MonoBehaviour
     
     [Header("Visuals")]
     [SerializeField] private GameObject npcTriangle;
+    [SerializeField] private GameObject[] modelObjects;
+    [SerializeField] private LayerSwitcher layerSwitcher;
+    
     
     public UnityEvent eventAtFinish;
     public UnityEvent onStartDialogue;
@@ -135,6 +138,13 @@ public class DialoguesNpcs : MonoBehaviour
         HandleDialogueState();
     }
     
+    public void SwitchLayer(bool enable)
+    {
+        if (enable)
+            layerSwitcher.OnSelected(null, modelObjects);
+        else
+            layerSwitcher.OnDeselected(null, modelObjects);
+    }
 
     private void OnFinishedDialogue()
     {
