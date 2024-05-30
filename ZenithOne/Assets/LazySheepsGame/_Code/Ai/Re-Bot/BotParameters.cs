@@ -6,5 +6,14 @@ using UnityEngine;
 
 public class BotParameters : ScriptableObject
 {
-    [Header("Wander Variables")] public float circleRadius;
+    [Header("Wander Variables")] 
+    public float circleRadius;
+    public float circleDistance;
+    public float angleChange;
+    public float movementSpeed;
+    
+    [Header("Detection Variables")] 
+    public float detectionRange;
+    public float coneAngle;
+    
 }

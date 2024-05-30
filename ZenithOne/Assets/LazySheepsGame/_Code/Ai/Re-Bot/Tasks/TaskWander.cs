@@ -8,8 +8,8 @@ namespace com.LazyGames.Dz.Ai
     {
         private readonly Transform _transform;
         private readonly NavMeshAgent _agent;
-        private readonly EnemyParameters _parameters;
-       public TaskWander(Transform t, EnemyParameters parameters)
+        private readonly BotParameters _parameters;
+       public TaskWander(Transform t, BotParameters parameters)
        {
            _transform = t;
             _parameters = parameters;
@@ -20,6 +20,8 @@ namespace com.LazyGames.Dz.Ai
        {
            var wanderForce = CryoMath.CryoSteering.Wander(_transform.position, _agent.velocity, 1f, 1f, 1f, 1f, _parameters.movementSpeed );
            _agent.SetDestination(wanderForce);
+              state = NodeState.Running;
+              return state;
        }
     }
 }
