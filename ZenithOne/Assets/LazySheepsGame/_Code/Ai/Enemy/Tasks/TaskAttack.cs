@@ -31,9 +31,9 @@ namespace com.LazyGames.Dz.Ai
             _animator.SetBool(Attacking, false);
             if (_attackCounter >= _parameters.attackSpeed)
             {
-                SendAggression();
+                // SendAggression();
                 _attackCounter = 0;
-                _animator.Play("enemy_attack");
+                _animator.CrossFade("enemy_attack", 0.2f);
                 _animator.SetBool(Attacking, true);
             }
             
@@ -45,7 +45,6 @@ namespace com.LazyGames.Dz.Ai
         public void SendAggression()
         {
             if (!_target.gameObject.TryGetComponent<IGeneralTarget>(out var generalTarget)) return;
-
             generalTarget.ReceiveAggression(Vector3.Normalize(_transform.position - _target.position), _parameters.attackPower);   
         }
 
