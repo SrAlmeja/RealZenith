@@ -2,12 +2,14 @@ using com.LazyGames.Dz.Ai;
 using UnityEditor;
 using UnityEngine;
 using CryoStorage;
+using UnityEngine.Serialization;
 
 public class EnemyVision : MonoBehaviour
 {
     public EnemyParameters Parameters { get; private set; }
 
     [SerializeField] private Transform headTransform;
+    [FormerlySerializedAs("sightLayer")] [SerializeField] private LayerMask sightMask;
     private LayerMask _playerLayer;
     
     private bool _playerDetected;
@@ -33,6 +35,11 @@ public class EnemyVision : MonoBehaviour
             ScanForPlayer();
         }
     }
+    
+    public void ResetVision()
+    {
+        _playerDetected = false;
+    }
 
     private void ScanForPlayer()
     {
@@ -45,7 +52,8 @@ public class EnemyVision : MonoBehaviour
         if (!(Vector3.Angle(headTransform.forward, targetDir) < Parameters.coneAngle / 2)) return;
         
         var dist = Vector3.Distance(transform.position, _target.position);
-        if (!Physics.Raycast(transform.position, targetDir, out var hit, dist)) return;
+        LayerMask mask = 1 << 8;
+        if (!Physics.Raycast(transform.position, targetDir, out var hit, dist, sightMask)) return;
 
         if (!hit.collider.CompareTag("Player")) return;
         _parentBt.PlayerDetected(_target);
@@ -56,12 +64,12 @@ public class EnemyVision : MonoBehaviour
     private void TrackPlayer()
     {
         if (!_playerDetected) return;
-        var viewPos = transform.position + Parameters.heightOffset;
+        var viewPos = transform.position;
         var targetDir = (_target.position - viewPos).normalized;
         var dist = Vector3.Distance(viewPos, _target.position);
         var lastKnownPos = _target.position;
         Debug.DrawRay(viewPos, targetDir * dist, Color.red);
-        if (!Physics.Raycast(viewPos, targetDir, out var hit, dist)) return;
+        if (!Physics.Raycast(viewPos, targetDir, out var hit, dist, sightMask)) return;
         if (hit.collider.CompareTag("Player")) return;
         _parentBt.PlayerLost(lastKnownPos);
         // Debug.Log("Player Lost");
@@ -72,7 +80,7 @@ public class EnemyVision : MonoBehaviour
     private void OnDrawGizmos()
     {
         if(Parameters == null) return;
-        var position = transform.position + Parameters.heightOffset;
+        var position = headTransform.position;
         Handles.color = Color.white;
         Handles.DrawWireDisc(position, Vector3.up, Parameters.detectionRange);
         

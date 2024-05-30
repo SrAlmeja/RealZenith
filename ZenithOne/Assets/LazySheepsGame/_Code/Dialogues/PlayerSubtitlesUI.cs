@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using Autohand;
 using com.LazyGames;
 using Obvious.Soap;
 using TMPro;
@@ -9,53 +9,39 @@ using UnityEngine;
 public class PlayerSubtitlesUI : MonoBehaviour
 {
     public static PlayerSubtitlesUI Instance;
-    
-    [SerializeField] ScriptableEventDialogueBase _onDialogueSend;
-    [SerializeField] ScriptableEventNoParam _onDialogueEnd;
     [SerializeField] private GameObject _subtitlesUI;
     [SerializeField] private TextMeshProUGUI _subtitlesText;
+    [SerializeField] private Hand _hand;
     
     string _currentText;
     
     private void Awake()
     {
         Instance = this;
-    }
-    void Start()
-    {
-        // _onDialogueSend.OnRaised += OnStartDialogue;
-        _onDialogueEnd.OnRaised += OnEndDialogue;
         
     }
 
-    private void OnEndDialogue()
+    public void TriggerHaptic()
     {
-        // Debug.Log("End Dialogue from PlayerSubtitles");
-        if (!String.IsNullOrEmpty(_currentText))
-        {
-            // _subtitlesUI.SetActive(false);
-            _currentText = "";
-            _subtitlesText.text = "";
-        }
-    }
+        float handAmp = 1f;
+        // _hand.PlayHapticVibration(0.5f, handAmp);
 
-    private void OnStartDialogue(DialogueBase dialogue)
-    {
-        if (dialogue.CurrentInkContainer.DialogueType == DialogueType.Subtitles)
-        {
-            _subtitlesUI.SetActive(true);
-        }
     }
-
-    public void SetUISubtitles(DialogueInfoUI dialogueInfoUI)
+    
+    
+    public void DisplayText(string text)
     {
-        DisplayText(dialogueInfoUI.Text);
-    }
-
-    private void DisplayText(string text)
-    {
+        TriggerHaptic();
         _currentText = text;
         _subtitlesText.text = _currentText;
+
+        StartCoroutine(HideSubtitles());
+    }
+    
+    private IEnumerator HideSubtitles()
+    {
+        yield return new WaitForSeconds(5);
+        _subtitlesText.text = "";
     }
     
     
