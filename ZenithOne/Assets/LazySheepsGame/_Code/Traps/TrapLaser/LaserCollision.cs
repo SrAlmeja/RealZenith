@@ -59,12 +59,13 @@ public class LaserCollision : MonoBehaviour
         lineRenderer.SetPosition(0, laserStart.position);
         lineRenderer.SetPosition(1, hitPosition);
 
-        if (_cast && hit.collider.CompareTag("Wall"))
+        if (_cast && hit.collider)
         {
-            //Debug.Log("Chocando con muro");
             _particle.SetActive(true);
             _particleSystem.Play();
             _particle.transform.position = hitPosition;
+            Vector3 direction = hitPosition - laserStart.position;
+            _particle.transform.rotation = Quaternion.LookRotation(direction);
         }
         else
         {

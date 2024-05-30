@@ -953,8 +953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bedb9b6193f51bc4884ee3175acfaba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onDialogueSend: {fileID: 11400000, guid: b53d3a97cad21444ba132357348ebd29, type: 2}
-  _onDialogueEnd: {fileID: 11400000, guid: b22144c45d8524a4dbcb7b5f81ad1012, type: 2}
   _subtitlesUI: {fileID: 2614542852138106810}
   _subtitlesText: {fileID: 2944802993781361538}
 --- !u!1 &1110006246178012349
@@ -4319,8 +4317,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 859b6efe260aae64c8409bfcacb74c2d, type: 2}
+  m_sharedMaterial: {fileID: -5277795949436747634, guid: 859b6efe260aae64c8409bfcacb74c2d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4344,14 +4342,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.4
-  m_fontSizeBase: 0.4
+  m_fontSize: 0.25
+  m_fontSizeBase: 0.25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0.5
   m_fontSizeMax: 1
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
