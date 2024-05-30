@@ -17,24 +17,26 @@ namespace com.LazyGames.Dz.Ai
         
         public override NodeState Evaluate(bool overrideStop = false)
         {
-            object t = GetData("target");
-            if (t == null)
-            {
-                state = NodeState.Failure;
-                return state;
-            }
-            var target = (Transform)t;
-            var targetPlanar = new Vector3(target.position.x, _transform.position.y, target.position.z);
-            var targetDir = (targetPlanar - _transform.position).normalized;
-
-            if (!(Vector3.Angle(_transform.forward, targetDir) < _parameters.coneAngle / 2))
-            {
-                state = NodeState.Failure;
-                return state;
-            }
-            _transform.rotation = Quaternion.LookRotation(targetDir);
-            state = NodeState.Running;
-            return state;
+        //     object t = GetData("target");
+        //     if (t == null)
+        //     {
+        //         state = NodeState.Failure;
+        //         return state;
+        //     }
+        //     var target = (Transform)t;
+        //     var targetPlanar = new Vector3(target.position.x, _transform.position.y, target.position.z);
+        //     var targetDir = (targetPlanar - _transform.position).normalized;
+        //
+        //     if (!(Vector3.Angle(_transform.forward, targetDir) < _parameters.coneAngle / 2))
+        //     {
+        //         state = NodeState.Failure;
+        //         return state;
+        //     }
+        //     _transform.rotation = Quaternion.LookRotation(targetDir);
+        //     state = NodeState.Running;
+        //     return state;
+        state = NodeState.Running;
+        return state;
         }
         
     }
