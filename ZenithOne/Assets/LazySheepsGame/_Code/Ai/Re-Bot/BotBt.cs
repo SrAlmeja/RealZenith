@@ -13,7 +13,7 @@ namespace com.LazyGames.Dz.Ai
         private Node _root;
         private NavMeshAgent _agent;
         private Animator _animator;
-        [SerializeField]private EnemyParameters parameters;
+        [SerializeField]private BotParameters parameters;
         
         protected override Node SetupTree()
         {
@@ -35,9 +35,9 @@ namespace com.LazyGames.Dz.Ai
                 new Sequence(new List<Node>
                 {
                     new CheckPlayerInRange(t, parameters),
-                    new TaskFaceTarget(t, parameters),
+                    // new TaskFaceTarget(t, parameters),
                 }),
-                new TaskWander(t)
+                new TaskWander(t, parameters)
             });
             return _root;
         }
