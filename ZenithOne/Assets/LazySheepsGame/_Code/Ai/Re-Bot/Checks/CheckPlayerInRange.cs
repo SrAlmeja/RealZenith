@@ -7,9 +7,9 @@ namespace com.LazyGames.Dz.Ai
     public class CheckPlayerInRange : Node
     {
         private Transform _transform;
-        private EnemyParameters _parameters;
+        private BotParameters _parameters;
         
-        public CheckPlayerInRange(Transform transform, EnemyParameters parameters)
+        public CheckPlayerInRange(Transform transform, BotParameters parameters)
         {
             _transform = transform;
             _parameters = parameters;
