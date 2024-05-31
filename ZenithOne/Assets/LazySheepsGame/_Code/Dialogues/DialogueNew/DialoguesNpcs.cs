@@ -25,7 +25,8 @@ public class DialoguesNpcs : MonoBehaviour
     [SerializeField] private GameObject npcTriangle;
     [SerializeField] private GameObject[] modelObjects;
     [SerializeField] private LayerSwitcher layerSwitcher;
-    
+
+    //[SerializeField] private bool _isLoopable;
     
     public UnityEvent eventAtFinish;
     public UnityEvent onStartDialogue;
@@ -49,7 +50,7 @@ public class DialoguesNpcs : MonoBehaviour
         _collider.isTrigger = true;
         // _collider.radius = 1.5f;
 
-        npcTriangle.transform.DOJump(npcTriangle.transform.position, 0.3f, 1, 0.5f).SetLoops(-1);
+       if(npcTriangle != null) npcTriangle.transform.DOJump(npcTriangle.transform.position, 0.3f, 1, 0.5f).SetLoops(-1);
         arrowDownText.transform.DOJump(arrowDownText.transform.position, 0.01f, 1, 0.5f).SetLoops(-1);
         HandleDialogueState();
         
@@ -83,6 +84,7 @@ public class DialoguesNpcs : MonoBehaviour
         // if(_isDone) return;
         // if (!_isActive)
             // return;
+        
         
         if(_dialogueState == DialogueState.Finished || _dialogueState == DialogueState.Inactive)
             return;
@@ -136,9 +138,7 @@ public class DialoguesNpcs : MonoBehaviour
     }
 
     private void OnFinishedDialogue()
-    {
-        // _isActive = false;
-        // _isDone = true;
+    { 
         _dialogueState = DialogueState.Finished;
     }
     
@@ -148,10 +148,10 @@ public class DialoguesNpcs : MonoBehaviour
         interactAction.action.performed -= Interact;
         eventAtFinish.Invoke();
         this.enabled = false;
+        
     }
     private void Interact(InputAction.CallbackContext context)
     {
-
         // if (_isDone)
         if(_dialogueState == DialogueState.Finished)
         {
@@ -184,25 +184,25 @@ public class DialoguesNpcs : MonoBehaviour
         {
             case DialogueState.Inactive:
                 _dialogueMeshUI.SetActive(false);
-                npcTriangle.SetActive(false);
+               if(npcTriangle != null) npcTriangle.SetActive(false);
                 EnableInteractUI(false);
                 
                 break;
             case DialogueState.Active:
-                npcTriangle.SetActive(true);
+                if(npcTriangle != null) npcTriangle.SetActive(true);
                 SetSelectedMaterial();
                 break;
             case DialogueState.Triggered:
                 EnableInteractUI(false);
                 SetDeselectedMaterial();
                 _dialogueMeshUI.SetActive(true);
-                // Debug.Log("Dialogue Triggered");
-                npcTriangle.SetActive(false);
+                
+                if(npcTriangle != null) npcTriangle.SetActive(false);
                 break;
             case DialogueState.Finished:
                 _dialogueMeshUI.SetActive(false);
                 _collider.enabled = false;
-                npcTriangle.SetActive(false);
+                if(npcTriangle != null) npcTriangle.SetActive(false);
                 gameObject.SetActive(false);
                 
 
@@ -212,10 +212,13 @@ public class DialoguesNpcs : MonoBehaviour
     
     private void SetSelectedMaterial()
     {
+      
+        
         layerSwitcher.OnSelected(null, modelObjects);
     }
     private void SetDeselectedMaterial()
     {
+       
         layerSwitcher.DeselectObjectsDefault(modelObjects);
     }
 }
