@@ -55,18 +55,7 @@ public class DialoguesNpcs : MonoBehaviour
         
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if(_dialogueState == DialogueState.Finished || _dialogueState == DialogueState.Inactive)
-    //         return;
-    //
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         
-    //     }
-    //
-    //    
-    // }
+   
 
     private void OnTriggerStay(Collider other)
     {
@@ -201,11 +190,13 @@ public class DialoguesNpcs : MonoBehaviour
                 break;
             case DialogueState.Active:
                 npcTriangle.SetActive(true);
+                SetSelectedMaterial();
                 break;
             case DialogueState.Triggered:
                 EnableInteractUI(false);
+                SetDeselectedMaterial();
                 _dialogueMeshUI.SetActive(true);
-                Debug.Log("Dialogue Triggered");
+                // Debug.Log("Dialogue Triggered");
                 npcTriangle.SetActive(false);
                 break;
             case DialogueState.Finished:
@@ -217,6 +208,15 @@ public class DialoguesNpcs : MonoBehaviour
 
                 break;
         }
+    }
+    
+    private void SetSelectedMaterial()
+    {
+        layerSwitcher.OnSelected(null, modelObjects);
+    }
+    private void SetDeselectedMaterial()
+    {
+        layerSwitcher.DeselectObjectsDefault(modelObjects);
     }
 }
 
