@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Autohand;
@@ -14,7 +15,16 @@ public class PlayerSubtitlesUI : MonoBehaviour
     [SerializeField] private Hand _hand;
     
     string _currentText;
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TriggerHaptic();
+        }
+        
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -24,8 +34,8 @@ public class PlayerSubtitlesUI : MonoBehaviour
     public void TriggerHaptic()
     {
         float handAmp = 1f;
-        // _hand.PlayHapticVibration(0.5f, handAmp);
-
+        _hand.PlayHapticVibration(0.5f);
+        Debug.Log("Haptic");
     }
     
     
