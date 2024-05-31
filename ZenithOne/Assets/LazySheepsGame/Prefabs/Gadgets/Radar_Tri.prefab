@@ -166,7 +166,7 @@ MonoBehaviour:
   maintainGrabOffset: 0
   parentOnGrab: 1
   heldNoFriction: 1
-  ignoreWeight: 0
+  ignoreWeight: 1
   allowHeldSwapping: 1
   throwPower: 2
   jointBreakForce: 3500
@@ -230,12 +230,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34d734a736644048ba400a1c66411a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionVFX: {fileID: 2625789578513866691}
+  _explosionVFX: {fileID: 3338369505671238271, guid: e5a95f65bb6e3ad44a18c53d2fe2ea02, type: 3}
   _vfxDuration: 1
   _interactWithLayers:
     serializedVersion: 2
     m_Bits: 6520832
-  _typeOfGadget: 0
+  _typeOfGadget: 3
   _interactionRadius: 1
   _maxDistance: 1
   _activationTime: 1

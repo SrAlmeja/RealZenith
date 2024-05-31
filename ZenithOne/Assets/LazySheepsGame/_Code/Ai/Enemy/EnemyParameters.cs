@@ -14,6 +14,8 @@ namespace com.LazyGames.Dz.Ai
         [Tooltip("Time in seconds will remain alert after losing sight of the player.")]
         public float alertTime = 10;
         public float movementSpeed = 2f;
+        [Tooltip("Factor that controls the speed at which the enemy rotates to face the player.")]
+        public float rotationSpeed = 10f;
         
         [Header("Detection Variables")]
         public float detectionRange = 8f;
