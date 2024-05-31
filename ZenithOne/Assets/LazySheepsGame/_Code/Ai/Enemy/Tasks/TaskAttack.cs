@@ -12,6 +12,7 @@ namespace com.LazyGames.Dz.Ai
         private readonly Animator _animator;
         private readonly EnemyParameters _parameters;
         private Transform _target;
+        private AnimationAttack _animationAttack;
         
         private float _attackCounter;
         private static readonly int Attacking = Animator.StringToHash("attacking");
@@ -21,6 +22,8 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
             _parameters = parameters;
             _animator = transform.GetComponentInChildren<Animator>();
+            _animationAttack = _animator.GetComponent<AnimationAttack>();
+            _attackCounter = parameters.attackSpeed;
         }
 
         public override NodeState Evaluate(bool overrideStop = false)
@@ -31,12 +34,18 @@ namespace com.LazyGames.Dz.Ai
             _animator.SetBool(Attacking, false);
             if (_attackCounter >= _parameters.attackSpeed)
             {
-                SendAggression();
                 _attackCounter = 0;
-                _animator.Play("enemy_attack");
+                _animator.CrossFade("enemy_attack", 0.2f);
                 _animator.SetBool(Attacking, true);
+                
             }
-            
+            Debug.Log(_animationAttack.isAttacking);
+            if (_animationAttack.isAttacking)
+            { 
+                Debug.Log("sending aggression");
+
+                SendAggression();
+            }
             _animator.SetBool(Attacking, false);
             state = NodeState.Running;
             return state;
@@ -45,7 +54,6 @@ namespace com.LazyGames.Dz.Ai
         public void SendAggression()
         {
             if (!_target.gameObject.TryGetComponent<IGeneralTarget>(out var generalTarget)) return;
-
             generalTarget.ReceiveAggression(Vector3.Normalize(_transform.position - _target.position), _parameters.attackPower);   
         }
 
