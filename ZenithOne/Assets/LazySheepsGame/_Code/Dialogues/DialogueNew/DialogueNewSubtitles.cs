@@ -16,7 +16,10 @@ public class DialogueNewSubtitles : MonoBehaviour
     public bool needsCollider;
     public DialogueStruct thisDialogue;
     
+    [SerializeField] private LayerSwitcher layerSwitcher;
+    [SerializeField] private GameObject[] modelObjects;
     public UnityEvent eventAtFinish;
+    public UnityEvent onStartDialogue;
     
     private CapsuleCollider _collider;
     
@@ -55,15 +58,26 @@ public class DialogueNewSubtitles : MonoBehaviour
     {
         isActive = true;
         EnableArrow(true);
+        if (layerSwitcher != null)
+        {
+            layerSwitcher.OnSelected(null, modelObjects);
+        }
         
     }
     
+    public void DeactivateLayer()
+    {
+        if (layerSwitcher != null)
+        {
+            layerSwitcher.DeselectObjectsDefault(modelObjects);
+        }
+    }
     public void LaunchSubtitles()
     {
         if(isDone) return;
         if(!isActive) return;
         
-        EnableArrow(false);
+        EnableArrow(true);
         // Debug.Log(thisDialogue.dialogueText);
         PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText);
         isActive = false;
