@@ -212,13 +212,12 @@ public class DialoguesNpcs : MonoBehaviour
     
     private void SetSelectedMaterial()
     {
-      
-        
+        if(layerSwitcher == null) return;
         layerSwitcher.OnSelected(null, modelObjects);
     }
     private void SetDeselectedMaterial()
     {
-       
+        if(layerSwitcher == null) return;
         layerSwitcher.DeselectObjectsDefault(modelObjects);
     }
 }
