@@ -34,7 +34,7 @@ public class PlayerSubtitlesUI : MonoBehaviour
     public void TriggerHaptic()
     {
         float handAmp = 1f; 
-        // _hand.PlayHapticVibration(0.5f);
+        _hand.PlayHapticVibration(0.5f);
         Debug.Log("Haptic");
     }
     
@@ -50,7 +50,7 @@ public class PlayerSubtitlesUI : MonoBehaviour
     
     private IEnumerator HideSubtitles()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         _subtitlesText.text = "";
     }
     
