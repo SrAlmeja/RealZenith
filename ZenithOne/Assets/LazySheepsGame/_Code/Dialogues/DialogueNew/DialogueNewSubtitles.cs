@@ -8,6 +8,9 @@ using UnityEngine.Events;
 
 public class DialogueNewSubtitles : MonoBehaviour
 {
+    [Header("Audio")] 
+    [SerializeField] private float audioTime = 10;
+    
     [SerializeField] private GameObject arrow;
     public bool isActive;
     public bool isDone;
@@ -77,20 +80,21 @@ public class DialogueNewSubtitles : MonoBehaviour
         if(isDone) return;
         if(!isActive) return;
         
+        onStartDialogue.Invoke();
         EnableArrow(true);
-        // Debug.Log(thisDialogue.dialogueText);
-        PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText);
+        PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText, audioTime);
         isActive = false;
         isDone = true;
         
-        DeactivateDialogue();
+        // DeactivateDialogue();
+        StartCoroutine(AudioLength());
 
     }
     
     private void DeactivateDialogue()
     {
-        eventAtFinish.Invoke();
         
+        eventAtFinish.Invoke();
         this.enabled = false;
 
     }
@@ -99,5 +103,11 @@ public class DialogueNewSubtitles : MonoBehaviour
     { 
         if(arrow != null)
             arrow.SetActive(enable);
+    }
+    
+    IEnumerator AudioLength()
+    {
+        yield return new WaitForSeconds(audioTime);
+        DeactivateDialogue();
     }
 }
