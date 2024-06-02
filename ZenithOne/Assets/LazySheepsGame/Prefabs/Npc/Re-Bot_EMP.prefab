@@ -6678,7 +6678,7 @@ GameObject:
   - component: {fileID: 2139529145985371369}
   - component: {fileID: 9067739254076922531}
   m_Layer: 0
-  m_Name: Re-Bot
+  m_Name: Re-Bot_EMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6693,7 +6693,7 @@ Transform:
   m_GameObject: {fileID: 6576465638755258093}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.537034, y: 1.096617, z: 23.141863}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6739,7 +6739,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 8
   m_ObstacleAvoidanceType: 4
 --- !u!135 &2139529145985371369
 SphereCollider:
