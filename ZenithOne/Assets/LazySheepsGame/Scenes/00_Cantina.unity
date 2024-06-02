@@ -245,34 +245,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.029646588, y: 0.0029771896, z: 0.053984083}
   m_Center: {x: -0.014834858, y: -0.00005743564, z: 0.002556994}
---- !u!1 &51524728 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7655349337522257302, guid: 865d87e60b027c94c81ec3ba4c584c74, type: 3}
-  m_PrefabInstance: {fileID: 1389653889}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &51524732
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51524728}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.056930035
-  m_Height: 0.19400665
-  m_Direction: 2
-  m_Center: {x: 0.117348045, y: -0.10313808, z: 0.07226241}
 --- !u!1 &55781577 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3084153445881505931, guid: 139151f571e21da49a20b2fb0c8b524d, type: 3}
@@ -638,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 269368807913754910, guid: c5c763ccbd3ec7e4e965053537133bb9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3431427406269768699, guid: c5c763ccbd3ec7e4e965053537133bb9, type: 3}
       propertyPath: m_IsActive
@@ -3343,112 +3315,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1584590878683760143, guid: 2ee499266a32ebc49aa312407033bf7e, type: 3}
   m_PrefabInstance: {fileID: 343166397}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &347377981
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1426768645}
-    m_Modifications:
-    - target: {fileID: 1042664868996605040, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_Name
-      value: Stool_Fixed (10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042664868996605040, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090999734272772088, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367847739643660571, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5144949
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5144949
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5144949
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -18.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.8384682
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.3322768
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.62417305
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.6241736
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.33227637
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -123.943
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5072071965668971704, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 7651930759826184478, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8794052919240633876, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 9096970054071510083, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
---- !u!4 &347377982 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4327533358094216013, guid: 14c42af896ba1f744a6a8f2b282e7c7e, type: 3}
-  m_PrefabInstance: {fileID: 347377981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &350011013
 GameObject:
   m_ObjectHideFlags: 0
@@ -4351,7 +4217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 249584975654951168, guid: f0d1c0a4859677249a3fb68559807c93, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2058868390570721965, guid: f0d1c0a4859677249a3fb68559807c93, type: 3}
       propertyPath: m_Constraints
@@ -4510,6 +4376,138 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7980185346129719341, guid: 1fa196d6d86cc8245a105e9670c47181, type: 3}
   m_PrefabInstance: {fileID: 882500652}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &546512012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546512013}
+  - component: {fileID: 546512015}
+  - component: {fileID: 546512014}
+  m_Layer: 0
+  m_Name: Dialogue_Marth_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &546512013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546512012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 27111209030173632}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546512014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546512012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Player
+  EventReference:
+    Guid:
+      Data1: 1007467741
+      Data2: 1143122845
+      Data3: -651437183
+      Data4: -820563620
+    Path: event:/Dialogos
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 1
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &546512015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546512012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee5b877d70cdc94aaa6dc78acf8f1c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioTime: 15
+  arrow: {fileID: 0}
+  isActive: 0
+  isDone: 0
+  needsArrow: 0
+  needsCollider: 0
+  thisDialogue:
+    npcName: 
+    dialogueText: "Marth: What you\u2019re wearing right now is a Transport Gadget,
+      it stores and recreates B.U.R.N tech at will, but ya gotta find the actual
+      tech first to register it. Once you got it, you just gotta give it a spin from
+      the tachometer and grab the holo-manifestation."
+  layerSwitcher: {fileID: 0}
+  modelObjects: []
+  eventAtFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1001665536}
+        m_TargetAssemblyTypeName: DialogueNewSubtitles, Assembly-CSharp
+        m_MethodName: ActiveDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1001665536}
+        m_TargetAssemblyTypeName: DialogueNewSubtitles, Assembly-CSharp
+        m_MethodName: LaunchSubtitles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStartDialogue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 546512014}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &548698803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6993,6 +6991,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: OmnitrixVisualTabern, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14353,12 +14363,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 894292774836792192, guid: 865d87e60b027c94c81ec3ba4c584c74, type: 3}
       insertIndex: -1
       addedObject: {fileID: 56049346}
-    - targetCorrespondingSourceObject: {fileID: 7655349337522257302, guid: 865d87e60b027c94c81ec3ba4c584c74, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 51524732}
-    - targetCorrespondingSourceObject: {fileID: 1738923461089444888, guid: 865d87e60b027c94c81ec3ba4c584c74, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1961947908}
     - targetCorrespondingSourceObject: {fileID: 2930162285499514942, guid: 865d87e60b027c94c81ec3ba4c584c74, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1835001695}
@@ -14582,7 +14586,6 @@ Transform:
   - {fileID: 158083589}
   - {fileID: 1472455821}
   - {fileID: 1255035531}
-  - {fileID: 347377982}
   - {fileID: 1161991580}
   - {fileID: 2120809279}
   - {fileID: 1369973749}
@@ -15393,7 +15396,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.25, y: -0.48, z: 1.03}
 --- !u!23 &1479773014
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15626,7 +15629,7 @@ MonoBehaviour:
   interactAction: {fileID: -2545279486787368435, guid: 237a7c9f9c448e54a9d6a933dc56b872, type: 3}
   dialogueStruct:
     npcName: Jhon
-    dialogueText: Talking about that particle contraption, right?
+    dialogueText: Check the place out, S.A.I.L will sure like knowing your face.
   _dialogueMeshUI: {fileID: 7109267833995886958}
   _dialogueText: {fileID: 6652098813473464975}
   _speakerText: {fileID: 9185850748030728894}
@@ -21336,34 +21339,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!1 &1961947904 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1738923461089444888, guid: 865d87e60b027c94c81ec3ba4c584c74, type: 3}
-  m_PrefabInstance: {fileID: 1389653889}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1961947908
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961947904}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.054382276
-  m_Height: 0.3873011
-  m_Direction: 2
-  m_Center: {x: -0.11930871, y: -0.034378756, z: -0.0388562}
 --- !u!1001 &1973334970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24223,6 +24198,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9062868754012216775}
+  - {fileID: 546512013}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &37417316013162947
@@ -65471,30 +65447,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1001665536}
-        m_TargetAssemblyTypeName: DialogueNewSubtitles, Assembly-CSharp
-        m_MethodName: ActiveDialogue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1001665536}
-        m_TargetAssemblyTypeName: DialogueNewSubtitles, Assembly-CSharp
-        m_MethodName: LaunchSubtitles
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 105618702}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -65518,6 +65470,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 546512015}
+        m_TargetAssemblyTypeName: DialogueNewSubtitles, Assembly-CSharp
+        m_MethodName: ActiveDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 546512015}
+        m_TargetAssemblyTypeName: DialogueNewSubtitles, Assembly-CSharp
+        m_MethodName: LaunchSubtitles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
   onRelease:
     m_PersistentCalls:
