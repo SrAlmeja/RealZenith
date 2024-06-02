@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class OmnitrixVisualTabern : MonoBehaviour
 {
-    
+    [SerializeField] private GameObject _omnitrixVisual;
     void Start()
     {
+        _omnitrixVisual.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowOmnitrixVisual()
     {
-        
+        _omnitrixVisual.SetActive(true);
+        _omnitrixVisual.transform.DOScale(Vector3.one, 0.5f);
     }
 }
