@@ -33,8 +33,8 @@ public class PlayerSubtitlesUI : MonoBehaviour
 
     public void TriggerHaptic()
     {
-        float handAmp = 1f;
-        _hand.PlayHapticVibration(0.5f);
+        float handAmp = 1f; 
+        // _hand.PlayHapticVibration(0.5f);
         Debug.Log("Haptic");
     }
     
