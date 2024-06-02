@@ -15,6 +15,7 @@ public class PlayerSubtitlesUI : MonoBehaviour
     [SerializeField] private Hand _hand;
     
     string _currentText;
+  
 
     private void Update()
     {
@@ -39,18 +40,18 @@ public class PlayerSubtitlesUI : MonoBehaviour
     }
     
     
-    public void DisplayText(string text)
+    public void DisplayText(string text, float time)
     {
         TriggerHaptic();
         _currentText = text;
         _subtitlesText.text = _currentText;
-
-        StartCoroutine(HideSubtitles());
+        
+        StartCoroutine(HideSubtitles(time));
     }
     
-    private IEnumerator HideSubtitles()
+    private IEnumerator HideSubtitles(float time)
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(time);
         _subtitlesText.text = "";
     }
     
