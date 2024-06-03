@@ -5,6 +5,7 @@ using DG.Tweening;
 using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class LaserTrap : TrapsBase, IGadgetInteractable
@@ -29,6 +30,8 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     
     [Header("Trap Interaction")]
     [SerializeField] private TypeOfGadget _gadgetInteractionType;
+    
+    public UnityEvent onTrapCompletedMovement;
 
     #endregion
 
@@ -115,7 +118,14 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     private void MoveLaser()
     {
         railVisual.SetActive(true);
-        boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.Linear).OnStepComplete(() =>
+            {
+                onTrapCompletedMovement.Invoke();
+                Debug.Log("Laser Trap Completed Movement");
+            });
+        
+        
     }
     private void StopMovementLaser()
     {
