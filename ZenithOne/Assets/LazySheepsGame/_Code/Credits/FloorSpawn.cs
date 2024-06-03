@@ -44,42 +44,4 @@ public class FloorSpawn : MonoBehaviour
         }
     }
 
-    /*
-    [Header("prefabs")]
-   
-    [SerializeField] private GameObject spawner;
-    
-
-
-
-
-    
-    private Vector3 _spawnPosition;
-
-
-    private void Awake()
-    {
-        _spawnPosition = spawner.transform.position;
-    }
-
-    private void Start()
-    {
-        _spawnPosition = Vector3.forward * width * floorAssets.Length;
-    }
-
-    
-
-    public void SpawnObject()
-    {
-        //Debug.Log("Spawneando " + _selectedObject.transform.name);
-        LeanPool.Spawn(_selectedObject, _spawnPosition, Quaternion.identity, parentPrefab.transform);
-    }
-
-
-
-    public void BackToThePool(GameObject floor)
-    {
-        //Debug.Log("El objeto " + floor.transform.name + " fue regresado al pool");
-        LeanPool.Despawn(floor);
-    }*/
 }
