@@ -309,10 +309,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 1
-  HasPlatforms: 1
+  HasSourceProject: 0
+  HasPlatforms: 0
   sourceProjectPath: ../../FMOD_PROJECT_BURN/FMOD_PROJECT_BURN/FMOD_PROJECT_BURN.fspro
-  sourceBankPath: ../../FMOD_PROJECT_BURN/FMOD_PROJECT_BURN/Build
+  sourceBankPath: Assets/FMOD/Desktop
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -336,13 +336,16 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
-  - Ambientes
-  - Bank A
-  - Bank B
-  - Bank C
-  - Door
-  - Player
-  - SFX
+  - Ambiente Bunker
+  - Ambiente Taberna
+  - Dialogos
+  - Enemy
+  - Musica Bunker
+  - Musica Taberna
+  - Player Bunker
+  - Player Tabern
+  - SFX Bunker
+  - SFX Granadas
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
