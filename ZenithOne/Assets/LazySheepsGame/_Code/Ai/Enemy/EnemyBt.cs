@@ -2,21 +2,34 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace com.LazyGames.Dz.Ai
 {
+    public enum EnemyState
+    {
+        Patrolling,
+        Searching,
+        Chasing,
+        None
+    }
+    
     [SelectionBase]
     public class EnemyBt : Tree, IGadgetInteractable
     {
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private EnemyWayPoints enemyWayPoints;
         [SerializeField] private GameObject vfxObject;
+        
         [Header("Parameters")]
         [SerializeField] private EnemyParameters defaultParameters;
         [SerializeField] private EnemyParameters alertParameters;
+        
+        [Header("SOAP")]
+        [SerializeField] private ScriptableEvent<EnemyStateWrapper> enemyStateWrapperSo;
         
         private Node _root;
         private NavMeshAgent _agent;
@@ -27,6 +40,7 @@ namespace com.LazyGames.Dz.Ai
         private EnemyParameters _parameters;
         private bool _isStunned;
         private bool _startled;
+        private EnemyStateWrapper _stateWrapper;
         
         private static readonly int Stunned = Animator.StringToHash("stunned");
         private static readonly int Moving = Animator.StringToHash("moving");
@@ -39,6 +53,7 @@ namespace com.LazyGames.Dz.Ai
         {
             Prepare();
             _root = BuildTree();
+            _stateWrapper = new EnemyStateWrapper(this);
             return _root;
         }
 
@@ -48,6 +63,7 @@ namespace com.LazyGames.Dz.Ai
             _vision.Step();
             _agent.speed = _parameters.movementSpeed;
             _animator.SetBool(Moving, _agent.velocity.magnitude > 0.3f);
+
         }
 
         private Node BuildTree()
@@ -84,13 +100,10 @@ namespace com.LazyGames.Dz.Ai
             switch (interactedGadget)
             {
                 case TypeOfGadget.WaterGranade:
-                    Debug.Log("water grenade interaction"); 
                     Stun();
                     break;
                 case TypeOfGadget.RadarGranade:
-                    Debug.Log("radar grenade interaction"); 
                     StopCoroutine(nameof(CorDisableHighlight));
-                    Debug.Log("enabling highlight");
                     foreach (var child in vfxObject.transform)
                     {
                         var goChild = (Transform) child;
@@ -118,12 +131,14 @@ namespace com.LazyGames.Dz.Ai
             _vision.ResetVision();
             var rand = Random.Range(0, enemyWayPoints.WayPoints.Count);
             _agent.Warp(enemyWayPoints.WayPoints[rand].transform.position);
-            
+            UpdateWrapper(EnemyState.Patrolling);
             Invoke(nameof(DelayedWipe), .1f);
         }   
 
         public void PlayerDetected(Transform target)
         {
+            UpdateWrapper(EnemyState.Chasing);
+
             _root.SetData("target", target);
             _parameters = alertParameters;
             _agent.speed = _parameters.movementSpeed;
@@ -137,6 +152,12 @@ namespace com.LazyGames.Dz.Ai
             _startled = true;
         }
 
+        private void UpdateWrapper(EnemyState state)
+        {
+            _stateWrapper.State = state;
+            enemyStateWrapperSo.Raise(_stateWrapper);
+        }
+
         // avoids race condition where player is lost after resetting
         private void DelayedWipe()
         {
@@ -148,6 +169,7 @@ namespace com.LazyGames.Dz.Ai
         
         public void PlayerLost(Vector3 lastKnownPosition)
         {
+            UpdateWrapper(EnemyState.Searching);
             _root.WipeData();
             _root.SetData("lastKnownPosition", lastKnownPosition);
             StartCoroutine(CorAlertCooldown());
@@ -162,10 +184,14 @@ namespace com.LazyGames.Dz.Ai
             _animator.SetBool(Chasing, false);
             _animator.SetBool(Alert, false);
             _startled = false;
+            
+            UpdateWrapper(EnemyState.Patrolling);
         }
         
         public void NoiseHeard(Vector3 noisePosition)
         {
+            UpdateWrapper(EnemyState.Searching);
+
             // Debug.Log("heard noise");
             object t = _root.GetData("target");
             if (t != null) return;
