@@ -18,6 +18,6 @@ public class BotParameters : EnemyParameters
     public float maxActTime = 20f;
 
     [Header("Dispenser Settings")] 
-    [SerializeField] private float dispenserCooldown;
+    public float dispenserCooldown;
 
 }

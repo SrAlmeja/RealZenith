@@ -14,8 +14,6 @@ namespace com.LazyGames.Dz.Ai
         [Header("Serialized References")]
         [SerializeField] private Transform dispenser1;
         [SerializeField] private Transform dispenser2;
-        [SerializeField] private GameObject door1;
-        [SerializeField] private GameObject door2;
         private Node _root;
         
         protected override Node SetupTree()
@@ -33,7 +31,7 @@ namespace com.LazyGames.Dz.Ai
             var t = transform;
             _root = new Selector(new List<Node>
             {
-                new TaskDispense(t, parameters, prefabToDispense),
+                new TaskDispense(t, parameters, prefabToDispense, dispenser1, dispenser2),
                 new TaskFaceTarget(t, parameters),
                 new TaskWander(t, parameters)
             });
