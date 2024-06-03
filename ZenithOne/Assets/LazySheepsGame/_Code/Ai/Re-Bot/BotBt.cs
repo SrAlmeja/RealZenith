@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Obvious.Soap;
 using UnityEngine;
 
 namespace com.LazyGames.Dz.Ai
@@ -34,7 +33,7 @@ namespace com.LazyGames.Dz.Ai
             var t = transform;
             _root = new Selector(new List<Node>
             {
-                new TaskDispense(t),
+                new TaskDispense(t, parameters, prefabToDispense),
                 new TaskFaceTarget(t, parameters),
                 new TaskWander(t, parameters)
             });
