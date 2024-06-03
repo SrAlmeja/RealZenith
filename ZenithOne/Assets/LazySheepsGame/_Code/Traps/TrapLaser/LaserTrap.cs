@@ -31,6 +31,10 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     [Header("Trap Interaction")]
     [SerializeField] private TypeOfGadget _gadgetInteractionType;
     
+    [Header("Sounds")]
+    // [SerializeField] private FMODA
+        
+    
     public UnityEvent onTrapCompletedMovement;
 
     #endregion

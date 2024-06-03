@@ -253,6 +253,7 @@ Transform:
   - {fileID: 7771140533295954156}
   - {fileID: 8584893746846634839}
   - {fileID: 8493485675651037761}
+  - {fileID: 8325612502703577217}
   m_Father: {fileID: 8014809319624772535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8507767022285728825
@@ -282,7 +283,19 @@ MonoBehaviour:
   _gadgetInteractionType: 1
   onTrapCompletedMovement:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7686839098732179281}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &2149569181440831357
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -367,7 +380,6 @@ Transform:
   - {fileID: 2515060368369793100}
   - {fileID: 1559379714999698274}
   - {fileID: 2351159099756210881}
-  - {fileID: 8325612502703577217}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &761373952536088297
@@ -376,7 +388,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8014809319624772535}
+    m_TransformParent: {fileID: 2515060368369793100}
     m_Modifications:
     - target: {fileID: 7983980550585372295, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
       propertyPath: m_LocalPosition.x
@@ -385,6 +397,10 @@ PrefabInstance:
     - target: {fileID: 8252064435492429525, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
       propertyPath: m_Name
       value: LaserElectricShockFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252064435492429525, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8726416861892482664, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
       propertyPath: m_LocalPosition.x
