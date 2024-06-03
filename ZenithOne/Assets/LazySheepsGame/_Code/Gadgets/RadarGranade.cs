@@ -21,6 +21,7 @@ public class RadarGranade : MonoBehaviour
     [SerializeField] private float _despawnTime = 1f;
 
     private bool _isActive = false;
+    private bool _hasExploded = false;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -62,10 +63,13 @@ public class RadarGranade : MonoBehaviour
 
     private void FireVFX()
     {
+        if (_hasExploded) return;
         _explosionVFX.SetActive(true);
         _explosionVFX.transform.parent = null;
         _explosionVFX.GetComponent<ParticleSystem>().Play(true);
         Invoke("RestoreVFX", _vfxDuration);
+        _hasExploded = true;
+
     }
 
     private void RestoreVFX()
