@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames;
 using DG.Tweening;
+using FMODUnity;
 using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
@@ -32,8 +33,8 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     [SerializeField] private TypeOfGadget _gadgetInteractionType;
     
     [Header("Sounds")]
-    // [SerializeField] private FMODA
-        
+    [SerializeField] private StudioEventEmitter laserSound;
+    [SerializeField] private StudioEventEmitter deactivateSound;
     
     public UnityEvent onTrapCompletedMovement;
 
@@ -76,7 +77,8 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         deactivateParticles.SetActive(false);
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
-       
+        laserSound.Play();
+        
         if(NeedsTimer) StartTimer();
 
         if (laserMovPosition != null) MoveLaser();
@@ -90,6 +92,8 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         StopAllCoroutines();
         StopMovementLaser();
         deactivateParticles.SetActive(true);
+        laserSound.Stop();
+        deactivateSound.Play();
         
         
     }
@@ -126,7 +130,7 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
             .SetEase(Ease.Linear).OnStepComplete(() =>
             {
                 onTrapCompletedMovement.Invoke();
-                Debug.Log("Laser Trap Completed Movement");
+                // Debug.Log("Laser Trap Completed Movement");
             });
         
         
@@ -152,10 +156,12 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         if (enable)
         {
             laserCollision.ActivateLaser();
+            laserSound.Play();
         }
         else
         {
             laserCollision.DeactivateLaser();
+            laserSound.Stop();
         }
     }
 
