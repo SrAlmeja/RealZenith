@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5632004209494741943}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8779786929016084694}
@@ -246,8 +246,9 @@ GameObject:
   - component: {fileID: 7249555002924714885}
   - component: {fileID: 812982059177259188}
   - component: {fileID: 992060501476241013}
-  - component: {fileID: 6935272010092798662}
-  m_Layer: 0
+  - component: {fileID: 884322632990029733}
+  - component: {fileID: 8592081538458030581}
+  m_Layer: 7
   m_Name: bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +434,7 @@ MonoBehaviour:
   shapeOffset: {x: 0, y: 0, z: 0.035}
   grabbablePlacePoint: 1
   forcePlace: 0
-  forceHandRelease: 1
+  forceHandRelease: 0
   parentOnPlace: 1
   matchPosition: 0
   matchRotation: 1
@@ -447,8 +448,8 @@ MonoBehaviour:
   placedJointLink: {fileID: 0}
   jointBreakForce: 1000
   showPlaceRequirements: 1
-  heldPlaceOnly: 0
-  nameCompareType: 1
+  heldPlaceOnly: 1
+  nameCompareType: 0
   placeNames:
   - CORK
   blacklistNames: []
@@ -456,7 +457,7 @@ MonoBehaviour:
   dontAllows: []
   placeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   showEvents: 0
   OnPlace:
     m_PersistentCalls:
@@ -470,8 +471,8 @@ MonoBehaviour:
   OnStopHighlight:
     m_PersistentCalls:
       m_Calls: []
---- !u!64 &6935272010092798662
-MeshCollider:
+--- !u!136 &884322632990029733
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -488,7 +489,29 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1855923187887352656, guid: 3c34ab2da47bfb7498e5c62f487e1a1b, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.0035615987
+  m_Height: 0.026899667
+  m_Direction: 2
+  m_Center: {x: -0.00016701594, y: -7.092196e-18, z: 0.019340193}
+--- !u!65 &8592081538458030581
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628402348055729499}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019854175, y: 0.019999994, z: 0.010802728}
+  m_Center: {x: 2.4526054e-18, y: -6.964877e-18, z: 0.0005454123}
