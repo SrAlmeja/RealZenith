@@ -1,6 +1,7 @@
 using UnityEngine;
 using Obvious.Soap;
 using NaughtyAttributes;
+using FMODUnity;
 
 public class OmnitrixHingeActivator : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class OmnitrixHingeActivator : MonoBehaviour
     [Header("Dependencies")]
     [Required]
     [SerializeField] private GameObject _omnitrixTopFace;
+    [Required]
+    [SerializeField] private StudioEventEmitter _omnitrixSound;
 
     [Header("GadgetAngles")]
     [SerializeField] private float _gadgetFirstAngle = 45;
@@ -41,20 +44,25 @@ public class OmnitrixHingeActivator : MonoBehaviour
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(0);
+            _omnitrixSound.Play();
         }
         else if (value <= _gadgetSecondAngle + _angleDifference && value >= _gadgetSecondAngle - _angleDifference)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(1);
+            _omnitrixSound.Play();
         }
         else if (value <= _gadgetThirdAngle + _angleDifference && value >= _gadgetThirdAngle - _angleDifference)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(2);
-        }else if (value <= _angleDifference)
+            _omnitrixSound.Play();
+        }
+        else if (value <= _angleDifference)
         {
             DisableOmnitrix();
             _omnitrixGadgetChannel.Raise(3);
+            _omnitrixSound.Play();
         }
 
     }
