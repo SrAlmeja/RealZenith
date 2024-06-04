@@ -161,6 +161,7 @@ namespace com.LazyGames.Dz.Ai
 
         private void UpdateWrapper(EnemyState state)
         {
+            if (_stateWrapper.State == state) return;
             _stateWrapper.State = state;
             enemyStateWrapperSo.Raise(_stateWrapper);
         }
