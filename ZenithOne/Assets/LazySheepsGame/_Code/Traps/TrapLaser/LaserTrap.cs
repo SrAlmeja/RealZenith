@@ -76,6 +76,8 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
 
     protected override void ActivateTrap()
     {
+        if(speedMovement == 0) canmove = false;
+       
         base.ActivateTrap();
         deactivateParticles.SetActive(false);
         laserObject.SetActive(true);

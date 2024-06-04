@@ -266,6 +266,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiridionEnemyVariant
       objectReference: {fileID: 0}
+    - target: {fileID: 2441122598359664709, guid: b3769fac5d23a4541b35ddbebe14c5b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246615174525988845, guid: b3769fac5d23a4541b35ddbebe14c5b6, type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1124,7 +1132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7039841776924794965, guid: 00cfaaa30e9001e42bebfed0ee6640e5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7708291608776473327, guid: 00cfaaa30e9001e42bebfed0ee6640e5, type: 3}
       propertyPath: m_LocalScale.x
@@ -1598,6 +1606,7 @@ GameObject:
   - component: {fileID: 2012123247}
   - component: {fileID: 2012123246}
   - component: {fileID: 2012123245}
+  - component: {fileID: 2012123249}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1691,6 +1700,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2012123249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012123244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5dcaa78d5e903489bfaffb96d5415e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  sceneToLoad: {fileID: 102900000, guid: 5d9d7b9019a85c341b0d423b2b285809, type: 3}
+  onSceneLoad: {fileID: 11400000, guid: 8a26009c1dc1d5140abec84bfe4f30cb, type: 2}
 --- !u!1001 &2028016656
 PrefabInstance:
   m_ObjectHideFlags: 0
