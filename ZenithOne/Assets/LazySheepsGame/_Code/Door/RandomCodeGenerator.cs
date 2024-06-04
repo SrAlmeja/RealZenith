@@ -57,16 +57,16 @@ public class RandomCodeGenerator : MonoBehaviour
                 switch (int.Parse(arrow))
                 {
                     case 1:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
                         break;
                     case 2:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 90);
                         break;
                     case 3:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 180);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 180);
                         break;
                     case 4:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 270);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 270);
                         break;
                 }
             }
