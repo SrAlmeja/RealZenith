@@ -23,7 +23,7 @@ namespace com.LazyGames.Dz.Ai
         
         public override NodeState Evaluate(bool overrideStop = false)
         {
-             object t = GetData("target");
+             var t = GetData("target");
              if (t == null)
              {
                  _agent.isStopped = false;

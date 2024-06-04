@@ -1,5 +1,6 @@
 // Modificado Raymundo Mosqueda 09/05/24
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Obvious.Soap;
@@ -112,6 +113,12 @@ namespace com.LazyGames.Dz.Ai
                     StartCoroutine(CorDisableHighlight());
                     break;
             }
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if(!other.gameObject.CompareTag("Player")) return;
+            PlayerDetected(other.transform);
         }
 
         private IEnumerator CorDisableHighlight()
