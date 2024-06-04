@@ -3355,6 +3355,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiridionEnemyVariant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4246615174525988845, guid: b3769fac5d23a4541b35ddbebe14c5b6, type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6205442665981374581, guid: b3769fac5d23a4541b35ddbebe14c5b6, type: 3}
       propertyPath: enemyWayPoints
       value: 
@@ -3949,7 +3953,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
