@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using Obvious.Soap;
 using Autohand;
 using UnityEngine;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class Collectible : MonoBehaviour
 {
@@ -89,6 +90,7 @@ public class Collectible : MonoBehaviour
 
     private void SaveInfo()
     {
+        Debug.Log("Collected Item " + gameObject.name);
         if (_specialCollectible)
         {
             _specialItemVariable.Value = true;
@@ -96,6 +98,7 @@ public class Collectible : MonoBehaviour
         }
         else
         {
+            Debug.Log(_itemVariable.name);
             _itemVariable.Value++;
         }
     }
