@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &206398224352935860
+--- !u!1 &3201287879936290251
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4588250563520318676}
-  - component: {fileID: 1952382314353079254}
-  - component: {fileID: 3629702804177541643}
-  - component: {fileID: 2149100820090307431}
-  - component: {fileID: 4265230313329633483}
-  - component: {fileID: 3131193303504860490}
+  - component: {fileID: 2327392396366342140}
+  - component: {fileID: 7558631993200635106}
+  - component: {fileID: 6543937912050701309}
+  - component: {fileID: 5935794222026890423}
+  - component: {fileID: 1176565129749673868}
+  - component: {fileID: 2778500340793427988}
   m_Layer: 0
-  m_Name: Vase
+  m_Name: ROCKBunker_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4588250563520318676
+--- !u!4 &2327392396366342140
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206398224352935860}
+  m_GameObject: {fileID: 3201287879936290251}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70710665, y: -0.000000030908613, z: 0.00000003090862, w: 0.7071069}
-  m_LocalPosition: {x: -0.000000087399684, y: 1.0281441, z: -5.0102057}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.7071067, y: -0.000000030908616, z: 0.000000030908623, w: 0.7071068}
+  m_LocalPosition: {x: -0.082716405, y: 0.4871135, z: 0.27867922}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1952382314353079254
+--- !u!33 &7558631993200635106
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206398224352935860}
-  m_Mesh: {fileID: 7240858111988815707, guid: 3c34ab2da47bfb7498e5c62f487e1a1b, type: 3}
---- !u!23 &3629702804177541643
+  m_GameObject: {fileID: 3201287879936290251}
+  m_Mesh: {fileID: -2690376371611841351, guid: 910e876feaad76f46b415d2128e7ce21, type: 3}
+--- !u!23 &6543937912050701309
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206398224352935860}
+  m_GameObject: {fileID: 3201287879936290251}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc2d53d565a148641b923305f531f8f6, type: 2}
+  - {fileID: 2100000, guid: cac0a4fb792b9394f87a484900fb3633, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2149100820090307431
+--- !u!64 &5935794222026890423
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206398224352935860}
+  m_GameObject: {fileID: 3201287879936290251}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -107,41 +107,14 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 7240858111988815707, guid: 3c34ab2da47bfb7498e5c62f487e1a1b, type: 3}
---- !u!54 &4265230313329633483
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206398224352935860}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &3131193303504860490
+  m_Mesh: {fileID: -2690376371611841351, guid: 910e876feaad76f46b415d2128e7ce21, type: 3}
+--- !u!114 &1176565129749673868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206398224352935860}
+  m_GameObject: {fileID: 3201287879936290251}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 822bc9090447b9c40833509c4a32e597, type: 3}
@@ -154,9 +127,9 @@ MonoBehaviour:
   CopySettings: {fileID: 0}
   grabType: 0
   handType: 0
-  singleHandOnly: 1
+  singleHandOnly: 0
   instantGrab: 0
-  useGentleGrab: 0
+  useGentleGrab: 1
   maintainGrabOffset: 0
   parentOnGrab: 1
   heldNoFriction: 1
@@ -177,7 +150,7 @@ MonoBehaviour:
   jointedBodies: []
   heldIgnoreColliders: []
   pullApartBreakOnly: 1
-  showEvents: 1
+  showEvents: 0
   onGrab:
     m_PersistentCalls:
       m_Calls: []
@@ -200,3 +173,30 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lockHandOnGrab: 0
+--- !u!54 &2778500340793427988
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201287879936290251}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
