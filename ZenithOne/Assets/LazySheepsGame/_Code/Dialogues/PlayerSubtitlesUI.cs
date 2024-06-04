@@ -36,7 +36,7 @@ public class PlayerSubtitlesUI : MonoBehaviour
     {
         float handAmp = 1f; 
         _hand.PlayHapticVibration(0.5f);
-        Debug.Log("Haptic");
+        // Debug.Log("Haptic");
     }
     
     
