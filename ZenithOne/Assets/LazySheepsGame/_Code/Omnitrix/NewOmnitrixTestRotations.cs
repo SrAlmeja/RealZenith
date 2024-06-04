@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using Obvious.Soap;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,10 @@ using UnityEngine.XR;
 public class NewOmnitrixTestRotations : MonoBehaviour
 {
     [Header("Dependencies")]
+    [Required]
     [SerializeField] private ScriptableEventBool _grabbingOmnitrixChannel;
+    [Required]
+    [SerializeField] private OmnitrixHingeActivator _omnitrixHingeActivator;
 
     [Header("Settings")]
     [SerializeField] private float _rotationMultiplier = 1.0f;
@@ -60,8 +64,12 @@ public class NewOmnitrixTestRotations : MonoBehaviour
     {
         if (value == _grabbingOmnitrix) return;
         _grabbingOmnitrix = value;
-        if(_grabbingOmnitrix) UpdateRotations();
-        else ClampRotation();
+        if (_grabbingOmnitrix) UpdateRotations();
+        else
+        {
+            ClampRotation();
+            SnapRotation();
+        }
     }
 
     private void UpdateRotations()
@@ -97,6 +105,25 @@ public class NewOmnitrixTestRotations : MonoBehaviour
         } else if (transform.localEulerAngles.z < 0)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void SnapRotation()
+    {
+        float[] gadgetAngles = new float[]
+         {
+        _omnitrixHingeActivator.GadgetFirstAngle,
+        _omnitrixHingeActivator.GadgetSecondAngle,
+        _omnitrixHingeActivator.GadgetThirdAngle
+        };
+
+        foreach (float angle in gadgetAngles)
+        {
+            if (transform.localEulerAngles.z > angle - _omnitrixHingeActivator.AngleDifference && transform.localEulerAngles.z < angle + _omnitrixHingeActivator.AngleDifference)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, angle);
+                break;
+            }
         }
     }
 }
