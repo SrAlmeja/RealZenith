@@ -14,12 +14,12 @@ namespace com.LazyGames.Dz.Ai
         [Header("Serialized References")]
         [SerializeField] private Transform dispenser1;
         [SerializeField] private Transform dispenser2;
-        [SerializeField] private GameObject door1;
-        [SerializeField] private GameObject door2;
         private Node _root;
+        private BotDoorController _doorController;
         
         protected override Node SetupTree()
         {
+            _doorController = GetComponent<BotDoorController>();
            _root = BuildTree();
            return _root;
         }
@@ -33,8 +33,11 @@ namespace com.LazyGames.Dz.Ai
             var t = transform;
             _root = new Selector(new List<Node>
             {
-                new TaskDispense(t, parameters, prefabToDispense),
-                new TaskFaceTarget(t, parameters),
+                new Sequence(new List<Node>
+                {
+                    new TaskFaceTarget(t, parameters),
+                    new TaskDispense(t, parameters, prefabToDispense, dispenser1, dispenser2)
+                }),
                 new TaskWander(t, parameters)
             });
             return _root;
@@ -50,6 +53,7 @@ namespace com.LazyGames.Dz.Ai
         {
             if (!other.CompareTag("Player")) return;
             _root.ClearData("target");
+            _doorController.CloseDoor();
         }
 
     }
