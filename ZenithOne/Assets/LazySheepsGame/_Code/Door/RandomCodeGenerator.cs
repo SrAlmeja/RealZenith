@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Obvious.Soap;
 using Random = UnityEngine.Random;
+using UnityEngine.Events;
 
 public class RandomCodeGenerator : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class RandomCodeGenerator : MonoBehaviour
         [SerializeField] private GameObject _door;
         private int stringConfirm = 0;
         [SerializeField] private List<GameObject> buttons;
+
+        [SerializeField] private UnityEvent _onArrowConfirmed;
         
         private string _doorCode;
 
@@ -79,6 +82,7 @@ public class RandomCodeGenerator : MonoBehaviour
                 if(arrow == code)
                 {
                     _arrowImages[stringConfirm ].gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                    _onArrowConfirmed?.Invoke();
                     stringConfirm++;
                 }
                 else
