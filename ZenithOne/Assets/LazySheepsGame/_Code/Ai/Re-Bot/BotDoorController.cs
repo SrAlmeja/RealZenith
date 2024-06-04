@@ -23,7 +23,7 @@ public class BotDoorController : MonoBehaviour
     
     public void CloseDoor()
     {
-        StartCoroutine(CorLerpDoor(door1.transform.localEulerAngles, new Vector3(_startRotation, 0, 0), lerpDuration));
+        StartCoroutine(CorLerpDoor(door1.transform.localEulerAngles, new Vector3(-90, 0, 0), lerpDuration));
     }
 
     private IEnumerator CorLerpDoor(Vector3 startRotation, Vector3 endRotation, float duration)

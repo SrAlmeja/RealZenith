@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Lean.Pool;
 using UnityEngine;
 
@@ -14,9 +15,6 @@ namespace com.LazyGames.Dz.Ai
         private readonly Transform _dispenser1;
         private readonly Transform _dispenser2;
         
-        
-        
-
         public TaskDispense(Transform t,BotParameters parameters, GameObject prefabToDispense, Transform dispenser1, Transform dispenser2)
         {
             _parameters = parameters;
@@ -24,7 +22,7 @@ namespace com.LazyGames.Dz.Ai
             _dispenser1 = dispenser1;
             _dispenser2 = dispenser2;
             _doorController = t.GetComponent<BotDoorController>();
-            _elapsedTime = parameters.dispenserCooldown;
+            _elapsedTime = parameters.dispenserCooldown - (parameters.dispenserCooldown *.05f);
         }
 
         public override NodeState Evaluate(bool overrideStop = false)
