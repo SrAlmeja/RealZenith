@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using NaughtyAttributes;
 using Obvious.Soap;
+using FMODUnity;
 
 public class OmnitrixVFXManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class OmnitrixVFXManager : MonoBehaviour
     [Required][SerializeField] private ScriptableEventInt _omnitrixGadgetChannel;
     [Required][SerializeField] private GameObject _particleSystem;
     [SerializeField] private List<GameObject> _placePointsList = new List<GameObject>();
+    [Required]
+    [SerializeField] private StudioEventEmitter _omnitrixSound;
 
     [Header("Settings")]
     [SerializeField] private float _activateTime = 0.5f;
@@ -120,6 +123,7 @@ public class OmnitrixVFXManager : MonoBehaviour
     private void ActivateSingleGadget(int gadgetToActivate)
     {
         if(_activeGadget == gadgetToActivate) return;
+        _omnitrixSound.Play();
         _activeGadget = gadgetToActivate;
         // Debug.Log(gadgetToActivate);
         for (int i = _placePointsList.Count - 1; i >= 0; i--)

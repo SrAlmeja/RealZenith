@@ -412,12 +412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ec4dfc370076d4f8e478d26e0b407b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placePoint: {fileID: 8997959923326431974}
-  audioSource: {fileID: 0}
-  highlightSound: {fileID: 8300000, guid: 4d5b81083972abb4db663f90454ca61a, type: 3}
-  unhighlightSound: {fileID: 0}
-  placeSound: {fileID: 8300000, guid: c6f7eba64e7593945bc555b997d82c74, type: 3}
-  removeSound: {fileID: 8300000, guid: 23bf9dfeb0c244a4a9db5cdceb32b3fc, type: 3}
 --- !u!114 &288724475551285546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +483,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6781729772131301569}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 313e47353b0f88446a5cd49c2c41577b, type: 3}
   m_Name: 
@@ -670,7 +664,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6781729772131301569}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

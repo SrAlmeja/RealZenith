@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using com.LazyGames;
 using DG.Tweening;
+using FMODUnity;
 using Obvious.Soap;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class LaserTrap : TrapsBase, IGadgetInteractable
@@ -29,6 +31,15 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     
     [Header("Trap Interaction")]
     [SerializeField] private TypeOfGadget _gadgetInteractionType;
+    
+    [Header("Sounds")]
+    [SerializeField] private StudioEventEmitter laserSound;
+    [SerializeField] private StudioEventEmitter deactivateSound;
+
+    [SerializeField]
+    private bool canmove = true;
+    
+    public UnityEvent onTrapCompletedMovement;
 
     #endregion
 
@@ -65,11 +76,14 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
 
     protected override void ActivateTrap()
     {
+        if(speedMovement == 0) canmove = false;
+       
         base.ActivateTrap();
         deactivateParticles.SetActive(false);
         laserObject.SetActive(true);
         boxVisual.SetActive(true);
-       
+        laserSound.Play();
+        
         if(NeedsTimer) StartTimer();
 
         if (laserMovPosition != null) MoveLaser();
@@ -83,6 +97,8 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         StopAllCoroutines();
         StopMovementLaser();
         deactivateParticles.SetActive(true);
+        laserSound.Stop();
+        deactivateSound.Play();
         
         
     }
@@ -114,8 +130,16 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
 
     private void MoveLaser()
     {
-        railVisual.SetActive(true);
-        boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        if (canmove)
+        {
+            railVisual.SetActive(true);
+            boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.Linear).OnStepComplete(() =>
+                {
+                    onTrapCompletedMovement.Invoke();
+                    // Debug.Log("Laser Trap Completed Movement");
+                });
+        }
     }
     private void StopMovementLaser()
     {
@@ -138,10 +162,12 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
         if (enable)
         {
             laserCollision.ActivateLaser();
+            laserSound.Play();
         }
         else
         {
             laserCollision.DeactivateLaser();
+            laserSound.Stop();
         }
     }
 

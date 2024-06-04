@@ -9,12 +9,15 @@ namespace com.LazyGames.Dz.Ai
         private NavMeshAgent _agent;
         private EnemyParameters _parameters;
         private float _waitCounter;
-        
+        private readonly Animator _animator;
+        private static readonly int Alert = Animator.StringToHash("alert");
+
         public TaskInvestigateNoise(Transform transform, EnemyParameters parameters)
         {
             _transform = transform;
             _parameters = parameters;
             _agent = transform.GetComponent<NavMeshAgent>();
+            _animator = _transform.GetComponentInChildren<Animator>();
         }
         public override NodeState Evaluate(bool overrideStop = false)
         {
@@ -29,6 +32,7 @@ namespace com.LazyGames.Dz.Ai
             
             if(Vector3.Distance(_transform.position, noisePosition) < 2f)
             {
+                _animator.SetBool(Alert, true);
                 if (_waitCounter < _parameters.searchTime)
                 {
                     _waitCounter += Time.deltaTime;

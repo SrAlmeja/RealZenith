@@ -1,10 +1,9 @@
+using Autohand;
 using com.LazyGames;
-using DG.Tweening;
 using Lean.Pool;
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RadarGranade : MonoBehaviour
 {
@@ -20,7 +19,13 @@ public class RadarGranade : MonoBehaviour
     [SerializeField] private float _activationTime = 1f;
     [SerializeField] private float _despawnTime = 1f;
 
+    [Header("Sound Events")]
+    [SerializeField] private UnityEvent _onActivate;
+    [SerializeField] private UnityEvent _onThrow;
+    [SerializeField] private UnityEvent _onExplode;
+
     private bool _isActive = false;
+    private bool _hasExploded = false;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -37,6 +42,16 @@ public class RadarGranade : MonoBehaviour
     public void ActivateGranade()
     {
         _isActive = true;
+        _onActivate?.Invoke();
+    }
+
+    public void ThrowGranade()
+    {
+        Debug.Log("Throw magnitude" + gameObject.GetComponent<Grabbable>().body.velocity.magnitude);
+        if (gameObject.GetComponent<Grabbable>().body.velocity.magnitude > 3f)
+        {
+            _onThrow?.Invoke();
+        }
     }
 
     [Button("Deactivate Granade Test")]
@@ -47,6 +62,7 @@ public class RadarGranade : MonoBehaviour
 
     private void ExplodeSphereCast()
     {
+        _onExplode?.Invoke();
         RaycastHit[] explosionHits = Physics.SphereCastAll(transform.position, _interactionRadius, Vector3.up, _maxDistance, _interactWithLayers);
 
         foreach (RaycastHit hit in explosionHits)
@@ -62,10 +78,13 @@ public class RadarGranade : MonoBehaviour
 
     private void FireVFX()
     {
+        if (_hasExploded) return;
         _explosionVFX.SetActive(true);
         _explosionVFX.transform.parent = null;
         _explosionVFX.GetComponent<ParticleSystem>().Play(true);
         Invoke("RestoreVFX", _vfxDuration);
+        _hasExploded = true;
+
     }
 
     private void RestoreVFX()

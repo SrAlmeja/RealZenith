@@ -8,6 +8,9 @@ using UnityEngine.Events;
 
 public class DialogueNewSubtitles : MonoBehaviour
 {
+    [Header("Audio")] 
+    [SerializeField] private float audioTime = 10;
+    
     [SerializeField] private GameObject arrow;
     public bool isActive;
     public bool isDone;
@@ -16,7 +19,10 @@ public class DialogueNewSubtitles : MonoBehaviour
     public bool needsCollider;
     public DialogueStruct thisDialogue;
     
+    [SerializeField] private LayerSwitcher layerSwitcher;
+    [SerializeField] private GameObject[] modelObjects;
     public UnityEvent eventAtFinish;
+    public UnityEvent onStartDialogue;
     
     private CapsuleCollider _collider;
     
@@ -55,28 +61,40 @@ public class DialogueNewSubtitles : MonoBehaviour
     {
         isActive = true;
         EnableArrow(true);
+        if (layerSwitcher != null)
+        {
+            layerSwitcher.OnSelected(null, modelObjects);
+        }
         
     }
     
+    public void DeactivateLayer()
+    {
+        if (layerSwitcher != null)
+        {
+            layerSwitcher.DeselectObjectsDefault(modelObjects);
+        }
+    }
     public void LaunchSubtitles()
     {
         if(isDone) return;
         if(!isActive) return;
         
-        EnableArrow(false);
-        // Debug.Log(thisDialogue.dialogueText);
-        PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText);
+        onStartDialogue.Invoke();
+        EnableArrow(true);
+        PlayerSubtitlesUI.Instance.DisplayText(thisDialogue.dialogueText, audioTime);
         isActive = false;
         isDone = true;
         
-        DeactivateDialogue();
+        // DeactivateDialogue();
+        StartCoroutine(AudioLength());
 
     }
     
     private void DeactivateDialogue()
     {
-        eventAtFinish.Invoke();
         
+        eventAtFinish.Invoke();
         this.enabled = false;
 
     }
@@ -85,5 +103,11 @@ public class DialogueNewSubtitles : MonoBehaviour
     { 
         if(arrow != null)
             arrow.SetActive(enable);
+    }
+    
+    IEnumerator AudioLength()
+    {
+        yield return new WaitForSeconds(audioTime);
+        DeactivateDialogue();
     }
 }

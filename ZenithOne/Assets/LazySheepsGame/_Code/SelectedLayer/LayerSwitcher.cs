@@ -22,16 +22,26 @@ public class LayerSwitcher : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            selectedObject.layer = StaticLayer.DEFAULT_LAYER;
+            selectedObject.layer = StaticLayer.ENEMY_LAYER;
         }
         else
         {
+            
             foreach (var obj in objects)
             {
-                obj.layer = StaticLayer.DEFAULT_LAYER;
+                obj.layer = StaticLayer.ENEMY_LAYER;
             }
         }
     }
+    
+    public void DeselectObjectsDefault(GameObject[] objects = null)
+    {
+        foreach (var obj in objects)
+        {
+            obj.layer = StaticLayer.DEFAULT_LAYER;
+        }
+    }
+   
     
 
 
