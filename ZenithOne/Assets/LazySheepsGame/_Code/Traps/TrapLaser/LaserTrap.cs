@@ -35,6 +35,9 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
     [Header("Sounds")]
     [SerializeField] private StudioEventEmitter laserSound;
     [SerializeField] private StudioEventEmitter deactivateSound;
+
+    [SerializeField]
+    private bool canmove = true;
     
     public UnityEvent onTrapCompletedMovement;
 
@@ -125,15 +128,16 @@ public class LaserTrap : TrapsBase, IGadgetInteractable
 
     private void MoveLaser()
     {
-        railVisual.SetActive(true);
-        boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo)
-            .SetEase(Ease.Linear).OnStepComplete(() =>
-            {
-                onTrapCompletedMovement.Invoke();
-                // Debug.Log("Laser Trap Completed Movement");
-            });
-        
-        
+        if (canmove)
+        {
+            railVisual.SetActive(true);
+            boxVisual.transform.DOLocalMove(laserMovPosition.localPosition, speedMovement).SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.Linear).OnStepComplete(() =>
+                {
+                    onTrapCompletedMovement.Invoke();
+                    // Debug.Log("Laser Trap Completed Movement");
+                });
+        }
     }
     private void StopMovementLaser()
     {
