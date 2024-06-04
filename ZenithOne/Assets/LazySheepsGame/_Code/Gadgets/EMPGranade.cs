@@ -3,6 +3,8 @@ using Lean.Pool;
 using NaughtyAttributes;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
+using Autohand;
 
 public class EMPGranade : MonoBehaviour
 {
@@ -19,6 +21,11 @@ public class EMPGranade : MonoBehaviour
     [SerializeField] private float _maxDistance = 1f;
     [SerializeField] private float _activationTime = 1f;
     [SerializeField] private float _despawnTime = 1f;
+
+    [Header("Sound Events")]
+    [SerializeField] private UnityEvent _onActivate;
+    [SerializeField] private UnityEvent _onThrow;
+    [SerializeField] private UnityEvent _onExplode;
 
     private bool _isActive = false;
 
@@ -39,6 +46,16 @@ public class EMPGranade : MonoBehaviour
         _topCover.transform.DOLocalMoveY(0.25f, _activationTime);
         _bottomCover.transform.DOLocalMoveY(-0.25f, _activationTime);
         _isActive = true;
+        _onActivate?.Invoke();
+    }
+
+    public void ThrowGranade()
+    {
+        Debug.Log("Throw magnitude" + gameObject.GetComponent<Grabbable>().body.velocity.magnitude);
+        if(gameObject.GetComponent<Grabbable>().body.velocity.magnitude > 3f)
+        {
+            _onThrow?.Invoke();
+        }
     }
 
     [Button("Deactivate Granade Test")]
@@ -51,6 +68,7 @@ public class EMPGranade : MonoBehaviour
 
     private void ExplodeSphereCast()
     {
+        _onExplode?.Invoke();
         RaycastHit[] explosionHits = Physics.SphereCastAll(transform.position, _interactionRadius, Vector3.up, _maxDistance, _interactWithLayers);
 
         foreach(RaycastHit hit in explosionHits)

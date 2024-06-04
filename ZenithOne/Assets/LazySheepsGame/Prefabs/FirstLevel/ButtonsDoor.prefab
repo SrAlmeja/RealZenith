@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8042834836237697770}
   - component: {fileID: 1380259469892353679}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 4343278279942523594}
   - component: {fileID: 8839008705128907205}
   - component: {fileID: 2046505521347747377}
+  - component: {fileID: 5410833465890892611}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -331,6 +332,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5410833465890892611}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUnpressed:
     m_PersistentCalls:
       m_Calls: []
@@ -346,7 +359,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.7096319e-10, z: -0.008553536}
+  m_ConnectedAnchor: {x: 0.000000065087065, y: 0.00000006325638, z: -0.008553536}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -451,6 +464,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 1
+--- !u!114 &5410833465890892611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013265525223034256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &1062613792672818064
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +860,7 @@ GameObject:
   - component: {fileID: 516990857476364558}
   - component: {fileID: 1761079086170179124}
   - component: {fileID: 5334166859762936984}
+  - component: {fileID: 5036349076200762817}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -918,6 +963,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5036349076200762817}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUnpressed:
     m_PersistentCalls:
       m_Calls: []
@@ -933,7 +990,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.7096319e-10, z: -0.008553536}
+  m_ConnectedAnchor: {x: 0.000000062083046, y: 0.00000006633372, z: -0.008553536}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -1038,6 +1095,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 3
+--- !u!114 &5036349076200762817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781629706846513199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &1871354816429080920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,7 +1220,7 @@ GameObject:
   - component: {fileID: 4006597142321477351}
   - component: {fileID: 8255864315593386906}
   - component: {fileID: 7056302168523348539}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1207,7 +1295,7 @@ GameObject:
   - component: {fileID: 2334970891633872499}
   - component: {fileID: 3129512783859986812}
   - component: {fileID: 5883198480600193225}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1282,7 +1370,7 @@ GameObject:
   - component: {fileID: 3951857511836343291}
   - component: {fileID: 309007151365110191}
   - component: {fileID: 8824920582181904180}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowSix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1361,6 +1449,7 @@ GameObject:
   - component: {fileID: 383269679882441161}
   - component: {fileID: 627904730006114457}
   - component: {fileID: 8699115459547971052}
+  - component: {fileID: 1941196333195191649}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -1463,6 +1552,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1941196333195191649}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUnpressed:
     m_PersistentCalls:
       m_Calls: []
@@ -1478,7 +1579,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.7096319e-10, z: -0.008553536}
+  m_ConnectedAnchor: {x: 0.000000055574333, y: 0.00000004068924, z: -0.008553536}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -1583,6 +1684,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 4
+--- !u!114 &1941196333195191649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812031217513733467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &3151921998905949126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1969,7 @@ GameObject:
   - component: {fileID: 3107223492022518439}
   - component: {fileID: 8388673282816137368}
   - component: {fileID: 344028719084372745}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1912,7 +2044,7 @@ GameObject:
   - component: {fileID: 6755274967270869183}
   - component: {fileID: 5768150964735541088}
   - component: {fileID: 7929556399868894662}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowFour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1991,6 +2123,7 @@ GameObject:
   - component: {fileID: 1939745061357674879}
   - component: {fileID: 8857042497398845948}
   - component: {fileID: 5263184707930392540}
+  - component: {fileID: 4271187031522231203}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -2093,6 +2226,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4271187031522231203}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUnpressed:
     m_PersistentCalls:
       m_Calls: []
@@ -2108,7 +2253,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.7096319e-10, z: -0.008553536}
+  m_ConnectedAnchor: {x: 0.000000015520762, y: 6.8385275e-10, z: -0.008553536}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -2213,6 +2358,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 2
+--- !u!114 &4271187031522231203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279896675989829752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &4403775460008095444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,7 +2456,7 @@ GameObject:
   - component: {fileID: 4426165412108805942}
   - component: {fileID: 1235122914503499481}
   - component: {fileID: 8571570223619811403}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2355,7 +2531,7 @@ GameObject:
   - component: {fileID: 8179793093094950851}
   - component: {fileID: 8076388352074124402}
   - component: {fileID: 4260001181719259262}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2431,7 +2607,7 @@ GameObject:
   - component: {fileID: 1431032169297772882}
   - component: {fileID: 1901243397420971349}
   - component: {fileID: 368084360719671078}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowThree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2563,7 +2739,7 @@ GameObject:
   - component: {fileID: 3273938985239925807}
   - component: {fileID: 8646435112265216699}
   - component: {fileID: 6287564413254429294}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2910,6 +3086,7 @@ GameObject:
   - component: {fileID: 8498079989992679295}
   - component: {fileID: 3695976836245957213}
   - component: {fileID: 4185480961114713440}
+  - component: {fileID: 6471053094100070787}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -3025,6 +3202,53 @@ MonoBehaviour:
   - {fileID: 8824920582181904180}
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 6515684566544978493}
+  buttons: []
+  _onArrowConfirmed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6471053094100070787}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6471053094100070787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878376591606352206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -354861875
+      Data2: 1173223546
+      Data3: -1432406849
+      Data4: -1433290799
+    Path: event:/SFX/Flechas
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &6453421392890126634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3036,7 +3260,7 @@ GameObject:
   - component: {fileID: 6547892530301428652}
   - component: {fileID: 5253323161954919314}
   - component: {fileID: 3646081299342950371}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3128,8 +3352,8 @@ Transform:
   m_GameObject: {fileID: 6515684566544978493}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2224617, y: 3.3602371, z: 0.119999975}
-  m_LocalScale: {x: 2, y: 2.3, z: 0.3}
+  m_LocalPosition: {x: 2.451, y: 3.463, z: 0.241}
+  m_LocalScale: {x: 4, y: 4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2781964157868871160}
@@ -3216,7 +3440,7 @@ GameObject:
   - component: {fileID: 4933058820185331110}
   - component: {fileID: 2665289996810515752}
   - component: {fileID: 1306087613958847492}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowFive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3429,7 +3653,7 @@ GameObject:
   - component: {fileID: 877894991508767729}
   - component: {fileID: 5596465608429381855}
   - component: {fileID: 3966696948010349248}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3530,7 +3754,7 @@ GameObject:
   - component: {fileID: 7756975943656657738}
   - component: {fileID: 2198685359704985261}
   - component: {fileID: 2876141627476144550}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ArrowTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

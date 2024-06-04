@@ -12,7 +12,7 @@ namespace com.LazyGames.Dz.Ai
         private readonly Animator _animator;
         private readonly EnemyParameters _parameters;
         private Transform _target;
-        private AnimationAttack _animationAttack;
+        private AnimatorEventHelper _animatorEventHelper;
         
         private float _attackCounter;
         private static readonly int Attacking = Animator.StringToHash("attacking");
@@ -22,7 +22,7 @@ namespace com.LazyGames.Dz.Ai
             _transform = transform;
             _parameters = parameters;
             _animator = transform.GetComponentInChildren<Animator>();
-            _animationAttack = _animator.GetComponent<AnimationAttack>();
+            _animatorEventHelper = _animator.GetComponent<AnimatorEventHelper>();
             _attackCounter = parameters.attackSpeed;
         }
 
@@ -39,8 +39,8 @@ namespace com.LazyGames.Dz.Ai
                 _animator.SetBool(Attacking, true);
                 
             }
-            Debug.Log(_animationAttack.isAttacking);
-            if (_animationAttack.isAttacking)
+            Debug.Log(_animatorEventHelper.isAttacking);
+            if (_animatorEventHelper.isAttacking)
             { 
                 Debug.Log("sending aggression");
 

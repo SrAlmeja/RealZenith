@@ -34,18 +34,9 @@ namespace com.LazyGames.Dz.Ai
            Avoidance(CastRay());
            CountTime();
            
-           var t = GetData("target"); 
-           _doWalk = t == null;
-          if (!_doWalk)
-          {
-              _agent.isStopped = !_doWalk;
-              state = NodeState.Running;
+           _agent.SetDestination(Wander());
+           state = NodeState.Running;
               return state;
-          }
-
-          _agent.SetDestination(Wander());
-          state = NodeState.Running;
-          return state;
        }
        
        private void CountTime()

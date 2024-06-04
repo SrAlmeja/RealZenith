@@ -1,14 +1,31 @@
 using UnityEngine;
 using Obvious.Soap;
+using NaughtyAttributes;
 
 public class OmnitrixHingeActivator : MonoBehaviour
 {
     [Header("Dependencies Channel SO")]
+    [Required]
     [SerializeField] private ScriptableEventNoParam _omnitrixActivationChannel;
+    [Required]
     [SerializeField] private ScriptableEventInt _omnitrixGadgetChannel;
 
     [Header("Dependencies")]
+    [Required]
     [SerializeField] private GameObject _omnitrixTopFace;
+
+    [Header("GadgetAngles")]
+    [SerializeField] private float _gadgetFirstAngle = 45;
+    [SerializeField] private float _gadgetSecondAngle = 90;
+    [SerializeField] private float _gadgetThirdAngle = 135;
+
+    [SerializeField] private int _angleDifference = 5;
+
+    public float GadgetFirstAngle => _gadgetFirstAngle;
+    public float GadgetSecondAngle => _gadgetSecondAngle;
+    public float GadgetThirdAngle => _gadgetThirdAngle;
+    public int AngleDifference => _angleDifference;
+
 
     private bool _isOmnitrixActive = false;
 
@@ -20,21 +37,21 @@ public class OmnitrixHingeActivator : MonoBehaviour
     private void UpdateOmnitrix()
     {
         float value = _omnitrixTopFace.transform.localEulerAngles.z;
-        if (value <= 47 && value >= 42)
+        if (value <= _gadgetFirstAngle + _angleDifference && value >= _gadgetFirstAngle - _angleDifference)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(0);
         }
-        else if (value <= 92 && value >= 88)
+        else if (value <= _gadgetSecondAngle + _angleDifference && value >= _gadgetSecondAngle - _angleDifference)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(1);
         }
-        else if (value <= 136 && value >= 133)
+        else if (value <= _gadgetThirdAngle + _angleDifference && value >= _gadgetThirdAngle - _angleDifference)
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(2);
-        }else if (value <= 2)
+        }else if (value <= _angleDifference)
         {
             DisableOmnitrix();
             _omnitrixGadgetChannel.Raise(3);

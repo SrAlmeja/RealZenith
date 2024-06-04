@@ -23,7 +23,7 @@ public class LaserCollision : MonoBehaviour
 
     private void Awake()
     {
-        _particle = Instantiate(colisionParticlePrefab);
+        _particle = Instantiate(colisionParticlePrefab, transform);
         _particleSystem = _particle.GetComponentInChildren<ParticleSystem>();
         _particle.SetActive(false);
     }

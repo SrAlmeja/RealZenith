@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Obvious.Soap;
 using Random = UnityEngine.Random;
+using UnityEngine.Events;
 
 public class RandomCodeGenerator : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class RandomCodeGenerator : MonoBehaviour
         [SerializeField] private GameObject _door;
         private int stringConfirm = 0;
         [SerializeField] private List<GameObject> buttons;
+
+        [SerializeField] private UnityEvent _onArrowConfirmed;
         
         private string _doorCode;
 
@@ -54,16 +57,16 @@ public class RandomCodeGenerator : MonoBehaviour
                 switch (int.Parse(arrow))
                 {
                     case 1:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
                         break;
                     case 2:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 90);
                         break;
                     case 3:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 180);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 180);
                         break;
                     case 4:
-                        _arrowImages[i].transform.rotation = Quaternion.Euler(0, 0, 270);
+                        _arrowImages[i].transform.localRotation = Quaternion.Euler(0, 0, 270);
                         break;
                 }
             }
@@ -79,6 +82,7 @@ public class RandomCodeGenerator : MonoBehaviour
                 if(arrow == code)
                 {
                     _arrowImages[stringConfirm ].gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                    _onArrowConfirmed?.Invoke();
                     stringConfirm++;
                 }
                 else
