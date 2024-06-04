@@ -230,6 +230,8 @@ GameObject:
   - component: {fileID: 8507767022285728825}
   - component: {fileID: 2149569181440831357}
   - component: {fileID: 7686839098732179281}
+  - component: {fileID: 4214637416831106472}
+  - component: {fileID: 7172158033975915283}
   m_Layer: 18
   m_Name: Container
   m_TagString: Untagged
@@ -253,6 +255,7 @@ Transform:
   - {fileID: 7771140533295954156}
   - {fileID: 8584893746846634839}
   - {fileID: 8493485675651037761}
+  - {fileID: 8325612502703577217}
   m_Father: {fileID: 8014809319624772535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8507767022285728825
@@ -280,6 +283,9 @@ MonoBehaviour:
   NeedsTimer: 0
   laserMovPosition: {fileID: 2351159099756210881}
   _gadgetInteractionType: 1
+  laserSound: {fileID: 4214637416831106472}
+  deactivateSound: {fileID: 7172158033975915283}
+  movementSound: {fileID: 7686839098732179281}
   onTrapCompletedMovement:
     m_PersistentCalls:
       m_Calls: []
@@ -334,6 +340,68 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
+  OverrideMaxDistance: 15
+--- !u!114 &4214637416831106472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465221534636640794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1328650525
+      Data2: 1305329864
+      Data3: 1870390680
+      Data4: -2099061209
+    Path: event:/SFX/LasersAzules
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 0
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &7172158033975915283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465221534636640794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1656340523
+      Data2: 1245706349
+      Data3: 1221227905
+      Data4: -1805330789
+    Path: event:/SFX/CortoCircuito
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
   OverrideMaxDistance: 20
 --- !u!1 &7852495888367780010
 GameObject:
@@ -367,7 +435,6 @@ Transform:
   - {fileID: 2515060368369793100}
   - {fileID: 1559379714999698274}
   - {fileID: 2351159099756210881}
-  - {fileID: 8325612502703577217}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &761373952536088297
@@ -376,7 +443,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8014809319624772535}
+    m_TransformParent: {fileID: 2515060368369793100}
     m_Modifications:
     - target: {fileID: 7983980550585372295, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
       propertyPath: m_LocalPosition.x
@@ -385,6 +452,10 @@ PrefabInstance:
     - target: {fileID: 8252064435492429525, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
       propertyPath: m_Name
       value: LaserElectricShockFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252064435492429525, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8726416861892482664, guid: 10232cec76b902e469fcbc9a13421962, type: 3}
       propertyPath: m_LocalPosition.x

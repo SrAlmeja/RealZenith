@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 4343278279942523594}
   - component: {fileID: 8839008705128907205}
   - component: {fileID: 2046505521347747377}
+  - component: {fileID: 5410833465890892611}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -322,6 +323,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2046505521347747377}
         m_TargetAssemblyTypeName: DoorButtons, Assembly-CSharp
         m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5410833465890892611}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -451,6 +464,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 1
+--- !u!114 &5410833465890892611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013265525223034256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &1062613792672818064
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +860,7 @@ GameObject:
   - component: {fileID: 516990857476364558}
   - component: {fileID: 1761079086170179124}
   - component: {fileID: 5334166859762936984}
+  - component: {fileID: 5036349076200762817}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -909,6 +954,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5334166859762936984}
         m_TargetAssemblyTypeName: DoorButtons, Assembly-CSharp
         m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5036349076200762817}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1038,6 +1095,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 3
+--- !u!114 &5036349076200762817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781629706846513199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &1871354816429080920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,6 +1449,7 @@ GameObject:
   - component: {fileID: 383269679882441161}
   - component: {fileID: 627904730006114457}
   - component: {fileID: 8699115459547971052}
+  - component: {fileID: 1941196333195191649}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -1454,6 +1543,18 @@ MonoBehaviour:
       - m_Target: {fileID: 8699115459547971052}
         m_TargetAssemblyTypeName: DoorButtons, Assembly-CSharp
         m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1941196333195191649}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1583,6 +1684,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 4
+--- !u!114 &1941196333195191649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812031217513733467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &3151921998905949126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,6 +2123,7 @@ GameObject:
   - component: {fileID: 1939745061357674879}
   - component: {fileID: 8857042497398845948}
   - component: {fileID: 5263184707930392540}
+  - component: {fileID: 4271187031522231203}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -2084,6 +2217,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5263184707930392540}
         m_TargetAssemblyTypeName: DoorButtons, Assembly-CSharp
         m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4271187031522231203}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2213,6 +2358,37 @@ MonoBehaviour:
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 5878376591606352206}
   _codeNumber: 2
+--- !u!114 &4271187031522231203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279896675989829752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &4403775460008095444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2910,6 +3086,7 @@ GameObject:
   - component: {fileID: 8498079989992679295}
   - component: {fileID: 3695976836245957213}
   - component: {fileID: 4185480961114713440}
+  - component: {fileID: 6471053094100070787}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -3025,6 +3202,53 @@ MonoBehaviour:
   - {fileID: 8824920582181904180}
   _doorCodeEvent: {fileID: 11400000, guid: d79440fdc4f4e154080dca6bb257845e, type: 2}
   _door: {fileID: 6515684566544978493}
+  buttons: []
+  _onArrowConfirmed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6471053094100070787}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6471053094100070787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878376591606352206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -354861875
+      Data2: 1173223546
+      Data3: -1432406849
+      Data4: -1433290799
+    Path: event:/SFX/Flechas
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &6453421392890126634
 GameObject:
   m_ObjectHideFlags: 0
