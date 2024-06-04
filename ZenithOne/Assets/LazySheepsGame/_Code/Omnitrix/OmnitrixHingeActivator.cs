@@ -1,6 +1,7 @@
 using UnityEngine;
 using Obvious.Soap;
 using NaughtyAttributes;
+using FMODUnity;
 
 public class OmnitrixHingeActivator : MonoBehaviour
 {
@@ -51,7 +52,8 @@ public class OmnitrixHingeActivator : MonoBehaviour
         {
             EnableOmnitrix();
             _omnitrixGadgetChannel.Raise(2);
-        }else if (value <= _angleDifference)
+        }
+        else if (value <= _angleDifference)
         {
             DisableOmnitrix();
             _omnitrixGadgetChannel.Raise(3);
