@@ -39669,6 +39669,7 @@ MonoBehaviour:
   - {fileID: 81954481813744928}
   - {fileID: 6941988593793372370}
   - {fileID: 4827130885091556231}
+  _omnitrixSound: {fileID: 7371481594062754114}
   _activateTime: 0.2
   _deactivateTime: 0.15
   _offsetTimeMultiplier: 0.15
@@ -64501,6 +64502,7 @@ GameObject:
   - component: {fileID: 2574799056465564935}
   - component: {fileID: 3092801690643482077}
   - component: {fileID: 4903340869688617375}
+  - component: {fileID: 7371481594062754114}
   m_Layer: 19
   m_Name: top part
   m_TagString: Untagged
@@ -64771,6 +64773,10 @@ MonoBehaviour:
   _omnitrixActivationChannel: {fileID: 11400000, guid: bf603f6eacf363f4a8c67726ac11c949, type: 2}
   _omnitrixGadgetChannel: {fileID: 11400000, guid: e553c59b2c3e7d4479738a77265050ca, type: 2}
   _omnitrixTopFace: {fileID: 7294545546698343983}
+  _gadgetFirstAngle: 45
+  _gadgetSecondAngle: 90
+  _gadgetThirdAngle: 135
+  _angleDifference: 20
 --- !u!114 &4903340869688617375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64784,7 +64790,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabbingOmnitrixChannel: {fileID: 11400000, guid: 34838d7f77c46e7409df9504194f703e, type: 2}
+  _omnitrixHingeActivator: {fileID: 3092801690643482077}
   _rotationMultiplier: 1
+--- !u!114 &7371481594062754114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294545546698343983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -371707547
+      Data2: 1241469540
+      Data3: -1156508032
+      Data4: 1577257032
+    Path: event:/SFX/GirarOmnitrix
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 5
 --- !u!1 &7672390654346923888
 GameObject:
   m_ObjectHideFlags: 0

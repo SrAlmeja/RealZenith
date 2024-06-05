@@ -1,5 +1,6 @@
 // Modificado Raymundo Mosqueda 09/05/24
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Obvious.Soap;
@@ -114,6 +115,12 @@ namespace com.LazyGames.Dz.Ai
             }
         }
 
+        private void OnCollisionEnter(Collision other)
+        {
+            if(!other.gameObject.CompareTag("Player")) return;
+            PlayerDetected(other.transform);
+        }
+
         private IEnumerator CorDisableHighlight()
         {
             yield return new WaitForSeconds(_parameters.revealTime);
@@ -154,6 +161,7 @@ namespace com.LazyGames.Dz.Ai
 
         private void UpdateWrapper(EnemyState state)
         {
+            if (_stateWrapper.State == state) return;
             _stateWrapper.State = state;
             enemyStateWrapperSo.Raise(_stateWrapper);
         }

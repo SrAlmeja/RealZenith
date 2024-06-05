@@ -13,24 +13,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 5da39fba09229274b9aee2fa0c5f846a, type: 2}
     - target: {fileID: 1874961925599275334, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
+      propertyPath: door1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1874961925599275334, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
+      propertyPath: door2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1874961925599275334, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
       propertyPath: prefabToDispense
       value: 
-      objectReference: {fileID: 516641418632285079, guid: 1d8ae806e99eb294db4719a31401b077, type: 3}
+      objectReference: {fileID: 7193851727524943182, guid: 24ee3d9578e057043b1e7b3eaeee0b76, type: 3}
     - target: {fileID: 6576465638755258093, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
       propertyPath: m_Name
       value: Re-Bot_Sonic Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9202529071891626434, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.31
       objectReference: {fileID: 0}
     - target: {fileID: 9202529071891626434, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.096617
       objectReference: {fileID: 0}
     - target: {fileID: 9202529071891626434, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 20.14
       objectReference: {fileID: 0}
     - target: {fileID: 9202529071891626434, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61,7 +69,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8566605456683372811, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
+    - {fileID: 5793403572963604164, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6564352040426693062, guid: 39dc7727684d95e4597ba4212d177063, type: 3}
