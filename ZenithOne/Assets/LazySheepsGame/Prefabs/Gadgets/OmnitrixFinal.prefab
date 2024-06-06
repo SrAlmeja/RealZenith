@@ -24630,7 +24630,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -64590,7 +64590,7 @@ MeshCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -64630,7 +64630,7 @@ MonoBehaviour:
   jointBreakForce: 2000
   showAdvancedSettings: 1
   makeChildrenGrabbable: 0
-  grabPriorityWeight: 1
+  grabPriorityWeight: 0.05
   ignoreReleaseTime: 0.5
   minHeldDrag: 1.5
   minHeldAngleDrag: 3
@@ -64711,7 +64711,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -80024,6 +80024,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 7394875235524968015, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Name
       value: Omnitrix Place Point (1)
@@ -80191,6 +80195,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 7394875235524968015, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Name
       value: Omnitrix Place Point (2)
@@ -80357,6 +80365,10 @@ PrefabInstance:
     - target: {fileID: 6781729772131301569, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394875235524968015, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7776166720508097960, guid: 041b8692cdb74fe47b0b8c5ed4b50e5b, type: 3}
       propertyPath: m_Name
