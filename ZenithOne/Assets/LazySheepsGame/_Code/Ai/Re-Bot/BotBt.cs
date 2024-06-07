@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 namespace com.LazyGames.Dz.Ai
@@ -14,6 +15,7 @@ namespace com.LazyGames.Dz.Ai
         [Header("Serialized References")]
         [SerializeField] private Transform dispenser1;
         [SerializeField] private Transform dispenser2;
+        [SerializeField] private StudioEventEmitter emitter;
         private Node _root;
         private BotDoorController _doorController;
         
@@ -36,7 +38,7 @@ namespace com.LazyGames.Dz.Ai
                 new Sequence(new List<Node>
                 {
                     new TaskFaceTarget(t, parameters),
-                    new TaskDispense(t, parameters, prefabToDispense, dispenser1, dispenser2)
+                    new TaskDispense(t, parameters, prefabToDispense, dispenser1, dispenser2, emitter)
                 }),
                 new TaskWander(t, parameters)
             });
