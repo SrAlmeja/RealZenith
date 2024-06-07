@@ -431,7 +431,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -608,7 +608,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1260,7 +1260,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1438,7 +1438,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1870,7 +1870,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2066,7 +2066,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2468,7 +2468,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2580,7 +2580,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2970,7 +2970,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3057,7 +3057,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3424,7 +3424,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3652,7 +3652,7 @@ MonoBehaviour:
   gentleGrabSpeed: 1
   advancedFollowSettings: 1
   enableIK: 1
-  swayStrength: 1.2
+  swayStrength: 3
   gripOffset: 0.2
   usingPoseAreas: 1
   queryTriggerInteraction: 1
@@ -3835,7 +3835,7 @@ MonoBehaviour:
   gentleGrabSpeed: 1
   advancedFollowSettings: 1
   enableIK: 1
-  swayStrength: 1.2
+  swayStrength: 3
   gripOffset: 0.2
   usingPoseAreas: 1
   queryTriggerInteraction: 1
@@ -4377,7 +4377,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -4495,7 +4495,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -4551,7 +4551,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16777216
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -5419,6 +5419,10 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8834320319295017360, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
+      propertyPath: maxMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834320319295017360, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
       propertyPath: forwardFollow
       value: 
       objectReference: {fileID: 1181433092847813762}
@@ -5458,13 +5462,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8834320319295017372, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 33554432
+      objectReference: {fileID: 0}
     - target: {fileID: 8834320319295017374, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8834320319295017374, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 524416
+      value: 34078848
       objectReference: {fileID: 0}
     - target: {fileID: 8834320319295017375, guid: fdc3ba53f4e81a040b0471bbbafbb10a, type: 3}
       propertyPath: m_RootOrder
