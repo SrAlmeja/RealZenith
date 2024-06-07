@@ -47,6 +47,7 @@ namespace com.LazyGames.Dz.Ai
         {
             if (!other.CompareTag("Player")) return;
             _root.SetData("target", other.transform);
+            Debug.Log(gameObject.name + "got target");
         }
 
         private void OnTriggerExit(Collider other)
@@ -54,6 +55,8 @@ namespace com.LazyGames.Dz.Ai
             if (!other.CompareTag("Player")) return;
             _root.ClearData("target");
             _doorController.CloseDoor();
+            Debug.Log(gameObject.name + "lost target");
+
         }
 
     }
