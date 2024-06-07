@@ -140,8 +140,8 @@ MonoBehaviour:
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
-  m_DepthPrimingMode: 0
-  m_CopyDepthMode: 1
+  m_DepthPrimingMode: 1
+  m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
 --- !u!114 &5353867996053805154
@@ -162,9 +162,9 @@ MonoBehaviour:
     maxDrawDistance: 1000
     decalLayers: 0
     dBufferSettings:
-      surfaceData: 2
+      surfaceData: 0
     screenSpaceSettings:
-      normalBlend: 0
+      normalBlend: 1
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}
 --- !u!114 &5386755202891554616

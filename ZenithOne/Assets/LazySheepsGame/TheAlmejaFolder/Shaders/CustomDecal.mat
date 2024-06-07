@@ -12,24 +12,24 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHAMODULATE_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _SPECULAR_SETUP
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3006
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Main_Tex:
-        m_Texture: {fileID: 2800000, guid: fe754cf36a634e3429ff51c32edbab5b, type: 3}
+        m_Texture: {fileID: 2800000, guid: dfd33662d9f6f3849bd92f6e159ca226, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -48,22 +48,22 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 3
+    - _Blend: 1
     - _BlendModePreserveSpecular: 1
-    - _CastShadows: 1
-    - _Cull: 2
-    - _DstBlend: 0
-    - _QueueControl: 0
-    - _QueueOffset: 6
+    - _CastShadows: 0
+    - _Cull: 0
+    - _DstBlend: 10
+    - _QueueControl: 1
+    - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SrcBlend: 2
+    - _SrcBlend: 1
     - _Surface: 1
     - _WorkflowMode: 0
-    - _ZTest: 4
+    - _ZTest: 5
     - _ZWrite: 0
-    - _ZWriteControl: 2
+    - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 1.7126362, g: 0.6640479, b: 0.24210037, a: 0}
+    - _Color: {r: 0.0020318835, g: 0.07179365, b: 0.042761423, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7764229022356542082
 MonoBehaviour:
