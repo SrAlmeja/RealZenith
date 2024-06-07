@@ -139,6 +139,7 @@ namespace com.LazyGames.Dz.Ai
             var rand = Random.Range(0, enemyWayPoints.WayPoints.Count);
             _agent.Warp(enemyWayPoints.WayPoints[rand].transform.position);
             UpdateWrapper(EnemyState.Patrolling);
+            _parameters = defaultParameters;
             Invoke(nameof(DelayedWipe), .1f);
         }   
 
