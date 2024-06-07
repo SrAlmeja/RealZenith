@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 3541542605146174896}
   - component: {fileID: 2623948092649753732}
   - component: {fileID: 7189929900939998683}
-  - component: {fileID: 3607516741866890418}
   m_Layer: 7
   m_Name: Mug_Sectioned
   m_TagString: Untagged
@@ -188,7 +187,7 @@ MonoBehaviour:
   CopySettings: {fileID: 0}
   grabType: 1
   handType: 0
-  singleHandOnly: 1
+  singleHandOnly: 0
   instantGrab: 0
   useGentleGrab: 0
   maintainGrabOffset: 0
@@ -234,93 +233,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lockHandOnGrab: 0
---- !u!114 &3607516741866890418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2939585661003958944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49b27d5a0e0d4dd8ab20e2bed42e835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ignoreMe: 0
-  poseEnabled: 1
-  poseName: 
-  poseIndex: 0
-  singleHanded: 0
-  showAdvanced: 1
-  positionWeight: 1
-  rotationWeight: 1
-  linkedPoses: []
-  showEditorTools: 1
-  poseScriptable: {fileID: 0}
-  editorHand: {fileID: 0}
-  rightPose:
-    handOffset: {x: -0.14592865, y: 0.034999844, z: 0.7273332}
-    rotationOffset: {x: 0, y: 0, z: 0}
-    localQuaternionOffset: {x: 0.6483077, y: -0.758806, z: -0.054534487, w: 0.030604765}
-    posePositions:
-    - {x: 8.711538e-12, y: 0.0012209625, z: -9.135412e-12}
-    - {x: 6.7520885e-11, y: 0.0007333009, z: 5.5879353e-11}
-    - {x: 1.6763806e-10, y: 0.0008508162, z: 0}
-    - {x: -0.00005, y: 0.000705, z: -0.000098}
-    - {x: -8.692353e-12, y: 0.0020813022, z: 2.837388e-12}
-    - {x: -1.7462298e-12, y: 0.0012912928, z: -2.3283063e-11}
-    - {x: -2.6866473e-11, y: 0.00078517495, z: 0}
-    - {x: -0.000005, y: 0.000494, z: -0.000066}
-    - {x: -6.7892355e-13, y: 0.0019292427, z: 1.4683081e-11}
-    - {x: -1.5643308e-11, y: 0.0014130874, z: 1.9499565e-11}
-    - {x: -1.3824319e-11, y: 0.0009354438, z: -6.7520885e-11}
-    - {x: -0.000067, y: 0.000515, z: -0.000039}
-    - {x: 3.3685182e-10, y: 0.002196644, z: -6.8922264e-11}
-    - {x: 1.2107193e-10, y: 0.00059419416, z: 0}
-    - {x: -1.0244548e-10, y: 0.0008332015, z: 2.9802322e-10}
-    - {x: -0.000124, y: 0.000276, z: 0.000034}
-    - {x: 2.5575417e-11, y: 0.002191791, z: -1.4146549e-10}
-    - {x: 3.3760442e-11, y: 0.0009428252, z: -9.3132255e-12}
-    - {x: -4.1909514e-11, y: 0.0010440813, z: -1.6763806e-10}
-    - {x: -0.000027, y: 0.000464, z: -0.000135}
-    poseRotations:
-    - {x: -0.5110442, y: -0.07066839, z: -0.05864382, w: 0.8546348}
-    - {x: -0.035861667, y: -0.019909197, z: 0.30761594, w: 0.95062613}
-    - {x: -0.037297305, y: -0.029440308, z: 0.072732866, w: 0.9962189}
-    - {x: 0, y: 0, z: 0, w: 1}
-    - {x: -0.45707068, y: -0.13500354, z: 0.2210928, w: 0.8508692}
-    - {x: -0.4844374, y: -0.0011552495, z: -0.039094757, w: 0.8739513}
-    - {x: -0.06795266, y: 0.005478158, z: 0.030737076, w: 0.9971999}
-    - {x: 0, y: 0, z: 0, w: 1}
-    - {x: -0.5666821, y: -0.044362925, z: 0.018210325, w: 0.82253975}
-    - {x: -0.44623107, y: 0.000023776673, z: -0.008695961, w: 0.8948755}
-    - {x: 0.07434935, y: 0.000020657251, z: 0.004516617, w: 0.99722207}
-    - {x: 0, y: 0, z: 0, w: 1}
-    - {x: -0.39666703, y: 0.05760861, z: -0.21629709, w: 0.89025396}
-    - {x: -0.116871186, y: 0.029291546, z: -0.01887069, w: 0.99253565}
-    - {x: -0.09501844, y: -0.0027776938, z: 0.014730357, w: 0.99536264}
-    - {x: 0, y: 0, z: 0, w: 1}
-    - {x: -0.5162699, y: -0.008034214, z: -0.065648235, w: 0.85386837}
-    - {x: -0.3483232, y: 0.026481913, z: 0.0025685274, w: 0.9369969}
-    - {x: -0.13343138, y: -0.013212981, z: -0.020264454, w: 0.99076277}
-    - {x: 0, y: 0, z: 0, w: 1}
-  rightPoseSet: 1
-  leftPose:
-    handOffset: {x: 0, y: 0, z: 0}
-    rotationOffset: {x: 0, y: 0, z: 0}
-    localQuaternionOffset: {x: 0, y: 0, z: 0, w: 0}
-    posePositions: []
-    poseRotations: []
-  leftPoseSet: 0
-  centerObject: {fileID: 0}
-  up: {x: 0, y: 1, z: 0}
-  useInvertPose: 0
-  minAngle: 0
-  maxAngle: 0
-  maxRange: 0.02
-  minRange: -0.04
-  testAngle: 0
-  testRange: 0
 --- !u!1 &3138233044124844693
 GameObject:
   m_ObjectHideFlags: 0
