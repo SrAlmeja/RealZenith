@@ -14,7 +14,7 @@ public class GadgetSpawner : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         var launchDirection = new Vector3(0, transform.forward.y, transform.forward.z);
-        _rb.AddForce(launchDirection * launchForce);
+        _rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
     }
 
     private void OnCollisionEnter(Collision other)
