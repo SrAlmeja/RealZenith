@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using FMODUnity;
+using Obvious.Soap;
+using TMPro;
 using UnityEngine;
 
 namespace com.LazyGames.Dz.Ai
@@ -10,18 +13,22 @@ namespace com.LazyGames.Dz.Ai
 
         [Header("Bot Parameters")] 
         [SerializeField] private GameObject prefabToDispense;
-        [SerializeField]private BotParameters parameters;
+        [SerializeField] private BotParameters parameters;
+        [SerializeField] private int gadgetLimit = 2;
         
         [Header("Serialized References")]
         [SerializeField] private Transform dispenser1;
         [SerializeField] private Transform dispenser2;
         [SerializeField] private StudioEventEmitter emitter;
+        [SerializeField] private ScriptableVariable<int> gadgetInventory;
+        [SerializeField] private TextMeshPro displayText;
         private Node _root;
         private BotDoorController _doorController;
         
         protected override Node SetupTree()
         {
             _doorController = GetComponent<BotDoorController>();
+            displayText.text = (gadgetLimit - gadgetInventory.Value ).ToString();
            _root = BuildTree();
            return _root;
         }
@@ -38,7 +45,7 @@ namespace com.LazyGames.Dz.Ai
                 new Sequence(new List<Node>
                 {
                     new TaskFaceTarget(t, parameters),
-                    new TaskDispense(t, parameters, prefabToDispense, dispenser1, dispenser2, emitter)
+                    new TaskDispense(t, parameters, prefabToDispense, dispenser1, dispenser2, emitter, gadgetLimit, gadgetInventory, displayText)
                 }),
                 new TaskWander(t, parameters)
             });
@@ -58,8 +65,6 @@ namespace com.LazyGames.Dz.Ai
             _root.ClearData("target");
             _doorController.CloseDoor();
             Debug.Log(gameObject.name + "lost target");
-
         }
-
     }
 }

@@ -110,13 +110,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4944045330116892642, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
-      propertyPath: _itemVariable
-      value: 
-      objectReference: {fileID: 11400000, guid: 97360fd5ed004aa43b6f364062e9315b, type: 2}
     - target: {fileID: 6000386935895084862, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
       propertyPath: m_Name
       value: SonicPickup Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482998381407931027, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6660085849599939781, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
       propertyPath: m_LocalScale.x
@@ -132,15 +132,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6660085849599939781, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.316
+      value: -0.9073734
       objectReference: {fileID: 0}
     - target: {fileID: 6660085849599939781, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 6660085849599939781, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.696
+      value: 22.291157
       objectReference: {fileID: 0}
     - target: {fileID: 6660085849599939781, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -170,7 +170,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects:
     - {fileID: 1567229438260028447, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}
     - {fileID: 4295195967569573262, guid: 6fa27aac238ca7f4d809b6f6c627ccee, type: 3}

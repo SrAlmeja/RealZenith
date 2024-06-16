@@ -64,7 +64,6 @@ namespace com.LazyGames.Dz.Ai
             _vision.Step();
             _agent.speed = _parameters.movementSpeed;
             _animator.SetBool(Moving, _agent.velocity.magnitude > 0.3f);
-
         }
 
         private Node BuildTree()
@@ -178,6 +177,7 @@ namespace com.LazyGames.Dz.Ai
         
         public void PlayerLost(Vector3 lastKnownPosition)
         {
+            _parameters = defaultParameters;
             UpdateWrapper(EnemyState.Searching);
             _root.WipeData();
             _root.SetData("lastKnownPosition", lastKnownPosition);

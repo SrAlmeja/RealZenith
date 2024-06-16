@@ -1,8 +1,8 @@
 using NaughtyAttributes;
 using Obvious.Soap;
 using Autohand;
+using Lean.Pool;
 using UnityEngine;
-using Unity.Collections.LowLevel.Unsafe;
 
 public class Collectible : MonoBehaviour
 {
@@ -73,12 +73,13 @@ public class Collectible : MonoBehaviour
             if (_playerLayer == (_playerLayer | (1 << collision.gameObject.layer)))
             {
                 Collect();
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                LeanPool.Despawn(gameObject);
             }
         }
     }
 
-    private void Collect()
+    protected virtual void Collect()
     {
         SaveInfo();
     }

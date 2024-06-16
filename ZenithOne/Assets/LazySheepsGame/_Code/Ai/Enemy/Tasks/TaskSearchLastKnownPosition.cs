@@ -32,6 +32,16 @@ namespace com.LazyGames.Dz.Ai
             
             Vector3 lastKnownPosition = (Vector3) pos;
             _agent.SetDestination(lastKnownPosition);
+            if (!_agent.hasPath)
+            {
+                ClearData("lastKnownPosition");
+                _animator.SetBool(Chasing, false);
+                _animator.SetBool(Alert, true );
+                
+                parent.SetData("wary", true);
+                state = NodeState.Failure;
+                return state;
+            }
             Debug.DrawLine(_transform.position, lastKnownPosition, Color.blue);
             if(Vector3.Distance(_transform.position, lastKnownPosition) < 2f)
             {

@@ -344,9 +344,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6660085849599939781}
+  - component: {fileID: 7746391076027524562}
   - component: {fileID: 6482998381407931027}
-  - component: {fileID: 4944045330116892642}
   - component: {fileID: 8002492993865882522}
+  - component: {fileID: -9034887813946680877}
   m_Layer: 24
   m_Name: EMP_Pickup
   m_TagString: Untagged
@@ -370,6 +371,25 @@ Transform:
   - {fileID: 2851096879697515129}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7746391076027524562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000386935895084862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9ddcf70d88e164db7e58613a6f1927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _specialCollectible: 0
+  _autoCollectOnCollision: 1
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _itemVariable: {fileID: 11400000, guid: 4dfd4bb0c9225bc43995f2a7beb56b96, type: 2}
+  _specialItemVariable: {fileID: 0}
 --- !u!135 &6482998381407931027
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -380,7 +400,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -391,25 +411,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.07
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4944045330116892642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6000386935895084862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e059e73529602bd438b07db5f820c45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _specialCollectible: 0
-  _autoCollectOnCollision: 1
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _itemVariable: {fileID: 11400000, guid: 4dfd4bb0c9225bc43995f2a7beb56b96, type: 2}
-  _specialItemVariable: {fileID: 0}
 --- !u!54 &8002492993865882522
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -433,10 +434,41 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-9034887813946680877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000386935895084862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1621734203
+      Data2: 1181664147
+      Data3: 509787797
+      Data4: 923034911
+    Path: event:/SFX/Botones
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0.5
+  OverrideMaxDistance: 2
 --- !u!1 &6025277510707087812
 GameObject:
   m_ObjectHideFlags: 0

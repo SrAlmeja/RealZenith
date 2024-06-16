@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7706951719176878568}
   - component: {fileID: 4623329933602298575}
   - component: {fileID: 995093106879688512}
+  - component: {fileID: 1299873324863963575}
   m_Layer: 0
   m_Name: GadgetSpawner_EMP
   m_TagString: Untagged
@@ -42,13 +43,13 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6755904634129764352}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8d08f3b82c4554e42a353632d9d2e6ac, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 34048
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 67067895
+    m_Bits: 134175479
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -101,6 +102,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &1299873324863963575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6755904634129764352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9ddcf70d88e164db7e58613a6f1927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _specialCollectible: 0
+  _autoCollectOnCollision: 1
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _itemVariable: {fileID: 11400000, guid: 4dfd4bb0c9225bc43995f2a7beb56b96, type: 2}
+  _specialItemVariable: {fileID: 0}
 --- !u!1001 &1789014177832056541
 PrefabInstance:
   m_ObjectHideFlags: 0
