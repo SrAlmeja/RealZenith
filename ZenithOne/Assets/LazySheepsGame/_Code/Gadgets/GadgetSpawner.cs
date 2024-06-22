@@ -19,7 +19,8 @@ public class GadgetSpawner : MonoBehaviour
             _trackedCollectible = GetComponent<TrackedCollectible>();
         }
         _rb.velocity = Vector3.zero;
-        var launchDirection = new Vector3(0, transform.forward.y, transform.forward.z);
+        var launchDirection = new Vector3(0, transform.up.y *2, transform.forward.z);
+        Debug.Log(transform.forward.y);
         _rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
     }
 

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5935794222026890423}
   - component: {fileID: 1176565129749673868}
   - component: {fileID: 2778500340793427988}
+  - component: {fileID: -5057078939230439044}
   m_Layer: 0
   m_Name: ROCKBunker_6
   m_TagString: Untagged
@@ -200,3 +201,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-5057078939230439044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201287879936290251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ca18e89d9ec4f4b9c5f57b4c685e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseParams: {fileID: 11400000, guid: bef2c1018a44e694d8c3df5228073f2b, type: 2}
