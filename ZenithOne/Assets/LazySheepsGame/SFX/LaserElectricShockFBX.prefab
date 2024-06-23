@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7883221029961276606}
-  m_Father: {fileID: 8896997639011439335}
+  m_Father: {fileID: 1401670678898596992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &4015420122571619469
 ParticleSystem:
@@ -34336,6 +34336,7 @@ Transform:
   - {fileID: 6514320318823239225}
   - {fileID: 8381944527272536908}
   - {fileID: 6232347196306902409}
+  - {fileID: 6387967598270800140}
   m_Father: {fileID: 8896997639011439335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7569280647151491428
@@ -38208,6 +38209,11 @@ ParticleSystem:
       type: 0
       properties: 0
       emitProbability: 1
+    - serializedVersion: 3
+      emitter: {fileID: 4015420122571619469}
+      type: 2
+      properties: 0
+      emitProbability: 1
   LightsModule:
     enabled: 0
     ratio: 0
@@ -39253,7 +39259,6 @@ Transform:
   m_Children:
   - {fileID: 7352543195513487357}
   - {fileID: 1401670678898596992}
-  - {fileID: 6387967598270800140}
   - {fileID: 7983980550585372295}
   m_Father: {fileID: 8726416861892482664}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
