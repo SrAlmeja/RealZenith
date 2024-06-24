@@ -1,3 +1,4 @@
+using System.Collections;
 using Lean.Pool;
 using UnityEngine;
 
@@ -6,9 +7,9 @@ public class GadgetSpawner : MonoBehaviour
     [SerializeField] private GameObject pickupPrefab;
     [SerializeField] private float floorOffset = .2f;
     [SerializeField] private float launchForce = 5f;
-    [SerializeField] private LayerMask layerMask;
 
     private Rigidbody _rb;
+    private Collider _col;
     private TrackedCollectible _trackedCollectible;
     
     private void OnEnable()
@@ -22,6 +23,13 @@ public class GadgetSpawner : MonoBehaviour
         var launchDirection = new Vector3(0, transform.up.y *2, transform.forward.z);
         Debug.Log(transform.forward.y);
         _rb.AddForce(launchDirection * launchForce, ForceMode.VelocityChange);
+        StartCoroutine(CorTimeout());
+    }
+
+    private IEnumerator CorTimeout()
+    {
+        yield return new WaitForSeconds(15f);
+        LeanPool.Despawn(gameObject);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -32,6 +40,7 @@ public class GadgetSpawner : MonoBehaviour
         var activeCollectible = go.GetComponent<TrackedCollectible>();
         activeCollectible.ParentList = _trackedCollectible.ParentList;
         _trackedCollectible.ParentList.Add(activeCollectible);
+        StopCoroutine(nameof(CorTimeout));
         LeanPool.Despawn(gameObject);
     }
 }
