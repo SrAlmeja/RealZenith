@@ -1,6 +1,7 @@
 using System.Collections;
 using Lean.Pool;
 using UnityEngine;
+using Autohand;
 
 public class GadgetSpawner : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class GadgetSpawner : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.collider.GetComponentInParent<Hand>()) return;
         _trackedCollectible.ParentList.Remove(_trackedCollectible);
         var offset = new Vector3(0, floorOffset, 0);
         var go =LeanPool.Spawn(pickupPrefab, transform.position+offset, Quaternion.identity);

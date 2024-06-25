@@ -47,8 +47,9 @@ namespace com.LazyGames.Dz.Ai
             var sum = _activeCollectibles.Count + _gadgetInventory.Value;
             Debug.Log(sum);
             _displayText.text = Mathf.Abs(sum - _gadgetLimit).ToString();
-            if (sum == _gadgetLimit)
+            if (sum >= _gadgetLimit)
             {
+                _displayText.text = "0";
                 state = NodeState.Failure;
                 return state;
             }
