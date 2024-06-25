@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1401285158731895688}
-  - component: {fileID: 141757303136929014}
   - component: {fileID: 2365494363622984342}
   - component: {fileID: 25184386778296601}
+  - component: {fileID: 3234540843204752298}
   m_Layer: 0
   m_Name: Pokia_Done
   m_TagString: Untagged
@@ -35,25 +35,6 @@ Transform:
   - {fileID: 5504573956225157877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &141757303136929014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1237489965334568843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e059e73529602bd438b07db5f820c45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _specialCollectible: 1
-  _autoCollectOnCollision: 1
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  _itemVariable: {fileID: 0}
-  _specialItemVariable: {fileID: 11400000, guid: 586c7b181525f0149be90d4794ae2d24, type: 2}
 --- !u!65 &2365494363622984342
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -102,6 +83,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3234540843204752298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237489965334568843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2838d3ec025c2f849b69f72490cd51c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 1792
 --- !u!1 &3778938274389433971
 GameObject:
   m_ObjectHideFlags: 0

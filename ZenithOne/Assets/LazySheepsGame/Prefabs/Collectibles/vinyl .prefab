@@ -208,9 +208,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7457551948038777398}
-  - component: {fileID: 2579077219881774437}
   - component: {fileID: 3524246587716870568}
   - component: {fileID: 2290959744590866662}
+  - component: {fileID: 477544564962630594}
   m_Layer: 0
   m_Name: 'vinyl '
   m_TagString: Untagged
@@ -234,25 +234,6 @@ Transform:
   - {fileID: 5286235166552486645}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &2579077219881774437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8754942398134921421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e059e73529602bd438b07db5f820c45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _specialCollectible: 1
-  _autoCollectOnCollision: 1
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  _itemVariable: {fileID: 0}
-  _specialItemVariable: {fileID: 11400000, guid: 0aecef709d92b2d4a943ac0d7834de2f, type: 2}
 --- !u!65 &3524246587716870568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -301,3 +282,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &477544564962630594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754942398134921421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2838d3ec025c2f849b69f72490cd51c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 1792
