@@ -409,6 +409,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3717844226946553647, guid: 0b8ce5910198d04418d0cb8c24b844fa, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717844226946553647, guid: 0b8ce5910198d04418d0cb8c24b844fa, type: 3}
       propertyPath: far clip plane
       value: 800
       objectReference: {fileID: 0}
@@ -1906,7 +1910,8 @@ MonoBehaviour:
     Systems Programmer\r</size>\n-Raymundo Mosqueda-\n(CryoStorage)\r\n\r\n<size=60>VFX
     Programmer\r\r</size>\n-Angel G Legorreta Gonz\xE1lez-\n(Almeja Gonz\xE1lez)\r\n\r\n<size=70><color=#970101>W</color>riting\r\r</size>\n\n<size=60>Narrative
     Writer\r</size>\n-Julio Mor\xEDn-\r\n\n<size=70><color=#970101>U</color>X</size>\n\r\n<size=60>Gameplay\n<color=#970101>&</color>\nPlatform
-    Programmer\r</size>\n-Daniel Navarrete-\n(Leinad DH)\r\n\r\n<size=70><color=#970101>A</color>udio</size>\n\n\r<size=60>SFX\r\r\r</size>\n-Itiel-\n\n\r<size=60>OST\r\r\r</size>\n-Benjam\xEDn-\n\n\n\r<size=70><color=#970101>G</color>ame
+    Programmer\r</size>\n-Daniel Navarrete-\n(Leinad DH)\r\n\r\n<size=70><color=#970101>A</color>udio</size>\n\n\r<size=60>SFX\r\r\r</size>\n-Areli
+    Itiel Cruz Vega-\n\n\r<size=60>OST\r\r\r</size>\n-Diego Benjam\xEDn Aguilar Escutia-\n\n\n\r<size=70><color=#970101>G</color>ame
     <color=#970101>C</color>onsultant\r\r\r</size>\n-Rodrigo Saco-\r\n-Ram\xF3n Zambrano-\n-Hugo
     S\xE1nchez-\n\n\n\n\n\n\n\n\n\n\nTHANKS FOR PLAY OUR GAME"
   m_isRightToLeft: 0
@@ -1917,7 +1922,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
